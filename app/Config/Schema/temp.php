@@ -1,0 +1,1 @@
+<span class="flag-icon flag-icon-<?php echo strtolower($country[0]['Country']['sortname']);?>"></span>
