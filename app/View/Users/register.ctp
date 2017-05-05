@@ -37,8 +37,8 @@
     <div class="container">
     <div class="row" >
         <div class="drop-shadow col-md-12 margin-top-minus-40"  style="">
-            <div>
-                <h3 >Create Your Account</h3>
+            <div style="margin-top: 10px;">
+                <h3 class="text-success"><strong>Create Your Account</strong></h3>
             </div>
             <div>
                 <form id="regFormNew" method="POST" action="<?php echo ABSOLUTE_URL;?>/users/signUp" data-toggle="validator" >
@@ -128,7 +128,7 @@
                   
                 <div class="panel-heading col-md-6" role="tab" id="headingOne">
                     <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapsehidden" aria-expanded="false" aria-controls="collapse1" class="collapsed">
+                        <a href="javascript:openCloseTand();" id="collapseToggle" >
                         <small>By clicking on the Submit button, the USER is consenting to be bound by and is becoming a party to this Agreement. </small>
                            Terms and conditions
                         </a>
@@ -140,14 +140,14 @@
                    </div>
                 </form>
                 
-                <div id="collapsehidden" class="collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false" style="height: 0px;">
+<div id="collapsehidden"  hidden>
                  </p>
 <p>By clicking on the “ACCEPT / I AGREE” button,  the USER is consenting
  to be bound by and is becoming a party to this  Agreement. </p>
 <p>If the USER does not agree to all of  the terms of this agreement, 
 click the “DO NOT AGREE / CANCEL” button or leave  the website / 
 terminate the Services. </p>
-<p>These Terms of Use shall govern the  User’s use of and access to all of flanks Media products and websites..<br>
+<p>These Terms of Use shall govern the  User’s use of and access to all of CoinIgyDex products and websites..<br>
     <br>
   The User agrees that: <br>
   <br>
@@ -162,12 +162,12 @@ mind; and  has the authority to enter into this Agreement,&nbsp;<br>
 of an  entity, such individual has the right and authority to agree to 
 all of the  terms set forth herein on behalf of such entity, and&nbsp;<br>
   <br>
-  5. That he / she has read and understands flanks Media’s Privacy Policy, 
+  5. That he / she has read and understands CoinIgyDex’s Privacy Policy, 
 the terms  of which are posted at the Website and incorporated herein by
  reference (the  "Privacy Policy"), and agree to abide by the Privacy 
 Policy.&nbsp;<br>
   <br>
-  <strong>THIS WORK AGREEMENT (the “Agreement”)</strong>&nbsp;is valid and existing for  services registered online at flanks MEDIA, </p>
+  <strong>THIS WORK AGREEMENT (the “Agreement”)</strong>&nbsp;is valid and existing for  services registered online at CoinIgyDex, </p>
 <p>This Agreement is effective after the  User has registered as 
 Campaigner and from date of purchase of any of the  available package.<br>
     <br>
@@ -178,7 +178,7 @@ mean and include its  successors and permitted assign of the &nbsp;<strong>One P
   <br>
   <strong>AND&nbsp;</strong><br>
   <br>
-  <strong>flanks MEDIA,&nbsp;</strong>a registered Company under the laws 
+  <strong>CoinIgyDex,&nbsp;</strong>a registered Company under the laws 
 of India and having  its Operational office at 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(hereinafter
   referred to as the 
@@ -186,22 +186,22 @@ of India and having  its Operational office at
   _____________”, which expression shall, unless it be repugnant to the 
  context or meaning thereof be deemed to mean and include its successors
  and  permitted assign) of the Other Part.&nbsp;<br>
-  (The User and flanks Media are hereinafter referred to individually as the “Party”  and collectively as “Parties”.)</p>
+  (The User and CoinIgyDex are hereinafter referred to individually as the “Party”  and collectively as “Parties”.)</p>
 <p><strong>WHEREAS:</strong></p>
 <ol>
-  <li>flanks Media Pvt. Ltd  is engaged in the business of Information and 
+  <li>CoinIgyDex Pvt. Ltd  is engaged in the business of Information and 
 Technology Services and is the  owner of indigenously developed software
  and original business methods related  to virtual and IT related 
 services.&nbsp;</li>
-  <li>flanks MEDIA Pvt. Ltd uses original software and  business methods to
+  <li>CoinIgyDex Pvt. Ltd uses original software and  business methods to
  provide IT solutions to individual customers and corporate  
 customers.&nbsp;</li>
   <li>User is engaged in  the business as per details entered in the online registration form.&nbsp;</li>
-  <li>The User is  desirous in working for flanks Media for earning apart 
+  <li>The User is  desirous in working for CoinIgyDex for earning apart 
 from its business  requirements including digital marketing and 
 e-commerce.</li>
   <li>Relying on the  representations and covenants made and agreed by 
-the User herein and believing  the same to be true and correct, flanks 
+the User herein and believing  the same to be true and correct, coinigydex 
 Media has accepted the offer to allow User  to work for them, subject to
  the terms and conditions as set forth in this  Agreement.</li>
 </ol>
@@ -213,21 +213,21 @@ Media has accepted the offer to allow User  to work for them, subject to
     <br>
   1.1.&nbsp;The User has paid  the full amount of the Campaign package 
 (for campaigning his / her package),  which is available on the website 
-www.flanksmedia.com) and hence become entitled  to be registered as 
-&nbsp;Free User and work  from Home for the flanks Media.<br>
+www.coinigydex.com) and hence become entitled  to be registered as 
+&nbsp;Free User and work  from Home for the CoinIgyDex.<br>
   1.2.&nbsp;The User is  to be responsible to ensure that he will act 
 and abide by the terms and  conditions as specifically mentioned in this
- document and website of the  company i.e. www.flanksinfo.com.<br>
+ document and website of the  company i.e. www.coinigydexinfo.com.<br>
   1.3. Apart from above,  It is specifically agreed and understood by 
 the User that the conditions as  mentioned on the website of the company
  and in this documents can be amended by  the Company at any time at its
  sole discretion. In this event, the company will  notifying the same by
- displaying the amendments on flanks Media website.</p>
+ displaying the amendments on CoinIgyDex website.</p>
 <p><strong>2. HOME BASED WORK:</strong><br>
     <strong><br>
   2.1.&nbsp;</strong>Company shall  provide part time work to the USER 
 with the purchase of any of the available  Digital Marketing Package on 
-the website www.flanksmedia.com)<br>
+the website www.coinigydex.com)<br>
   <strong>2.2.</strong>Part time work may  includes (Social Media 
 Promotion, In-Organic Visits on Website &amp; Blogs,  Affiliate 
 Advertisement and other online work)<br>
@@ -235,7 +235,7 @@ Advertisement and other online work)<br>
 done by the customer is found fake or  scripted or skipped by customer 
 without any prior information to company.</p>
 <p><strong>3.PRICING &amp; PAYMENTS:</strong></p>
-<p><strong>3.1.&nbsp;</strong> During the tenure  of this Agreement, flanks
+<p><strong>3.1.&nbsp;</strong> During the tenure  of this Agreement, coinigydex
  Media grants permission to the User to create a User  Account and 
 access the Dashboard.<br>
     <strong>3.2.</strong> Company shall pay  to the User on per view 
@@ -243,10 +243,10 @@ basis. Price of per view shall be subjected to the  discretion of
 company which shall be notified to the service provider from time  to 
 time. The price may increase or decrease pertaining competition in 
 market.&nbsp;<br>
-<strong>3.3.</strong>The invoice(s)  submitted by flanks Media shall be 
+<strong>3.3.</strong>The invoice(s)  submitted by CoinIgyDex shall be 
 subject to inspection and verification by the  User and any 
-discrepancies therein shall be brought to the notice of flanks Media  
-within 7 days of receipt of the invoice(s). If necessary, flanks Media 
+discrepancies therein shall be brought to the notice of CoinIgyDex  
+within 7 days of receipt of the invoice(s). If necessary, CoinIgyDex 
 shall  modify and provide an amended invoice(s).&nbsp;<br>
 <strong>3.4.</strong> The Company shall  withhold taxes at applicable 
 rates as required by law and provide necessary  certificates evidencing 
@@ -254,11 +254,11 @@ such deduction in due course. Service Tax is additional  as
 applicable.&nbsp;<br>
 <strong>3.5.</strong> Company can hold  the work payment if work done by
  the customer is in investigation by the web  intelligence team. User is
- not guaranteeing any kind of fixed income or  business to flanks 
+ not guaranteeing any kind of fixed income or  business to coinigydex 
 Media.&nbsp;<br>
 <strong>3.6.</strong> Payment Modes will  only be following: <br>
-Online NEFT/RTGS/IMPS transfers to  bank accounts of flanks Media Pvt. Ltd,
- Cheques /DD drawn in favour of flanks Media  Info Solutions Pvt. Ltd 
+Online NEFT/RTGS/IMPS transfers to  bank accounts of CoinIgyDex Pvt. Ltd,
+ Cheques /DD drawn in favour of CoinIgyDex  Info Solutions Pvt. Ltd 
 (payable 
 at&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
  ).&nbsp;<br>
@@ -267,7 +267,7 @@ at&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <p><strong>4.1.&nbsp;</strong>The User warrants  that: a) the 
 assignment/work will be rendered in accordance with the  specifications 
 as mentioned in this documents and terms and conditions as  mentioned on
- the company website i.e. www.flanksifno.com; b) the assignment will  be 
+ the company website i.e. www.coinigydexifno.com; b) the assignment will  be 
 provided in accordance with the specifications and instructions of the  
 Company;<br>
     <br>
@@ -287,8 +287,8 @@ relevant laws. The Service Provider shall on request provide necessary
 proof of the compliance in this regard.<br>
     <br>
     <br>
-    <strong>4.4.</strong>&nbsp;User can  write to flanks Media at 
-support@flanksinfo.com or for any query or concern. flanks  Media will address
+    <strong>4.4.</strong>&nbsp;User can  write to CoinIgyDex at 
+support@coinigydexinfo.com or for any query or concern. coinigydex  Media will address
  this within 24 hours and will try its best to provide a  resolution in 
 48 hours.</p>
 <p>&nbsp;</p>
@@ -302,14 +302,14 @@ documents.<br>
   <strong>5.2.</strong> Termination for  Default – the Company may, 
 without prejudice to any other remedy for breach of  these terms and 
 conditions, by written notice of default sent to the User,  terminate 
-this Work Agreement his flanks Media Plan in whole.<br>
+this Work Agreement his CoinIgyDex Plan in whole.<br>
     <br>
     <br>
     <strong>5.3.</strong> In the event of  Company terminating the plan in whole pursuant to the conditions of this  documents.</p>
 <p><strong>6. CONFIDENTIALITY</strong></p>
 <p><strong>6.1.</strong> All confidential  and proprietary information 
 of a Party (disclosing party) that is made known to  the other 
-(receiving party) during the term of flanks Media Plan, shall be  received 
+(receiving party) during the term of CoinIgyDex Plan, shall be  received 
 in confidence and the receiving Party shall not disclose or use the  
 same for any purpose.<br>
   <strong>6.2.</strong>The Service  Provider shall keep the Company 
@@ -320,7 +320,7 @@ Company may require in this regard.<br>
 respect to all confidential information including  but not limited to 
 business information, customer data including name, phone  number and 
 email id, financial information that may have been received from the  
-disclosing party or while providing or utilizing flanks Media and shall not
+disclosing party or while providing or utilizing CoinIgyDex and shall not
   disclose any such information to any other person, firm or Company. 
 Parties  shall not be entitled to make or permit or authorize the making
  of any press  release or public statement or disclosure pertaining to 
@@ -412,8 +412,13 @@ function getAjax(id,attr){
         } 
     });
 }
+function openCloseTand(){
+    $("#collapsehidden").toggle();
+}
     $(document).ready(function () {
-       
+       // $("#collapseToggle").click(function(){
+            
+       // });
         $("#regFormNew").bootstrapValidator({
             live: false,
             trigger: 'blur',

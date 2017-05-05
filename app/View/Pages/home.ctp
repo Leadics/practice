@@ -78,9 +78,9 @@
                 <img src="<?php echo ABSOLUTE_URL;?>/Imperial/images/logo.png" class="img-responsive center-block" style="width: 200px;position: absolute;top: 45%;left: 42%">
             </div>
         </div>
-          <div class="actions" style="position: absolute;top: 85%;left: 35%">
+          <div class="actions" style="position: absolute;top: 85%;left: 42%">
                   <a href="#about" class="btn-get-started">Get Strated</a>
-                  <a href="<?php echo ABSOLUTE_URL;?>/users/register" class="btn-services">Sign Up</a>
+                  <!-- <a href="<?php echo ABSOLUTE_URL;?>/users/register" class="btn-services">Sign Up</a> -->
                 </div>
         <!-- Controls -->
         <a class="left carousel-control" href="#carouselHacked" role="button" data-slide="prev">
@@ -108,7 +108,7 @@
         
       <nav id="nav-menu-container">
         <ul class="nav-menu">
-          <li class="menu-active"><a href="#">Home</a></li>
+          <li class="menu-active"><a href="">Home</a></li>
           <li><a href="#about">About Us</a></li>
           <li><a href="#services">Services</a></li>
           <li><a href="#portfolio">Portfolio</a></li>
@@ -116,11 +116,10 @@
           <li><a href="#team">Team</a></li>
           <li><a href="<?php echo ABSOLUTE_URL;?>/users/register">Register</a></li>
           <li><a  href="<?php echo ABSOLUTE_URL;?>/users/login">Log In</a></li>
-          <li class="menu-has-children"><a href="vascript:void(0);">Trading</a>
+          <li class="menu-has-children"><a href="javascript:void(0);">Trading</a>
             <ul>
-              <li><a href="#">What is BitCoin</a></li>
-              <li><a href="#">How it works</a></li>
-              <li><a href="#">Packages</a></li>
+              <li><a href="<?php echo ABSOLUTE_URL;?>/users/whatIsBitcoin">What is BitCoin</a></li>
+              <li><a href="<?php echo ABSOLUTE_URL;?>/users/packages">Business Plans</a></li>
             </ul>
           </li>
           <li><a href="#contact">Contact Us</a></li>
@@ -217,11 +216,11 @@
     <div class="container wow fadeInUp">
       <div class="row">
         <div class="col-md-8">
-          <h3 class="subscribe-title">Subscribe For Updates</h3>
+          <h3 class="subscribe-title">Join Us </h3>
           <p class="subscribe-text">Join our 1000+ subscribers and get access to the latest tools, freebies, product announcements and much more!</p>
         </div>
         <div class="col-md-4 subscribe-btn-container">
-          <a class="subscribe-btn" href="#">Subscribe Now</a>
+          <a class="subscribe-btn" href="<?php echo ABSOLUTE_URL;?>/users/register">Register Now</a>
         </div>
       </div>
     </div>
@@ -242,7 +241,7 @@
       
       <div class="row">
         <div class="col-md-3">
-          <a class="portfolio-item" style="background-image: url(images/portfolio/recent/item1.png);" href="">
+          <a class="portfolio-item" style="background-image: url('<?php echo ABSOLUTE_URL;?>/images/portfolio/recent/item1.png');" href="">
             <div class="details">
               <h4>Portfolio 1</h4>
               <span>Alored dono par</span>
@@ -251,7 +250,7 @@
         </div>
         
         <div class="col-md-3">
-          <a class="portfolio-item" style="background-image: url(images/portfolio/recent/item2.png);" href="">
+          <a class="portfolio-item" style="background-image: url('<?php echo ABSOLUTE_URL;?>/images/portfolio/recent/item2.png');" href="">
             <div class="details">
               <h4>Portfolio 2</h4>
               <span>Alored dono par</span>
@@ -260,7 +259,7 @@
         </div>
         
         <div class="col-md-3">
-          <a class="portfolio-item" style="background-image: url(images/portfolio/recent/item3.png);" href="">
+          <a class="portfolio-item" style="background-image: url('<?php echo ABSOLUTE_URL;?>/images/portfolio/recent/item3.png');" href="">
             <div class="details">
               <h4>Portfolio 3</h4>
               <span>Alored dono par</span>
@@ -269,7 +268,7 @@
         </div>
         
         <div class="col-md-3">
-          <a class="portfolio-item" style="background-image: url(images/portfolio/recent/item4.png);" href="">
+          <a class="portfolio-item" style="background-image: url('<?php echo ABSOLUTE_URL;?>/images/portfolio/recent/item4.png');" href="">
             <div class="details">
               <h4>Portfolio 4</h4>
               <span>Alored dono par</span>
@@ -278,7 +277,7 @@
         </div>
         
         <div class="col-md-3">
-          <a class="portfolio-item" style="background-image: url(images/portfolio/recent/item5.png);" href="">
+          <a class="portfolio-item" style="background-image: url('<?php echo ABSOLUTE_URL;?>/images/portfolio/recent/item5.png');" href="">
             <div class="details">
               <h4>Portfolio 5</h4>
               <span>Alored dono par</span>
@@ -287,7 +286,7 @@
         </div>
         
         <div class="col-md-3">
-          <a class="portfolio-item" style="background-image: url(images/portfolio/recent/item6.png);" href="">
+          <a class="portfolio-item" style="background-image: url('<?php echo ABSOLUTE_URL;?>/images/portfolio/recent/item6.png');" href="">
             <div class="details">
               <h4>Portfolio 6</h4>
               <span>Alored dono par</span>
@@ -296,7 +295,7 @@
         </div>
         
         <div class="col-md-3">
-          <a class="portfolio-item" style="background-image: url(images/portfolio/recent/item7.png);" href="">
+          <a class="portfolio-item" style="background-image: url('<?php echo ABSOLUTE_URL;?>/images/portfolio/recent/item7.png');" href="">
             <div class="details">
               <h4>Portfolio 7</h4>
               <span>Alored dono par</span>
@@ -305,7 +304,7 @@
         </div>
         
         <div class="col-md-3">
-          <a class="portfolio-item" style="background-image: url(images/portfolio/recent/item8.png);" href="">
+          <a class="portfolio-item" style="background-image: url('<?php echo ABSOLUTE_URL;?>/images/portfolio/recent/item8.png');" href="">
             <div class="details">
               <h4>Portfolio 8</h4>
               <span>Alored dono par</span>
@@ -568,12 +567,12 @@
 <!--==========================
   Footer
 ============================--> 
-  <footer id="footer">
+ <footer id="footer">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
             <div class="copyright">
-              &copy; Copyright <strong>Imperial Theme</strong>. All Rights Reserved
+              &copy; Copyright <strong>coinigydex.com</strong>. All Rights Reserved
             </div>
             <div class="credits">
               <!-- 
@@ -582,12 +581,12 @@
                 Licensing information: https://bootstrapmade.com/license/
                 Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Imperial
               -->
-              Bootstrap Themes by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+              
             </div>
           </div>
         </div>
       </div>
-  </footer><!-- #footer -->
+  </footer>
   
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
     <script type="text/javascript">

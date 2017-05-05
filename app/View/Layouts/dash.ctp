@@ -51,6 +51,12 @@
       width:100%;
       margin-bottom: 60px;
     }
+    @media(max-width:500px) {
+        /*#mobile-nav-toggle{
+          margin-right: 20%;
+        }*/
+      } 
+    
   </style>
 <body>
   <div id="container">
@@ -70,14 +76,20 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="<?php echo ABSOLUTE_URL;?>/js/bootstrap.min.js"></script>
   <script src="<?php echo ABSOLUTE_URL;?>/js/jquery.prettyPhoto.js"></script>
-    <script src="<?php echo ABSOLUTE_URL;?>/js/jquery.isotope.min.js"></script>  
-  <script src="<?php echo ABSOLUTE_URL;?>/js/wow.min.js"></script>
- <!--  <script src="<?php echo ABSOLUTE_URL;?>/js/functions.js"></script> -->
+    <script src="<?php echo ABSOLUTE_URL;?>/js/jquery.isotope.min.js"></script>
+    <script src="<?php echo ABSOLUTE_URL;?>/Imperial/lib/superfish/hoverIntent.js"></script>
+  <script src="<?php echo ABSOLUTE_URL;?>/Imperial/lib/superfish/superfish.min.js"></script>
+  <script src="<?php echo ABSOLUTE_URL;?>/Imperial/lib/morphext/morphext.min.js"></script>
+  <script src="<?php echo ABSOLUTE_URL;?>/Imperial/lib/wow/wow.min.js"></script>
+  <script src="<?php echo ABSOLUTE_URL;?>/Imperial/lib/stickyjs/sticky.js"></script>
+  <script src="<?php echo ABSOLUTE_URL;?>/Imperial/lib/easing/easing.js"></script>
+   <script src="<?php echo ABSOLUTE_URL;?>/Imperial/js/custom.js"></script>
+
   <?php echo $this->element('sql_dump'); ?>
 </body>
 </html>
 <script type="text/javascript">
-// $(document).ready(function(){
+// $(dooment).ready(function(){
 //   $(".navigation").hide();
 // });
     $(window).on('scroll', function() {

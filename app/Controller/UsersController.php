@@ -53,6 +53,13 @@ class UsersController extends AppController {
     function login(){
         $this->layout = "dash";
     }
+    function whatIsBitcoin(){
+        $this->layout = "dash";
+
+    }
+    function packages(){
+        $this->layout = "dash";
+    }
     function logins() {
         $this->autoRender = false;
         $this->layout = "";

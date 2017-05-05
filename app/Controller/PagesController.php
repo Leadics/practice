@@ -79,12 +79,7 @@ class PagesController extends AppController {
 			throw new NotFoundException();
 		}
 	}
-	function about(){
-
-	}
-	function contactUs(){
-		
-	}
+	
 	function portfolio(){
 		
 	}

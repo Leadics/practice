@@ -54,7 +54,6 @@
 	<script src="<?php echo ABSOLUTE_URL;?>/js/jquery.prettyPhoto.js"></script>
     <script src="<?php echo ABSOLUTE_URL;?>/js/jquery.isotope.min.js"></script>  
 	<script src="<?php echo ABSOLUTE_URL;?>/js/wow.min.js"></script>
-	<script src="<?php echo ABSOLUTE_URL;?>/js/functions.js"></script>
 	<?php echo $this->element('sql_dump'); ?>
 </body>
 </html>
