@@ -489,16 +489,7 @@
                         <td>Level-6 </td>
                         <td>Level-7 </td>
                     </tr>
-                    <tr>
-                        <td>Learner  </td>
-                        <td>5 %</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                    
                     <tr>
                         <td>Learner  </td>
                         <td>5 %</td>

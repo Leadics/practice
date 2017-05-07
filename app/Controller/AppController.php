@@ -42,42 +42,92 @@ class AppController extends Controller {
             $this->set('userInfo', $this->userInfo);
         }
     }
+    function _checkLogin() {
+        $bankData =  $this->Session->read('UserBank');
+        $this->set('UserBank' , $bankData );
+        if( $this->Session->read('User') ) {
+           $Login =1;
+           $this->Session->write('Login' , 1);
+           $user = $this->Session->read('User');
+           if (empty($bankData['id'])) {
+                $bank_detail = $this->UserBank->find('first', array( 'conditions' => array('user_id' => $user['id'],'is_active' =>1)));
+                $this->Session->write('UserBank',$bank_detail['UserBank']);
+                $this->set('UserBank' , $bank_detail['UserBank']);
+            }
+           if($user['status'] == 1){
+                $user_id =$user['id'];
+                return $user_id;
+           } else {
+                $this->Session->delete('User');
+                $this->Session->destroy();
+                $this->redirect( array( 'controller' => 'pages', 'action' => 'home' ) );
+           }
+        } else {
+            $this->redirect( array( 'controller' => 'pages', 'action' => 'home' ) );
+        }
+    }
+    function __checkAdminLogin() {
+        $bankData =  $this->Session->read('UserBank');
+        $this->set('UserBank' , $bankData );
+        if( $this->Session->read('User') ) {
+           $Login =1;
+           $this->Session->write('Login' , 1);
+           $user = $this->Session->read('User');
+           if (empty($bankData['id'])) {
+                $bank_detail = $this->UserBank->find('first', array( 'conditions' => array('user_id' => $user['id'],'is_active' =>1)));
+                $this->Session->write('UserBank',$bank_detail['UserBank']);
+                $this->set('UserBank' , $bank_detail['UserBank']);
+            }
+           if($user['status'] == 1 && $user['is_admin'] == 1){
+                $user_id =$user['id'];
+                return $user_id;
+           } else {
+                $this->Session->delete('User');
+                $this->Session->destroy();
+                $this->redirect( array( 'controller' => 'pages', 'action' => 'home' ) );
+           }
+        } else {
+            $this->redirect( array( 'controller' => 'pages', 'action' => 'home' ) );
+        }
+    }
 	function getSponcer($email,$side){
         set_time_limit(0);
         $loginData = $this->User->find('first', array(
-            'fields' => array("User.email"),
+            'fields' => array("User.username"),
             'conditions' => array('User.sponcer' => $email,'side' =>$side)
         ));
-        if (empty($loginData['User']['email'])) {
+        if (empty($loginData['User']['username'])) {
             return $email;
         } else{
-            $data = $this->getTree($loginData['User']['email']);
+            $data = $this->getTree($loginData['User']['username']);
             $cnt = count($data);
             if (!empty($cnt)) {
                 $emailSponcer = $this->validateSponcer($data,0,$side);
                 return $emailSponcer;
             } else {
-                return $loginData['User']['email'];
+                return $loginData['User']['username'];
             }
         }
     }
     function getTree($email = null){
+        //echo $email;die;
         if (empty($email)) {
             $userData = $this->Session->read('User');
         } else{
-            $userData['email'] = $email;
+            $userData['username'] = $email;
         }
-        $arr = json_decode(file_get_contents(ABSOLUTE_URL.'/team.php?email='.$userData['email']),true);
+        //echo $userData['username'];die;
+        $arr = json_decode(file_get_contents(ABSOLUTE_URL.'/team.php?username='.$userData['username']),true);
         return $arr;
     }
     function validateSponcer($data,$lim,$side){
         $cnt = count($data);
         $loginData = $this->User->find('first', array(
-            'fields' => array("User.email"),
-            'conditions' => array('User.sponcer' => $data[$lim]['email'],'side' =>$side)
+            'fields' => array("User.username"),
+            'conditions' => array('User.sponcer' => $data[$lim]['username'],'side' =>$side)
         ));
         if (empty($loginData)) {
-            return $data[$cnt-$lim]['email'];
+            return $data[$cnt-$lim]['username'];
         } else {
             $lim++;
             $emailSponcer = $this->validateSponcer($data,$lim,$side);
@@ -93,7 +143,7 @@ class AppController extends Controller {
      	if (!empty($userName)) {
      		$loginData = $this->User->find('first', array(
 	            'fields' => array("User.id"),
-	            'conditions' => array('User.email' => $emailId)
+	            'conditions' => array('User.username' => $emailId)
 	        ));
      	} else {
      		$loginData = $this->User->find('first', array(
@@ -105,5 +155,116 @@ class AppController extends Controller {
             $isMember = (int) $loginData['User']['id'];
         }
         return $isMember;
+    }
+    // function walletIncome($option = null,$source = null){
+    //     set_time_limit(0);
+    //     $memberToBinary = Configure::read('memberToBinary');
+    //     if (!empty($option)) {
+    //         $userData = $option;
+    //     } else{
+    //         $userData = $this->Session->read('User');
+    //     }
+    //     $user = $this->User->find('all', array( 'conditions' => array('direct' => $userData['username'])));
+    //     $b = $this->getLRIncome($userData['username']);
+    //     $binary = min($b['left'],$b['right']);
+    //     foreach ($user as $key => $value) {
+    //         if ($value['User']['payment'] == 1) {
+    //             $ref[] = $value['User']['donation'];
+    //         }
+    //     }
+    //     $roi = ($userData['donation']*$memberToBinary[$userData['package']]['roi'])/100;
+    //     $referal = array_sum($ref);
+    //     if (empty($source) || $source != 'dashboard') {
+    //         $wallets = $this->WithdrawalRequest->find('all', array( 'conditions' => array('user_id' => $userData['id'],'is_paid !=' => 2)));
+    //         $bin =  Set::classicExtract($wallets, "{n}.WithdrawalRequest.binary");
+    //         $ref =  Set::classicExtract($wallets, "{n}.WithdrawalRequest.referal");
+    //         $dal =  Set::classicExtract($wallets, "{n}.WithdrawalRequest.daily");
+    //         if (!empty($binary)) {
+    //             $binary = $binary - (array_sum($bin)*$memberToBinary[$userData['package']]['binary']) ;
+    //         } else{
+    //             $binary = 0;
+    //         }
+    //         if (!empty($referal)) {
+    //             $referal = $referal - ((array_sum($ref)*100)/$memberToBinary[$userData['package']]['direct']) ;
+    //         } else {
+    //             $referal = 0;
+    //         }
+    //         if (!empty($daily)) {
+    //             $daily = $daily - array_sum($dal) ;
+    //         } else {
+    //             $daily = 0;
+    //         }
+    //     }
+    //     if (!empty($option)) {
+    //         $this->autoRender = false;
+    //         $totalIncome['binary'] = $binary;
+    //         $totalIncome['daily'] = $roi;
+    //         $totalIncome['referal'] = $referal;
+    //         return $totalIncome;
+    //     }
+    // }
+    function getTeam($option,$flag){
+        $rps = array();
+        $this->layout = 'dashboard';
+        //$user_id = $this->_checkLogin();
+        set_time_limit(0);
+        if (empty($option)) {
+            $userData = $this->Session->read('User');
+        } else {
+            $userData = $option;
+        }
+        //echo '<pre>';print_r($userData);die;
+        $data['username'] = $userData['username'];
+        if($userData['payment'] == 1){
+            $data['image'] = ABSOLUTE_URL.'/img/green.png';
+        } else {
+            $data['image'] = ABSOLUTE_URL.'/img/user.png';
+        }
+        if (!empty($flag)) {
+            $rr[0]= $userData;
+        } else {
+            $rr[0]= $userData;
+            $rr[0]['image'] = $data['image'];
+            $rr[0]['username'] = $data['username'];
+            $rr[0]['sponcer'] = $data['username'];
+        }
+       
+        $rps = $this->fetch_children($userData['username']);
+        
+        
+        $rps = array_merge((array)$rr,(array)$rps);
+        return  $rps;
+    }
+    function getLRIncome($email){
+        $loginData = $this->User->find('all', array(
+            'conditions' => array('User.sponcer' => $email)
+        ));
+        foreach ($loginData as $key => $value) {
+            $data[$value['User']['side']] = $this->getTree($value['User']['username']);
+            $r[$value['User']['side']] = $value['User']['donation'];
+        }
+        foreach ($data as $key => $value) {
+            foreach ($value as $k => $val) {
+                if ($val['payment'] == 1 ) {
+                    $rsp[$key][] = $val;
+                }
+            }
+        }
+        foreach ($rsp as $key => $value) {
+            $income[$key] = array_sum(Set::classicExtract($value, "{n}.donation"));
+        }
+        if (!empty($income['left'])) {
+            $arr['left'] = $income['left'];
+        } else {
+            $arr['left'] = 0;
+        }
+        if (!empty($income['right'])) {
+            $arr['right'] = $income['right'];
+        } else {
+            $arr['right'] = 0;
+        }
+        $arr['right'] = $arr['right'] + $r['right'];
+        $arr['left'] = $arr['left'] + $r['left'];
+        return $arr;
     }
 }

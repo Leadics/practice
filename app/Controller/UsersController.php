@@ -19,7 +19,7 @@
  */
 //$Blockchain = new \Blockchain\Blockchain();
 App::uses('AppController', 'Controller');
-
+App::import('Vendor', 'api-v1/src/Blockchain');
 /**
  * Static content controller
  *
@@ -35,7 +35,7 @@ class UsersController extends AppController {
  *
  * @var array
  */
-	public $uses = array('Country','State','City','User','Lead');
+	public $uses = array('Country','State','City','User','Lead','Income');
 
 /**
  * Displays a view
@@ -53,9 +53,13 @@ class UsersController extends AppController {
     function login(){
         $this->layout = "dash";
     }
+    function logout(){
+        $this->Session->delete('User');
+        $this->Session->destroy();
+        $this->redirect( '/' );
+    }
     function whatIsBitcoin(){
         $this->layout = "dash";
-
     }
     function packages(){
         $this->layout = "dash";
@@ -63,12 +67,9 @@ class UsersController extends AppController {
     function logins() {
         $this->autoRender = false;
         $this->layout = "";
-        $login_detail = $this->User->find('first', array( 'conditions' => array('email' => $this->data['email'])));
+        $login_detail = $this->User->find('first', array( 'conditions' => array('username' => $this->data['email'])));
         if(empty($login_detail)) {
             $this->Session->setFlash('<h3 class="well text-danger">Please enter correct login or password</h3>');
-            $this->redirect( array( 'controller' => 'pages', 'action' => 'index' ) );
-        }else if($login_detail['User']['cant_pay'] == 1 ) {
-            $this->Session->setFlash('<h3 class="well text-danger">Your account is blocked please contact to customer care</h3>');
             $this->redirect( array( 'controller' => 'pages', 'action' => 'index' ) );
         } else if($login_detail['User']['status'] == 7) {
             $this->Session->setFlash('<h2 class="well text-danger">Account Blocked Due to donation time out please contact to customer care</h2>');
@@ -80,16 +81,18 @@ class UsersController extends AppController {
             $this->Session->setFlash('<h3 class="well text-danger">Please verify your email ID before login</h3>');
             $this->redirect( array( 'controller' => 'pages', 'action' => 'index' ) );
         } else if($login_detail['User']['status'] == 1){
-            if($login_detail['User']['email'] == $this->data['email'] && $login_detail['User']['password'] == md5($this->data['password'])) {
+           // echo '<pre>';print_r($login_detail);print_r($this->data);die;
+            if($login_detail['User']['username'] == $this->data['email'] && $login_detail['User']['password'] == md5($this->data['password'])) {
                 $bank_detail = $this->UserBank->find('first', array( 'conditions' => array('user_id' => $login_detail['User']['id'],'is_active' =>1)));
                 $data= $login_detail['User'];
-                $this->Session->write('UserBank',$bank_detail['UserBank']);
+                //$this->Session->write('UserBank',$bank_detail['UserBank']);
                 $this->Session->write('User',$data);
-                if ($login_detail['User']['is_admin'] == 1) {
-                    $this->redirect( array( 'controller' => 'admin', 'action' => 'adminDashboard' ) );
-                }else {
-                    $this->redirect( array( 'controller' => 'pages', 'action' => 'dashboard' ) );
-                }
+                 //echo '<pre>';print_r($login_detail);print_r($this->data);die;
+                // if ($login_detail['User']['is_admin'] == 1) {
+                //     $this->redirect( array( 'controller' => 'admin', 'action' => 'adminDashboard' ) );
+                // }else {
+                    $this->redirect( array( 'controller' => 'users', 'action' => 'dashboard' ) );
+                //}
                 
             } else {
                 $this->Session->setFlash('<h3 class="well text-danger">Please enter correct login or password</h3>');
@@ -122,8 +125,8 @@ class UsersController extends AppController {
         $this->autoRender = false;
         set_time_limit(0);
         $data['User']['name'] =  $this->data['name'];
-        $data['User']['email'] =  $this->data['username'];
-        $data['User']['emailid'] =  $this->data['emailid'];
+        $data['User']['username'] =  $this->data['username'];
+        $data['User']['emailid'] =  $this->data['email'];
         $data['User']['state'] =  $this->data['state'];
         $data['User']['mobile'] =  $this->data['mobile'];
         $data['User']['password'] =  md5($this->data['password']);
@@ -159,7 +162,7 @@ class UsersController extends AppController {
             ));
             $k1 = md5($loginData['created'].''.$loginData['id']);
             $message['name'] =  $loginData['User']['name'];
-            $message['email'] =  $loginData['User']['email'];
+            $message['email'] =  $loginData['User']['emailid'];
             $message['approveUrl'] = ABSOLUTE_URL.'/pages/emailConfirmation/'.$userId.'/'.$k1;
             $m = $this->sendMail($loginData['User']['emailid'], $message, "Your Flanks Media  Membership", 'success', 'registration');
            // $this->redirect( array( 'controller' => 'pages', 'action' => 'index/'.$userId ));
@@ -170,24 +173,24 @@ class UsersController extends AppController {
             $this->Session->setFlash('<h3 class="well text-success">Your registration is successful kindly login to your email to activate your account</h3>');
             $this->redirect( array( 'controller' => 'Pages', 'action' => 'index' ));
          } else if (TEMP == 1) {
-            $this->redirect( array( 'controller' => 'users', 'action' => 'temp/1' ));
+            $this->redirect( array( 'controller' => 'users', 'action' => 'proceedToPay' ));
          }else {
             $this->Session->write('User', $data['User']);
             $this->Session->write('UserBank',$data['UserBank']);
             $this->redirect( array( 'controller' => 'Pages', 'action' => 'dashboard' ));
         }
     }
-    function temp($data){
+    function proceedToPay($data = null){
         $this->layout = "dash";
-        switch ($data) {
-            case '1':
-                $content = 'Your registration is successful kindly login to your email to activate your account';
-                break;
-            case '2':
-                $content = 'Your account is activated successfully you will get login access soon';
-                break;
-        }
-        $this->set('data',$content);
+        // switch ($data) {
+        //     case '1':
+        //         $content = 'Your registration is successful kindly login to your email to activate your account';
+        //         break;
+        //     case '2':
+        //         $content = 'Your account is activated successfully you will get login access soon';
+        //         break;
+        // }
+        // $this->set('data',$content);
     }
     function checkMemberShipByUserName(){
         $isAvailbale = true;
@@ -201,7 +204,7 @@ class UsersController extends AppController {
         $isMember = false;
         $loginData = $this->User->find('first', array(
             'fields' => array("User.id"),
-            'conditions' => array('User.email' => $emailId)
+            'conditions' => array('User.username' => $emailId)
         ));
         if (isset($loginData['User']['id']) && (int) $loginData['User']['id']) {
             $isMember = (int) $loginData['User']['id'];
@@ -285,5 +288,43 @@ class UsersController extends AppController {
         }
         echo json_encode($response);
         exit;
+    }
+    function dashboard(){
+        $this->layout = "dashboard";
+        $this->_checkLogin();
+        //$membership = $this->getMembership();
+        $userData = $this->Session->read('User');
+        $incomes = $this->Income->find('all');
+        $this->set('incomes',$incomes);
+        $this->set('userData',$userData);
+    }
+    function getMembership(){
+        $userData = $this->Session->read('User');
+        $this->autoRender = false;
+        $this->layout = null;
+        $data['BusinessPlan'] = $userData['package'];
+        $loginData = $this->User->find('all', array(
+            'conditions' => array('User.id > ' => $userData['id'] , 'payment' => 1)
+        ));
+        if (count($loginData) < 7 ) {
+            $Membership = 'Bronze Club';
+        } else if (count($loginData) < 14 ) {
+            $Membership = 'Silver club';
+        } else {
+            $direct = $this->User->find('all', array(
+                'conditions' => array('User.direct' => $userData['username'] , 'payment' => 1 , 'plan >=' =>100)
+            ));
+            if (count($direct) >= 3) {
+                $Membership = 'Diamond club';
+            }
+        }
+        $data['membership'] =  $Membership;
+        return $data;
+    }
+    function xxx(){
+        $this->autoRender = false;
+        $this->layout = null;
+        $Blockchain = new \Blockchain\Blockchain();
+        $Blockchain->setServiceUrl('http://localhost');
     }
 }

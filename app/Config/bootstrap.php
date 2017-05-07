@@ -109,3 +109,8 @@ CakeLog::config('error', array(
 define('EMAIL_SENDING',0);
 define('TEMP',1);
 require '../../vendor/autoload.php';
+Configure::write('memberToBinary',array('learner' =>array('direct' => 5 , 'binary' => 8, 'roi' => 7,'singleLagBinary' => 1,'leadership' => 1),'pre-trader' =>array('direct' => 5 , 'binary' => 8, 'roi' => 7,'singleLagBinary' => 2,'leadership' => 3),'trader' =>array('direct' => 6 , 'binary' => 8, 'roi' => 7,'singleLagBinary' => 4,'leadership' => 4),'pro-trader' =>array('direct' => 8 , 'binary' => 8, 'roi' => 7,'singleLagBinary' => 5,'leadership' => 7),'merchant' =>array('direct' => 9 , 'binary' => 8, 'roi' => 8,'singleLagBinary' => 6,'leadership' => 9),'exchanger' =>array('direct' => 10 , 'binary' => 8, 'roi' => 8,'singleLagBinary' => 7,'leadership' => 10)));
+Configure::write('singleLagBinary',array('level1' => 5,'level2' =>3,'level3' =>2,'level4' =>1,'level5' =>2,'level6' =>3,'level7' =>4));
+define('COMPANY_NAME','CoinIgyDex');
+
+require '../Vendor/api-v1/vendor/autoload.php';

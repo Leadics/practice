@@ -8,7 +8,7 @@
               <div class="row">
                   <div class="col-xs-12 " id="classdiv">
                       <div class="well">
-                          <form id="loginForm" method="POST" action="<?php echo ABSOLUTE_URL;?>/logins" data-toggle="validator" >
+                          <form id="loginForm" method="POST" action="<?php echo ABSOLUTE_URL;?>/users/logins" data-toggle="validator" >
                               <div class="form-group control-group" id="emailid">
                                   <label for="email" class="control-label" >Email</label>
                                   <input type="text" class="form-control"  id="email" name="email" title="Email or user name" description="user email or username" placeholder="example@gmail.com" required="">
