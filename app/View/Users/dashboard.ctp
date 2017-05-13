@@ -35,6 +35,10 @@
     </div>
 <?php } ?>
     <div class="row">
+    <div class="col-md-5">
+        <?php echo $this->element('world_maps'); ?>
+    </div>
         
+
     </div>
 </div>

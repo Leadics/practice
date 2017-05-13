@@ -293,8 +293,52 @@ class UsersController extends AppController {
         $this->layout = "dashboard";
         $this->_checkLogin();
         //$membership = $this->getMembership();
+        $loginData = $this->User->find('all', array(
+            'group' =>'package'
+        ));
+
         $userData = $this->Session->read('User');
         $incomes = $this->Income->find('all');
+        
+        foreach ($users as $key => $value) {
+            if ($incomes['User']['status'] == 1) {
+                $totalActiveUsers++;
+            } else {
+                $blockedUsers++;
+            }
+            if ($value['User']['payment'] == 1) {
+                $availableRevenew = $availableRevenew + $value['User']['donation'];
+                $approvedUsers++;
+            } else {
+                $inactiveUsers++;
+            }
+        }
+        $pins = $this->PinWallet->find('all');
+        $totalHelps = count($pins);
+        foreach ($pins as $key => $value) {
+            if ($value['PinWallet']['status'] == 1) {
+                $availableHelp++;
+            } else {
+                $blockedHelp++;
+            }
+        }
+        $responce[0]['key'] = 'Total Active Users';
+        $responce[0]['val'] = $totalActiveUsers;
+        $responce[1]['key'] = 'Total Inactive Users';
+        $responce[1]['val'] = $blockedUsers;
+        $responce[2]['key'] = 'Total Unpaid Users';
+        $responce[2]['val'] = $inactiveUsers;
+        $responce[3]['key'] = 'Total Paid Users';
+        $responce[3]['val'] = $approvedUsers; 
+        $responce[4]['key'] = 'Total Topups';
+        $responce[4]['val'] = $totalHelps; 
+        $responce[6]['key'] = 'Total Used TopUps';
+        $responce[6]['val'] = $blockedHelp; 
+        $responce[7]['key'] = 'Total Available Top Ups';
+        $responce[7]['val'] = $availableHelp; 
+        $responce[8]['key'] = 'Total Revenew';
+        $responce[8]['val'] = $availableRevenew.'  Rs.';
+        $this->set('summary',$responce);
         $this->set('incomes',$incomes);
         $this->set('userData',$userData);
     }
@@ -326,5 +370,47 @@ class UsersController extends AppController {
         $this->layout = null;
         $Blockchain = new \Blockchain\Blockchain();
         $Blockchain->setServiceUrl('http://localhost');
+    }
+    function getTree(){
+        $this->autoRender = false;
+        $this->layout = null;
+        $userData = $this->Session->read('User');
+        $in[0] = $userData;
+        $in[0]['sponcer'] = $userData['email'];
+        $in[0]['business'] = $this->getLRIncome($userData['email']);
+        if($userData['payment'] == 1){
+            $in[0]['image'] = ABSOLUTE_URL.'/img/green.png';
+        } else {
+            $in[0]['image'] = ABSOLUTE_URL.'/img/user.png';
+        }
+        $arr = json_decode(file_get_contents(ABSOLUTE_URL.'/team.php?email='.$userData['email']),true);
+        foreach ($arr as $key => $value) {
+            $arr[$key]['business'] = $this->getLRIncome($value['email']);
+            if($value['payment'] == 1){
+                $arr[$key]['image'] = ABSOLUTE_URL.'/img/green.png';
+            } else {
+                $arr[$key]['image'] = ABSOLUTE_URL.'/img/user.png';
+            }
+        }
+        $arr = array_merge((array)$in,(array)$arr);
+        return $arr;
+    }
+    function temp(){
+        set_time_limit(0);
+        $this->autoRender = false;
+        $this->layout = null;
+        $city = $this->City->find('all',array('conditions' => array('lat is null')));
+         echo '<h1 style="color:green;"><---------------Start-----------------></h1>';
+        foreach ($city as $key => $value) {
+            $data = json_decode(file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.$value['City']['name']),true);
+            $rep['lat'] = $data['results'][0]['geometry']['location']['lat'];
+            $rep['long'] = $data['results'][0]['geometry']['location']['lng'];
+            $rep['state'] = $data['results'][0]['address_components'][2]['long_name'];
+            $rep['country']= $data['results'][0]['address_components'][3]['long_name'];
+            $this->City->id = $value['City']['id'];
+            $this->City->save($rep);
+        }
+        echo '<h1 style="color:red;"><---------------Completed-----------------></h1>';
+        exit;
     }
 }
