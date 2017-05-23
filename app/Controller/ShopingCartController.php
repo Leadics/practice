@@ -37,7 +37,7 @@ class ShopingCartController extends AppController {
  *
  * @var array
  */
-	public $uses = array('Country','Shoping','State','City','User','Lead','Income','WithdrawalRequest','Tranaction');
+	public $uses = array('Country','Shoping','State','City','User','Lead','Income','WithdrawalRequest','Transaction');
 
 /**
  * Displays a view
@@ -77,6 +77,7 @@ class ShopingCartController extends AppController {
 	function paymentRecienved(){
 		$this->autoRender = false;
         $this->layout = "";
+        $this->Session->write('order',array());
 		$data = $_GET;
 		if ($data['m_amount'] == 10 && $data['keyword'] == 'Subscription') {
 			$authentication = $this->Shoping->find('first',array('conditions' => array ('id'=>$data['m_orderid'])));
@@ -84,14 +85,14 @@ class ShopingCartController extends AppController {
 				$this->User->updateAll(array("status"=>1,'payment'=>1),array("id"=>$data['user_id']));
 				$this->Shoping->updateAll(array("status"=>1),array("id"=>$data['m_orderid']));
 				$d['user_id'] = $data['user_id'];
-				$d['amount'] = $data['amount'];
+				$d['amount'] = $data['m_amount'];
 				$d['shoping_id'] = $data['m_orderid'];
 				$lData = $this->Shoping->find('first', array(
 		            'fields' => array("item"),
 		            'conditions' => array('id' => $data['m_orderid'])
 		        ));
 		        $d['shoping_id'] = $lData['Shoping']['item'];
-		        $this->Tranaction->save($d);
+		        $this->Transaction->save($d);
 			}
 		} else {
 			$authentication = $this->Shoping->find('first',array('conditions' => array ('id'=>$data['m_orderid'])));
@@ -103,6 +104,7 @@ class ShopingCartController extends AppController {
 	}
 	function paymentCanceled(){
 		$this->autoRender = false;
+		$this->Session->write('order',array());
         $this->layout = "";
         $userInfo = $this->Session->read('User');
 		$this->redirect( array( 'controller' => 'users', 'action' => 'doPayments' ));

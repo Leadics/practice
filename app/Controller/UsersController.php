@@ -438,13 +438,13 @@ class UsersController extends AppController {
         $this->layout = 'dashboard';
         $userData = $this->Session->read('User');
         $keyword = $this->Session->read('order');
+        $keyword['auth_string'] = md5(time('now').$userData['id']);
         if (empty($keyword['item'])) {
             $keyword['item'] = 'Subscription';
             $keyword['user_id'] = $userData['id'];
             $keyword['amount'] = 10;
             $keyword['price'] = 10;
             $keyword['status'] = 0;
-            $keyword['auth_string'] = md5(time('now').$userData['id']);
             $this->Shoping->save($keyword);
             $keyword['order_id'] = $this->Shoping->getLastInsertID();
             $data['registration'] = 1;
