@@ -22,7 +22,6 @@
         }
       }
 </style>
-
 <div class="intro-header" style="background-image: url('<?php echo ABSOLUTE_URL; ?>/img/2.jpg');min-height: 225px;margin-bottom: 3%;">
     <div class="container">
         <div class="row">

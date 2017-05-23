@@ -35,7 +35,7 @@ class UsersController extends AppController {
  *
  * @var array
  */
-	public $uses = array('Country','State','City','User','Lead','Income');
+	public $uses = array('Country','State','City','User','Lead','Income','Shoping','Transaction');
 
 /**
  * Displays a view
@@ -77,24 +77,20 @@ class UsersController extends AppController {
         }else if($login_detail['User']['status'] == 9) {
             $this->Session->setFlash('<h3 class="well text-danger">Your account is blocked please contact to customer care</h3>');
             $this->redirect( array( 'controller' => 'pages', 'action' => 'index' ) );
-        } else if($login_detail['User']['status'] == 0) {
-            $this->Session->setFlash('<h3 class="well text-danger">Please verify your email ID before login</h3>');
-            $this->redirect( array( 'controller' => 'pages', 'action' => 'index' ) );
-        } else if($login_detail['User']['status'] == 1){
-           // echo '<pre>';print_r($login_detail);print_r($this->data);die;
+        }  else if($login_detail['User']['status'] == 0){
             if($login_detail['User']['username'] == $this->data['email'] && $login_detail['User']['password'] == md5($this->data['password'])) {
                 $bank_detail = $this->UserBank->find('first', array( 'conditions' => array('user_id' => $login_detail['User']['id'],'is_active' =>1)));
                 $data= $login_detail['User'];
-                //$this->Session->write('UserBank',$bank_detail['UserBank']);
                 $this->Session->write('User',$data);
-                 //echo '<pre>';print_r($login_detail);print_r($this->data);die;
-                // if ($login_detail['User']['is_admin'] == 1) {
-                //     $this->redirect( array( 'controller' => 'admin', 'action' => 'adminDashboard' ) );
-                // }else {
+                $this->redirect( array( 'controller' => 'users', 'action' => 'doPayments' ) );
+            } 
+        }else if($login_detail['User']['status'] == 1){
+                if($login_detail['User']['username'] == $this->data['email'] && $login_detail['User']['password'] == md5($this->data['password'])) {
+                    $bank_detail = $this->UserBank->find('first', array( 'conditions' => array('user_id' => $login_detail['User']['id'],'is_active' =>1)));
+                    $data= $login_detail['User'];
+                    $this->Session->write('User',$data);
                     $this->redirect( array( 'controller' => 'users', 'action' => 'dashboard' ) );
-                //}
-                
-            } else {
+                } else {
                 $this->Session->setFlash('<h3 class="well text-danger">Please enter correct login or password</h3>');
                 $this->redirect( array( 'controller' => 'pages', 'action' => 'index' ) );
             }
@@ -140,17 +136,15 @@ class UsersController extends AppController {
         $data['User']['direct'] = $this->data['sponcer'];
         $data['User']['state'] =  $this->data['state'];
         $data['User']['city'] =  $this->data['city'];
+        $data['User']['auth'] =  md5(time()."userbtc");
         $data['User']['country'] =  $this->data['country'];
-        if (EMAIL_SENDING == 1) {
-            $data['User']['status'] = 0;
-        } else {
-            $data['User']['status'] = 1;
-        }
+        $data['User']['status'] = 0;
         $data['User']['r1'] = 0;
-        if (!empty($data['User']['email'])) {
+        if (!empty($data['User']['username'])) {
              $this->User->save($data);
         }
         $userId = $this->User->getLastInsertID();
+       // echo $userId;die;
         $data['UserBank']['user_id'] = $userId;
         $this->UserBank->save($data);
         $bankId = $this->UserBank->getLastInsertID();
@@ -165,7 +159,6 @@ class UsersController extends AppController {
             $message['email'] =  $loginData['User']['emailid'];
             $message['approveUrl'] = ABSOLUTE_URL.'/pages/emailConfirmation/'.$userId.'/'.$k1;
             $m = $this->sendMail($loginData['User']['emailid'], $message, "Your Flanks Media  Membership", 'success', 'registration');
-           // $this->redirect( array( 'controller' => 'pages', 'action' => 'index/'.$userId ));
             $_POST = array();
             $this->data = array();
             unset($_POST);
@@ -173,24 +166,14 @@ class UsersController extends AppController {
             $this->Session->setFlash('<h3 class="well text-success">Your registration is successful kindly login to your email to activate your account</h3>');
             $this->redirect( array( 'controller' => 'Pages', 'action' => 'index' ));
          } else if (TEMP == 1) {
-            $this->redirect( array( 'controller' => 'users', 'action' => 'proceedToPay' ));
+            $this->Session->write('User', $data['User']);
+            $this->Session->write('UserBank',$data['UserBank']);
+            $this->redirect( array( 'controller' => 'users', 'action' => 'doPayments' ));
          }else {
             $this->Session->write('User', $data['User']);
             $this->Session->write('UserBank',$data['UserBank']);
-            $this->redirect( array( 'controller' => 'Pages', 'action' => 'dashboard' ));
+            $this->redirect( array( 'controller' => 'users', 'action' => 'dashboard' ));
         }
-    }
-    function proceedToPay($data = null){
-        $this->layout = "dash";
-        // switch ($data) {
-        //     case '1':
-        //         $content = 'Your registration is successful kindly login to your email to activate your account';
-        //         break;
-        //     case '2':
-        //         $content = 'Your account is activated successfully you will get login access soon';
-        //         break;
-        // }
-        // $this->set('data',$content);
     }
     function checkMemberShipByUserName(){
         $isAvailbale = true;
@@ -300,28 +283,7 @@ class UsersController extends AppController {
         $userData = $this->Session->read('User');
         $incomes = $this->Income->find('all');
         
-        foreach ($users as $key => $value) {
-            if ($incomes['User']['status'] == 1) {
-                $totalActiveUsers++;
-            } else {
-                $blockedUsers++;
-            }
-            if ($value['User']['payment'] == 1) {
-                $availableRevenew = $availableRevenew + $value['User']['donation'];
-                $approvedUsers++;
-            } else {
-                $inactiveUsers++;
-            }
-        }
-        $pins = $this->PinWallet->find('all');
-        $totalHelps = count($pins);
-        foreach ($pins as $key => $value) {
-            if ($value['PinWallet']['status'] == 1) {
-                $availableHelp++;
-            } else {
-                $blockedHelp++;
-            }
-        }
+        //echo '<pre>';print_r($incomes);die;
         $responce[0]['key'] = 'Total Active Users';
         $responce[0]['val'] = $totalActiveUsers;
         $responce[1]['key'] = 'Total Inactive Users';
@@ -371,21 +333,52 @@ class UsersController extends AppController {
         $Blockchain = new \Blockchain\Blockchain();
         $Blockchain->setServiceUrl('http://localhost');
     }
-    function getTree(){
-        $this->autoRender = false;
-        $this->layout = null;
+    
+    function myTeam(){
+        $this->layout = 'dashboard';
         $userData = $this->Session->read('User');
         $in[0] = $userData;
-        $in[0]['sponcer'] = $userData['email'];
+        $in[0]['sponcer'] = $userData['username'];
         $in[0]['business'] = $this->getLRIncome($userData['email']);
         if($userData['payment'] == 1){
             $in[0]['image'] = ABSOLUTE_URL.'/img/green.png';
         } else {
             $in[0]['image'] = ABSOLUTE_URL.'/img/user.png';
         }
-        $arr = json_decode(file_get_contents(ABSOLUTE_URL.'/team.php?email='.$userData['email']),true);
+        $arr = json_decode(file_get_contents(ABSOLUTE_URL.'/team.php?username='.$userData['username']),true);
         foreach ($arr as $key => $value) {
             $arr[$key]['business'] = $this->getLRIncome($value['email']);
+            if($value['payment'] == 1){
+                $arr[$key]['image'] = ABSOLUTE_URL.'/img/green.png';
+                $arr[$key]['username'] = $value['username'];
+            } else {
+                $arr[$key]['username'] = $value['username'];
+                $arr[$key]['image'] = ABSOLUTE_URL.'/img/user.png';
+            }
+        }
+        $arr = array_merge((array)$in,(array)$arr);
+        $this->set('use',$arr);
+    }
+    function mySubTree(){
+        $this->layout = 'dashboard';
+        $treeMail = $this->Session->read('tree');
+        if (!empty($treeMail)) {
+           $data = $this->User->find('first',array('conditions' => array ('username'=>$treeMail)));
+           $userData = $data['User'];
+        }else {
+            $userData = $this->Session->read('User');
+        }
+        $in[0] = $userData;
+        $in[0]['sponcer'] = $userData['username'];
+        $in[0]['business']  = $this->getLRIncome($userData['username']);
+        if($userData['payment'] == 1){
+            $in[0]['image'] = ABSOLUTE_URL.'/img/green.png';
+        } else {
+            $in[0]['image'] = ABSOLUTE_URL.'/img/user.png';
+        }
+        $arr = json_decode(file_get_contents(ABSOLUTE_URL.'/team.php?username='.$userData['username']),true);
+        foreach ($arr as $key => $value) {
+            $arr[$key]['business'] = $this->getLRIncome($value['username']);
             if($value['payment'] == 1){
                 $arr[$key]['image'] = ABSOLUTE_URL.'/img/green.png';
             } else {
@@ -393,24 +386,158 @@ class UsersController extends AppController {
             }
         }
         $arr = array_merge((array)$in,(array)$arr);
-        return $arr;
+        $this->set('use',$arr);
     }
-    function temp(){
-        set_time_limit(0);
-        $this->autoRender = false;
-        $this->layout = null;
-        $city = $this->City->find('all',array('conditions' => array('lat is null')));
-         echo '<h1 style="color:green;"><---------------Start-----------------></h1>';
-        foreach ($city as $key => $value) {
-            $data = json_decode(file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.$value['City']['name']),true);
-            $rep['lat'] = $data['results'][0]['geometry']['location']['lat'];
-            $rep['long'] = $data['results'][0]['geometry']['location']['lng'];
-            $rep['state'] = $data['results'][0]['address_components'][2]['long_name'];
-            $rep['country']= $data['results'][0]['address_components'][3]['long_name'];
-            $this->City->id = $value['City']['id'];
-            $this->City->save($rep);
+    function makeSession($email){
+        $this->Session->write('tree',$email);
+        $this->redirect( array( 'controller' => 'users', 'action' => 'mySubTree' ) );
+    }
+    function myTeamSide($side = null){
+        $this->layout = 'dashboard';
+        $userData = $this->Session->read('User');
+        $arr = json_decode(file_get_contents(ABSOLUTE_URL.'/team.php?username='.$userData['username']),true);
+        $this->set('availablePin',$arr);
+        $this->set('side',$side);
+    }
+    function buildOrder(){
+        $this->layout = 'dashboard';
+        $id = $this->_checkLogin();
+        if (!empty($this->data)) {
+            if ($this->data['amount'] >=99 &&  $this->data['amount'] < 300) {
+                $item = 'LEARNER';
+            }else if ($this->data['amount'] >=300 &&  $this->data['amount'] < 700) {
+                $item = 'PRE–TRADER';
+            }else if ($this->data['amount'] >=700 &&  $this->data['amount'] < 1500) {
+                $item = 'TRADER';
+            }else if ($this->data['amount'] >=1500 &&  $this->data['amount'] < 5000) {
+                $item = 'PR0–TRADER';
+            }else if ($this->data['amount'] >=5000 &&  $this->data['amount'] < 10000) {
+                $item = 'MERCHANT' ;
+            }else if ($this->data['amount'] >=10000) {
+                $item = 'EXCHANGER' ;
+            }
+            $keyword['item'] = $item;
+            $keyword['user_id'] = $id;
+            $keyword['amount'] = $this->data['amount'];
+            $keyword['price'] = $this->data['amount'];
+            $keyword['status'] = 0;
+            $keyword['description'] = "Buying ".$item." plan";
+            $this->Shoping->save($keyword);
+            $keyword['order_id'] = $this->Shoping->getLastInsertID();
+            if (!empty($keyword['order_id'])) {
+                $this->Session->write('order',$keyword);
+                $this->redirect( array( 'controller' => 'users', 'action' => 'doPayments' ) );
+            }else{
+                $this->Session->write('order',array());
+                $this->data = array();
+                $this->redirect( array( 'controller' => 'users', 'action' => 'buildOrder' ) );
+            }
         }
-        echo '<h1 style="color:red;"><---------------Completed-----------------></h1>';
-        exit;
+    }
+    function doPayments(){
+        $this->layout = 'dashboard';
+        $userData = $this->Session->read('User');
+        $keyword = $this->Session->read('order');
+        if (empty($keyword['item'])) {
+            $keyword['item'] = 'Subscription';
+            $keyword['user_id'] = $userData['id'];
+            $keyword['amount'] = 10;
+            $keyword['price'] = 10;
+            $keyword['status'] = 0;
+            $keyword['auth_string'] = md5(time('now').$userData['id']);
+            $this->Shoping->save($keyword);
+            $keyword['order_id'] = $this->Shoping->getLastInsertID();
+            $data['registration'] = 1;
+        }
+        $data['m_shop'] =  '355769670'; 
+        $data['m_orderid'] =   $keyword['order_id'];  
+        $data['m_amount'] =   number_format($keyword['amount'],2,   '.',   '');  
+        $data['m_curr'] =   'USD'; 
+        $data['m_desc'] =  base64_encode($keyword['description']);
+        $data['m_key'] = '8923317589';
+        $data['arHash']  =  array($data['m_shop'],$data['m_orderid'],$data['m_amount'],$data['m_curr'],$data['m_desc']);
+        $data['arParams'] =   array('success_url'  =>   'https://www.coinigydex.com/success?auth='.$keyword['auth_string'].'&user_id='.$userData['id'].'&keyword='.$keyword['item'],'fail_url'  =>   'https://www.coinigydex.com/fail?auth='.$keyword['auth_string'].'&user_id='.$userData['id'].'&keyword='.$keyword['item'],'status_url'  =>   'https://www.coinigydex.com/status','reference' =>   array('user_id' =>   '1','auth' =>   '2','amount' =>   '3'));
+        $data['key']   =   md5('8923317589'.$data['m_orderid']);
+        $data['m_params'] =   urlencode(base64_encode(openssl_encrypt(json_encode($data['arParams']),'AES-256-CBC', $data['key'],   OPENSSL_RAW_DATA)));
+        $data['arHash'][] =   $data['m_params'];
+        $data['arHash'][]  =   $data['m_key'];
+        $data['sign']  =   strtoupper(hash('sha256', implode(':', $data['arHash'])));
+        $this->set('data',$data);
+    }
+    //////////////******  BITPAY*****////////////////////
+    // function createKey(){
+    //     $this->autoRender = false;
+    //     $this->layout = null;
+    //     $privateKey = new \Bitpay\PrivateKey('../tmp/bitpay.pri');
+    //     $privateKey->generate();
+    //     $publicKey = new \Bitpay\PublicKey('../tmp/bitpay.pub');
+    //     $publicKey->setPrivateKey($privateKey);
+    //     $publicKey->generate();
+    //     $storageEngine = new \Bitpay\Storage\FilesystemStorage();
+    //     $storageEngine->persist($privateKey);
+    //     $storageEngine->persist($publicKey);
+    // }
+    // function temp(){
+    //     $this->autoRender = false;
+    //     $this->layout = null;
+    //     $this->createKey();
+    //     $storageEngine = new \Bitpay\Storage\FilesystemStorage();
+    //     $privateKey = $storageEngine->load('../tmp/bitpay.pri');
+    //     $publicKey = $storageEngine->load('../tmp/bitpay.pub');
+    //     $sin = \Bitpay\SinKey::create()->setPublicKey($publicKey)->generate();
+    //     $client = new \Bitpay\Client\Client();
+    //     $network = new \Bitpay\Network\Testnet();
+    //     $adapter = new \Bitpay\Client\Adapter\CurlAdapter();
+    //     $client->setPrivateKey($privateKey);
+    //     $client->setPublicKey($publicKey);
+    //     $client->setNetwork($network);
+    //     $client->setAdapter($adapter);
+    //     $pairingCode = 'xrtqQpE';
+    //     $token = $client->createToken(
+    //      array(
+    //      'pairingCode' => $pairingCode,
+    //      'label' => 'Some description...',
+    //      'id' => (string) $sin,
+    //      )
+    //     );
+    //     $persistThisValue = $token->getToken();
+    //     echo ($persistThisValue . PHP_EOL);die;
+    //     //return ($persistThisValue . PHP_EOL);
+    // }
+    // function createInvoice(){
+    //     $this->autoRender = false;
+    //     $this->layout = null;
+    //     $storageEngine = new \Bitpay\Storage\FilesystemStorage();
+    //     $privateKey = $storageEngine->load('../tmp/bitpay.pri');
+    //     $publicKey = $storageEngine->load('../tmp/bitpay.pub');
+    //     $client = new \Bitpay\Client\Client();
+    //     $network = new \Bitpay\Network\Testnet();
+    //     $adapter = new \Bitpay\Client\Adapter\CurlAdapter();
+    //     $client->setPrivateKey($privateKey);
+    //     $client->setPublicKey($publicKey);
+    //     $client->setNetwork($network);
+    //     $client->setAdapter($adapter);
+    //     $token = new \Bitpay\Token();
+    //     $token->setToken('KscEHkcgnfg71LVuVerqC3');
+    //     $client->setToken($token);
+    //     $invoice = new \Bitpay\Invoice();
+    //     $item = new \Bitpay\Item();
+    //     $item->setCode('23313');
+    //     $item->setDescription('General Description of Item');
+    //     $item->setPrice('1.99');
+    //     $invoice->setItem($item);
+    //     $invoice->setCurrency(new \Bitpay\Currency('USD'));
+    //     $client->createInvoice($invoice);
+    //     echo 'Success! Created invoice "' . $invoice->getId() . '". See ' . $invoice->getUrl() . PHP_EOL;
+    // }
+    //////////////******  BITPAY*****////////////////////
+    function transactions(){
+        $id = $this->_checkLogin();
+        $this->layout = "dashboard";
+        $userData = $this->Session->read('User');
+        $UserArray = $this->Transaction->find('all', array( 'conditions' => array('user_id' => $id)));
+        //echo '<pre>';print_r($UserArray);die;
+        $this->set('UserArray',$userData);
+        $this->set('NameArray', $UserArray);
     }
 }

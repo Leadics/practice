@@ -11,6 +11,10 @@ class ComposerStaticInit13070e731ec6235b25f40b66b0a257f2
         array (
             'Symfony\\Component\\Yaml\\' => 23,
         ),
+        'P' => 
+        array (
+            'Psr\\Log\\' => 8,
+        ),
         'C' => 
         array (
             'Composer\\Installers\\' => 20,
@@ -22,9 +26,23 @@ class ComposerStaticInit13070e731ec6235b25f40b66b0a257f2
         array (
             0 => __DIR__ . '/..' . '/symfony/yaml',
         ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+        ),
         'Composer\\Installers\\' => 
         array (
             0 => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers',
+        ),
+    );
+
+    public static $prefixesPsr0 = array (
+        'P' => 
+        array (
+            'PayPal' => 
+            array (
+                0 => __DIR__ . '/..' . '/paypal/rest-api-sdk-php/lib',
+            ),
         ),
     );
 
@@ -382,6 +400,7 @@ class ComposerStaticInit13070e731ec6235b25f40b66b0a257f2
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit13070e731ec6235b25f40b66b0a257f2::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit13070e731ec6235b25f40b66b0a257f2::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit13070e731ec6235b25f40b66b0a257f2::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit13070e731ec6235b25f40b66b0a257f2::$classMap;
 
         }, null, ClassLoader::class);

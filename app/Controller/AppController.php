@@ -34,9 +34,9 @@ class AppController extends Controller {
 
 	var $userInfo = null;
     public $uses = array('Product','User','GiveHelp','DailyClick','UserBank','UserWallet','RejectedHelp','WithdrawalRequest');
- 
     public function beforeFilter() {
         $temp = $this->Session->read('User');
+        $this->Session->write('order',array());
         if (!empty($temp['id'])) {
             $this->userInfo = $temp;
             $this->set('userInfo', $this->userInfo);
@@ -54,10 +54,13 @@ class AppController extends Controller {
                 $this->Session->write('UserBank',$bank_detail['UserBank']);
                 $this->set('UserBank' , $bank_detail['UserBank']);
             }
-           if($user['status'] == 1){
+           if($user['status'] == 1 && $user['payment'] == 1){
                 $user_id =$user['id'];
                 return $user_id;
-           } else {
+           } else if($user['payment'] == 0) {
+                $this->Session->setFlash('<h3 class="well text-danger">Please complete your registration payment first</h3>');
+                $this->redirect( array( 'controller' => 'users', 'action' => 'doPayments' ) );
+           }else {
                 $this->Session->delete('User');
                 $this->Session->destroy();
                 $this->redirect( array( 'controller' => 'pages', 'action' => 'home' ) );
@@ -110,13 +113,11 @@ class AppController extends Controller {
         }
     }
     function getTree($email = null){
-        //echo $email;die;
         if (empty($email)) {
             $userData = $this->Session->read('User');
         } else{
             $userData['username'] = $email;
         }
-        //echo $userData['username'];die;
         $arr = json_decode(file_get_contents(ABSOLUTE_URL.'/team.php?username='.$userData['username']),true);
         return $arr;
     }

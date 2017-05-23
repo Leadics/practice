@@ -29,7 +29,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.js
 "></script>
-<link rel="stylesheet" href="<?php echo ABSOLUTE_URL;?>/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
  <link  href="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css">
  <script src="<?php echo ABSOLUTE_URL;?>/js/bootstrap.min.js"  type="text/javascript"></script>
     <link href="<?php echo ABSOLUTE_URL;?>/css/simple-sidebar.css" rel="stylesheet">
@@ -42,7 +42,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
     <![endif]-->
 	<?php echo $this->Html->charset(); ?>
 	<title>
-	Coin-Igy
+	Coin-Desk
 	</title>
 	<?php
 		echo $this->Html->meta('icon');
@@ -66,11 +66,12 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
     	color:white!important;
     	margin-left: 10%!important;
     }
-     
+    .nag-margin-42{margin-left: -42px!important;}
 </style>
 </style>
 <body>
 	<div id="container">
+
 		<div id="content">
 		<div id="wrapper">
 		<?php $userData =$this->Session->read('User'); ?>
@@ -81,19 +82,21 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		        	<li style="margin-left:5px; color:white;"><h4>Welcome&nbsp;<?php echo $userData['name'];?></h4></li> 
 		            <li class="sidebar-brand"></li>
 		            <li>
-		            	<h4 style="margin-top: 40px;"><a class="link" href="<?php echo ABSOLUTE_URL;?>/pages/dashboard">Home</a></h4>
+		            	<h4 style="margin-top: 40px;"><a class="link" href="<?php echo ABSOLUTE_URL;?>/users/dashboard">Home</a></h4>
 		            </li>
 		           
                   <li>
                       <h4 style="margin-top: 20px;"><a class="link" href="<?php echo ABSOLUTE_URL;?>/users/transactions">History</a></h4>
                   </li>
                   <li>
-                      <h4 style="margin-top: 20px;"><a class="link" href="<?php echo ABSOLUTE_URL;?>/pages/contactUs">Contact Us</a></h4>
+                      <h4 style="margin-top: 20px;"><a class="link" href="<?php echo ABSOLUTE_URL;?>/users/contactUs">Contact Us</a></h4>
                   </li>
                   <li>
                       <h4 style="margin-top: 20px;"><a class="link" href="<?php echo ABSOLUTE_URL;?>/users/setting">Edit Profile</a></h4>
                   </li>
-                 
+                  <li>
+                      <h4 style="margin-top: 20px;"><a class="link" href="<?php echo ABSOLUTE_URL;?>/users/buildOrder">Buy a package</a></h4>
+                  </li>
                    <li class="dropdown ">
                        <a href="#" class="dropdown-toggle font-14 link" style="font-size:19px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Team<span class="caret"></span></a>
                        <ul class="dropdown-menu">
@@ -164,7 +167,9 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                               <li>
                                   <h4 style="margin-top: 20px;"><a class="link" href="<?php echo ABSOLUTE_URL;?>/users/setting">Edit Profile</a></h4>
                               </li>
-                             
+                              <li>
+                                <h4 style="margin-top: 20px;"><a class="link" href="<?php echo ABSOLUTE_URL;?>/users/buildOrder">Buy a package</a></h4>
+                              </li>
                                <li class="dropdown ">
                                    <a href="#" class="dropdown-toggle font-14 link" style="font-size:19px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Team<span class="caret"></span></a>
                                    <ul class="dropdown-menu">
@@ -203,8 +208,12 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                 <!-- /.container -->
             </nav>
     
-		    <div class="pull-left"><a href="#menu-toggle" style="position: absolute; z-index: 999; margin-left: 0px;"  class="btn btn-default hidden-xs" id="menu-toggle"><span class="glyphicon glyphicon-menu-hamburger"></span></a></div>
+		    <div class="pull-left"><a href="#menu-toggle" style="position: absolute;z-index: 999999;"  class="btn btn-default hidden-xs nag-margin-42" id="menu-toggle"><span class="glyphicon glyphicon-menu-hamburger"></span></a></div>
 		    <div class="clearfix"></div>
+        <div id="flash">
+          <?php echo $this->Session->flash(); ?>
+        </div>
+        
 			<?php echo $this->fetch('content'); ?>
         <?php echo $this->element('bankForm'); ?>
 			</div>
@@ -221,20 +230,25 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 "></script>
  <link  href="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css">
 <script type="text/javascript">
-	$("#menu-toggle").click(function(e) {
-	    e.preventDefault();
-	    $("#wrapper").toggleClass("toggled");
-	});
+  	$("#menu-toggle").click(function(e) {
+  	    e.preventDefault();
+  	    $("#wrapper").toggleClass("toggled");
+        if ($("#wrapper").hasClass('toggled')) {
+            $("#menu-toggle").removeClass('nag-margin-42');
+        } else{
+            $("#menu-toggle").addClass('nag-margin-42');
+        }
+  	});
     $("#mobile-menu-toggle").click(function(e) {
         e.preventDefault();
         $("#mobile-wrapper").toggleClass("toggled");
     });
-	// $(document).ready(function(){
-	// 	$("#flash").removeClass('hidden').show();
-	// 	setTimeout(function() {
-	//         $("#flash").addClass('hidden').hide();
-	//     }, 5000);
-	// });
+	$(document).ready(function(){
+		$("#flash").removeClass('hidden').show();
+		setTimeout(function() {
+	        $("#flash").addClass('hidden').hide();
+	    }, 5000);
+	});
 	function deleteFunction(id , model){
 		var confirmed = confirm('Do you really want to do this?');
 		if(confirmed) {

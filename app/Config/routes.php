@@ -30,7 +30,10 @@
  */
 	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
 	Router::connect('/dashboard', array('controller' => 'users', 'action' => 'dashboard'));
-	
+	Router::connect('/success', array('controller' => 'ShopingCart', 'action' => 'paymentRecienved'));
+	Router::connect('/fail', array('controller' => 'ShopingCart', 'action' => 'paymentCanceled'));
+	Router::connect('/status', array('controller' => 'ShopingCart', 'action' => 'status'));
+
 
 /**
  * Load all plugin routes. See the CakePlugin documentation on

@@ -34,11 +34,58 @@
         </form>
     </div>
 <?php } ?>
-    <div class="row">
-    <div class="col-md-5">
-        <?php echo $this->element('world_maps'); ?>
+<style type="text/css">
+     .smallCard{min-height: 130px; max-height: 130px;background-color: #64e73b33; margin-right: 10px; width:22.8%;}
+</style>
+    <div id="cards" class="row" style="padding-left: 60px;padding-top: 30px;">
+       
     </div>
-        
-
-    </div>
+    <a href="https://www.coinify.com/checkout/invoice/0zS/R2b?add=6Cb"><img src="https://cdn.coinify.com/assets/includes/buywithcoinify.png" alt="Buy with Bitcoin" title="Buy with Bitcoin" /></a>
 </div>
+<script type="text/javascript">
+    $.ajax({
+        url:'<?php echo ABSOLUTE_URL;?>/crons/calculateBinary/<?php echo $userData["id"];?>',
+        method:'GET',
+        success: function (data) {
+            var obj = JSON.parse(data); 
+             if (!obj.binary.amount) {
+                obj.binary.amount = 0;
+            } 
+            $("#cards").append('<div class="drop-shadow paddingAll col-md-3 smallCard"><div class="col-md-12"><h4 class="text-success">'+obj.binary.Membership+'</h4><h3 class="text-danger text-center">'+obj.binary.amount+'</h3></div></div>');
+        }
+    });
+    $.ajax({
+        url:'<?php echo ABSOLUTE_URL;?>/crons/calculateReferals/<?php echo $userData["id"];?>',
+        method:'GET',
+        success: function (data) {
+            var obj = JSON.parse(data); 
+            if (!obj.referal.amount) {
+                obj.referal.amount = 0;
+            } 
+            $("#cards").append('<div class="drop-shadow paddingAll col-md-3 smallCard"><div class="col-md-12"><h4 class="text-success">'+obj.referal.Membership+'</h4><h3 class="text-danger text-center">'+obj.referal.amount+'</h3></div></div>');
+        }
+    });
+    $.ajax({
+        url:'<?php echo ABSOLUTE_URL;?>/crons/calculateMatrix/<?php echo $userData["id"];?>',
+        method:'GET',
+        success: function (data) {
+            var obj = JSON.parse(data);
+            if (!obj.membership.amount) {
+                obj.membership.amount = 0;
+            } 
+            $("#cards").append('<div class="drop-shadow paddingAll col-md-3 smallCard"><div class="col-md-12"><h4 class="text-success">'+obj.membership.Membership+'</h4><h3 class="text-danger text-center">'+obj.membership.amount+'</h3></div></div>');
+        }
+    });
+    $.ajax({
+        url:'<?php echo ABSOLUTE_URL;?>/crons/calculateSingleLag/<?php echo $userData["id"];?>',
+        method:'GET',
+        success: function (data) {
+            var obj = JSON.parse(data); 
+            if (!obj.singlelag.amount) {
+                obj.singlelag.amount = 0;
+            } 
+            $("#cards").append('<div class="drop-shadow paddingAll col-md-3 smallCard"><div class="col-md-12"><h4 class="text-success">'+obj.singlelag.Membership+'</h4><h3 class="text-danger text-center">'+obj.singlelag.amount+'</h3></div></div>');
+        }
+    });
+</script>
+ 

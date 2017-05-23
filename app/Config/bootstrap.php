@@ -113,4 +113,14 @@ Configure::write('memberToBinary',array('learner' =>array('direct' => 5 , 'binar
 Configure::write('singleLagBinary',array('level1' => 5,'level2' =>3,'level3' =>2,'level4' =>1,'level5' =>2,'level6' =>3,'level7' =>4));
 define('COMPANY_NAME','CoinIgyDex');
 
-require '../Vendor/api-v1/vendor/autoload.php';
+require ROOT.DS  . '/vendor/php-sdk/CoinifyAPI.php';
+require ROOT.DS  . '/vendor/php-sdk/CoinifyCallback.php';
+$autoloader =  ROOT.DS  . '/vendor/bitpay/src/Bitpay/Autoloader.php';
+if (true === file_exists($autoloader) &&
+    true === is_readable($autoloader))
+{
+    require_once $autoloader;
+    \Bitpay\Autoloader::register();
+} else {
+    throw new Exception('BitPay Library could not be loaded');
+}

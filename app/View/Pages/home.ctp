@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Coin-Igy</title>
+  <title>Coin-Desk</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
@@ -145,7 +145,7 @@
         <div class="col-md-6 col-md-push-6 about-content">
           <h2 class="about-title">The future is digital.</h2>
           <p class="about-text">
-            Coinigy is the best way to access the global financial markets of the future. Businesses small and large rely on our data to power their decision-making.
+            Coindex is the best way to access the global financial markets of the future. Businesses small and large rely on our data to power their decision-making.
 
             We are a group of dedicated developers, traders, analysts and evangelists that believe in the upcoming paradigm shift that cryptography and the blockchain are bringing to the global financial industry.
 
@@ -170,7 +170,7 @@
         <div class="col-md-12">
           <h3 class="section-title">Our Services</h3>
           <div class="section-title-divider"></div>
-          <p class="section-description">Coinigy is your all-in-one platform for digital currency.</p>
+          <p class="section-description">Coindex is your all-in-one platform for digital currency.</p>
         </div>
       </div>
         
@@ -325,7 +325,7 @@
         <div class="col-md-12">
           <h3 class="section-title">Testimonials</h3>
           <div class="section-title-divider"></div>
-          <p class="section-description">coinigy is a leading technology company that is facilitating pool mining for everyone. It's good to see gainbitcoin’s honest approach showing cloud-mining services and their farms openly to the public. I trust the company fully and wish them great growth and success. </p>
+          <p class="section-description">Coindex is a leading technology company that is facilitating pool mining for everyone. It's good to see gainbitcoin’s honest approach showing cloud-mining services and their farms openly to the public. I trust the company fully and wish them great growth and success. </p>
         </div>
       </div>
       
@@ -347,7 +347,7 @@
       <div class="row">
         <div class="col-md-9">
           <div class="quote">
-            <b><img src="<?php echo ABSOLUTE_URL;?>/Imperial/img/quote_sign_left.png" alt=""></b> Using coinigy trading services for over 3 months now, they have proven to be a reliable and trustworthy business partner. Their transparent binary & referral payouts and high quality software infrastructure has resulted in a great and unique product which is surely a very profitable experience for everybody interested in bitcoin trading. <small><img src="<?php echo ABSOLUTE_URL;?>/Imperial/img/quote_sign_right.png" alt=""></small>
+            <b><img src="<?php echo ABSOLUTE_URL;?>/Imperial/img/quote_sign_left.png" alt=""></b> Using Coindex trading services for over 3 months now, they have proven to be a reliable and trustworthy business partner. Their transparent binary & referral payouts and high quality software infrastructure has resulted in a great and unique product which is surely a very profitable experience for everybody interested in bitcoin trading. <small><img src="<?php echo ABSOLUTE_URL;?>/Imperial/img/quote_sign_right.png" alt=""></small>
           </div>
         </div>
         <div class="col-md-3">

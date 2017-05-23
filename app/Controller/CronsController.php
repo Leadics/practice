@@ -54,7 +54,9 @@ class CronsController extends AppController {
 			$b = $this->getLRIncome($userData['username']);
     	    $binary = min($b['left'],$b['right']);
 		}
-		return $binary;
+		$rsp['binary']['Membership'] = 'Binary Income';
+		$rsp['binary']['amount'] = $binary;
+		return json_encode($rsp);
 	}
 	function calculateReferals($id){
 		$this->autoRender = false;
@@ -70,11 +72,14 @@ class CronsController extends AppController {
 		    }
 		    $referal = array_sum($ref);
 		}
-		return $referal;
+		$rsp['referal']['Membership'] = 'Referal Income';
+		$rsp['referal']['amount'] = $referal;
+		return json_encode($rsp);
 	}
 	function calculateMatrix($id){
 		$this->autoRender = false;
         $this->layout = null;
+        $rsp = '';
 		if (!empty($id)) {
 			$user = $this->User->find('first', array( 'conditions' => array('id' => $id)));
 			$incomes = $this->Income->find('first', array( 'conditions' => array('user_id' => $id)));
@@ -91,21 +96,28 @@ class CronsController extends AppController {
 				if ($dmdcnt >= 3) {
 					$this->Income->updateAll(array("dimond"=>2500),array("user_id"=>$id));
 					$this->User->updateAll(array("membership"=>'Diamond'),array("id"=>$id));
+					$rsp['membership']['Membership'] = 'Diamond';
+					$rsp['membership']['amount'] = '2500 $';
 				}
 			} else if (!empty($incomes['Income']['bronz'] && empty($incomes['Income']['silver']))) {
 				$silver = $this->User->find('all', array( 'conditions' => array('direct' => $userData['username'] , 'payment' =>1,'package_money >' => 100)));
 				if (count($silver) >= 3) {
 					$this->Income->updateAll(array("silver"=>100),array("user_id"=>$id));
 					$this->User->updateAll(array("membership"=>'Silver'),array("id"=>$id));
+					$rsp['membership']['Membership'] = 'Silver';
+					$rsp['membership']['amount'] = '100 $';
 				}
 			} else if (empty($incomes['Income']['bronz'])) {
 				$bronz = $this->User->find('all', array( 'conditions' => array('id >' => $id , 'payment' =>1)));
 				if (count($bronz) >= 6 ) {
 					$this->Income->updateAll(array("bronz"=>10),array("user_id"=>$id));
 					$this->User->updateAll(array("membership"=>'Bronze'),array("id"=>$id));
+					$rsp['membership']['Membership'] = 'Bronze';
+					$rsp['membership']['amount'] = '10 $';
 				}
 			}
 		}
+		return json_encode($rsp);
 	}
 	function calculateSingleLag($id){
 		$this->autoRender = false;
@@ -132,7 +144,7 @@ class CronsController extends AppController {
 				$level = 7;
 				break;
 		}
-		$arr = json_decode(file_get_contents(ABSOLUTE_URL.'/teamWithLevel.php?username='.$user['User']['username'].'&level=0'),true);
+		$arr = json_encode(file_get_contents(ABSOLUTE_URL.'/teamWithLevel.php?username='.$user['User']['username'].'&level=0'),true);
 		foreach ($arr as $key => $value) {
 			if ($level > $value['level']) {
 				$value['amount'] = ($value['donation']*$singleLagBinary['level'.$value['level']])/100;
@@ -141,6 +153,8 @@ class CronsController extends AppController {
 		}
 		$inc['left'] = array_sum(Set::classicExtract($newArr['left'], "{n}.amount"));
 		$inc['right'] = array_sum(Set::classicExtract($newArr['right'], "{n}.amount"));
-		return min($inc['left'],$inc['right']);
+		$rsp['singlelag']['Membership'] = 'Single Lag Binary Income';
+		$rsp['singlelag']['amount'] = min($inc['left'],$inc['right']);
+		return json_encode($rsp);
 	}
 }
