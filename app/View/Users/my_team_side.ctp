@@ -44,7 +44,7 @@
                 <td><strong>Paid/Unpaid</strong></td>
                 <td><strong>Status</strong></td>
             </tr>
-        <?php foreach ($availablePin as $key => $value) { if ($key > 0 && $value['side'] == $side) { ?>
+        <?php foreach ($availablePin as $key => $value) { ?>
             <tr>
                 <td><?php echo $value['username'];?></td>
                 <td><strong><?php echo $value['side'];?></strong></td>
@@ -69,7 +69,7 @@
                      echo '<td class="text-danger">Inactive</td>';
                 }?>
             </tr>
-        <?php } }?>
+        <?php  }?>
         </table>
     </div>
    

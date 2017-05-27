@@ -1,4 +1,4 @@
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.45/css/bootstrap-datetimepicker.min.css" />
+
 <style type="text/css">
 	.margin-left-100{margin-left: 9% !important;}
   .margin-top-30{margin-top: 30px !important;}
@@ -74,12 +74,16 @@
 </style>
 
 <body>
-	<div class="container" style=" font-size: 12px;">
-		<div class="row col-lg-12 well" >
-    <h3 class="text-info text-center"><strong>View all Transactions</strong></h3>
+	<div class="container">
+		<div class="row col-lg-12" >
+    <h3 class="text-info text-center" style="margin-top:0px;"><strong>View Users</strong></h3>
     <div class="padding-left-15">
         <nav>
             <ul class="pagination col-md-10 margin-left-100">
+                <?php $alphas = range('A', 'Z');
+                foreach ($alphas as $key => $value) {?>
+                    <li><a href="<?php echo ABSOLUTE_URL;?>/admin/approveUsers?page=<?php echo $value;?>"><?php echo $value;?></a></li>
+                <?php }?>
                 <div class="clearfix"></div>
                 <ul class="pager">
                     <li><a href="javascript:void(0);" id ="prevRes" >Previous</a></li>
@@ -88,38 +92,62 @@
             </ul>
         </nav>
     </div>
-    
+    <form action="<?php echo ABSOLUTE_URL;?>/admin/approveUsers/filter" method="POST" id="filterForm">
+        <div class="col-md-12" style="padding-bottom:10px;">
+            <div class="col-md-2"><label><h4>Search by</h4></label></div>
+            <div class="col-md-4">
+                <select class="form-control" id="search_by" name="data[search_by]" onchange="setAttr();">
+                    <option value="">Please select a filter</option>
+                    <option value="name">User Name</option>
+                    <option value="email">User Email</option>
+                    <option value="donation">User Donation</option>
+                    <option value="created">Registration Before</option>
+                </select>
+            </div>
+            <div id="val" class="col-md-4"></div>
+            <div id="val" class="col-md-2"><button type="button" onclick="getSearch();" class="btn btn-primary">Search</button></div>
+        </div>
+    </form>
 <div class="col-md-12" style="width:99%;">
 <table class="table table-striped table-responsive">
 	<tr>
 		<td ><strong>#</strong></td>
-   		<td><strong>Transaction Type</strong></td>
-   		<td><strong>Amount</strong></td>
-      <td><strong>Binary</strong></td>
-      <td><strong>Referal</strong></td>
-      <td><strong>Single lag binary</strong></td>
-      <td><strong>Date</strong></td>
+   		<td><strong><a href="<?php echo ABSOLUTE_URL;?>/admin/approveUsers?filter=name&dir=<?php echo $dir;?>">User Name</a></strong></td>
+   		<td><strong>Email</strong></td>
+      <td><strong><a href="<?php echo ABSOLUTE_URL;?>/admin/approveUsers?filter=donation&dir=<?php echo $dir;?>"> Donation</a></strong></td>
+      <td><strong><a href="<?php echo ABSOLUTE_URL;?>/admin/approveUsers?filter=created&dir=<?php echo $dir;?>">Registred On</a></strong></td>
+      <td><strong>Cant Pay</strong></td>
       <td><strong>Status</strong></td>
+      <td><strong>History</strong></td>
+      <td><strong>Action</strong></td>
    </tr>
 	<?php foreach ( $NameArray as $key => $value) {
-        if(!empty($value['WithdrawalRequest']['id'])) { ?>
+        if(!empty($value['User']['id'])) { ?>
            <tr id="<?php echo 'list'.$key;?>" class='hidden'>
            		<td><strong><?php echo $key;?></strong></td>
-              <?php if (!empty($value['WithdrawalRequest']['perticular'])) {
-                  echo '<td>Purchase</td>';
-               } else  if (!empty($UserArray['id']) && $value['WithdrawalRequest']['user_id'] ==$UserArray['id']){
-                  echo '<td>Withdraw</td>';
-                }?>
-              <td><?php echo $value['WithdrawalRequest']['amount'];?></td>
-              <td><?php echo $value['WithdrawalRequest']['binary'];?></td>
-              <td><?php echo $value['WithdrawalRequest']['referal'];?></td>
-              <td><?php echo $value['WithdrawalRequest']['single_lag'];?></td>
-           		<td><?php echo $value['WithdrawalRequest']['created'];?></td>
-              <?php if ($value['WithdrawalRequest']['status'] == 1 ) {
-                echo '<td class="text-success">Success</td>';
-              }else {
-                echo '<td class="text-danger">Panding</td>';
+           		<td><?php echo $value['User']['name'];?></td>
+           		<td><?php echo $value['User']['email'];?></td>
+           		<td><?php echo $value['User']['donation'];?></td>
+              <td><?php echo $value['User']['created'];?></td>
+              <td><?php if ($value['User']['cant_pay'] == 1) {
+                echo 'Selected';
+              } else {
+                echo 'Not Selectet'; 
+              }
+              ?></td>
+              <td><?php 
+              if ($value['User']['status'] == 1) {
+                echo '<p class="text-success">Active</p>';
+              } else {
+                echo '<p class="text-danger">Blocked</p>';
+              }
+              ?></td>
+              <td><a href="<?php echo ABSOLUTE_URL.'/users/transactions/'.$value['User']['id'];?>">History&nbsp;</a></td>
+              <td> <a href="<?php echo ABSOLUTE_URL.'/admin/assignDonor/'.$value['User']['id'];?>">Assing Donor&nbsp;</a>
+              <?php if ($value['User']['is_admin'] != 1) {
+                echo '<a href="'.ABSOLUTE_URL.'/admin/blockUser/'.$value['User']['id'].'">&nbsp;Block</a>';
               } ?>
+                 </td> 
            </tr>
         <?php $nbr = $key+1;
         } }
@@ -128,7 +156,7 @@
           ?>
 </table>
 <ul class="pager">
-    <li><a href="<?php echo ABSOLUTE_URL;?>/users/transactions">View All</a></li>
+    <li><a href="<?php echo ABSOLUTE_URL;?>/admin/approveUsers">View All</a></li>
   </ul>
 </div>
 <div id="myModal" class="modal">
@@ -136,8 +164,7 @@
   <img class="modal-content" id="img01">
   <div id="caption"></div>
 </div>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.25/moment.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.45/js/bootstrap-datetimepicker.min.js"></script>
+
 <script type="text/javascript">
 function getSearch(){
     var search_by = $("#search_by").val();
@@ -221,5 +248,4 @@ intpage = intpage -10;
 
 </script>
 		</div>
-
 </body>

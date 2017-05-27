@@ -1,4 +1,4 @@
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.45/css/bootstrap-datetimepicker.min.css" />
+
 <style type="text/css">
 	.margin-left-100{margin-left: 9% !important;}
   .margin-top-30{margin-top: 30px !important;}
@@ -74,12 +74,16 @@
 </style>
 
 <body>
-	<div class="container" style=" font-size: 12px;">
-		<div class="row col-lg-12 well" >
-    <h3 class="text-info text-center"><strong>View all Transactions</strong></h3>
+	<div class="container">
+		<div class="row col-lg-12" >
+    <h3 class="text-info text-center" style="margin-top:0px;"><strong>View Requests</strong></h3>
     <div class="padding-left-15">
         <nav>
             <ul class="pagination col-md-10 margin-left-100">
+                <?php $alphas = range('A', 'Z');
+                foreach ($alphas as $key => $value) {?>
+                    <li><a href="<?php echo ABSOLUTE_URL;?>/admin/leads?page=<?php echo $value;?>"><?php echo $value;?></a></li>
+                <?php }?>
                 <div class="clearfix"></div>
                 <ul class="pager">
                     <li><a href="javascript:void(0);" id ="prevRes" >Previous</a></li>
@@ -88,37 +92,46 @@
             </ul>
         </nav>
     </div>
-    
+    <form action="<?php echo ABSOLUTE_URL;?>/admin/leads/filter" method="POST" id="filterForm">
+        <div class="col-md-12" style="padding-bottom:10px;">
+            <div class="col-md-2"><label><h4>Search by</h4></label></div>
+            <div class="col-md-4">
+                <select class="form-control" id="search_by" name="data[search_by]" onchange="setAttr();">
+                    <option value="">Please select a filter</option>
+                    <option value="name">Name</option>
+                    <option value="email">Email</option>
+                    <option value="mobile">Mobile</option>
+                    <option value="created">Date Before</option>
+                </select>
+            </div>
+            <div id="val" class="col-md-4"></div>
+            <div id="val" class="col-md-2"><button type="button" onclick="getSearch();" class="btn btn-primary">Search</button></div>
+        </div>
+    </form>
 <div class="col-md-12" style="width:99%;">
 <table class="table table-striped table-responsive">
 	<tr>
 		<td ><strong>#</strong></td>
-   		<td><strong>Transaction Type</strong></td>
-   		<td><strong>Amount</strong></td>
-      <td><strong>Binary</strong></td>
-      <td><strong>Referal</strong></td>
-      <td><strong>Single lag binary</strong></td>
-      <td><strong>Date</strong></td>
-      <td><strong>Status</strong></td>
+   		<td><strong><a href="<?php echo ABSOLUTE_URL;?>/admin/leads?filter=name&dir=<?php echo $dir;?>">Name</a></strong></td>
+   		<td><strong>Email</strong></td>
+      <td><strong><a href="<?php echo ABSOLUTE_URL;?>/admin/leads?filter=mobile&dir=<?php echo $dir;?>"> Mobile</a></strong></td>
+      <td><strong>Comments</strong></td>
+      <td><strong><a href="<?php echo ABSOLUTE_URL;?>/admin/leads?filter=created&dir=<?php echo $dir;?>">Date</a></strong></td>
+      <td><strong>Attachment</strong></td>
    </tr>
-	<?php foreach ( $NameArray as $key => $value) {
-        if(!empty($value['WithdrawalRequest']['id'])) { ?>
+	<?php foreach ( $NameArray as $key => $value) { 
+        if(!empty($value['Lead']['id'])) { ?>
            <tr id="<?php echo 'list'.$key;?>" class='hidden'>
            		<td><strong><?php echo $key;?></strong></td>
-              <?php if (!empty($value['WithdrawalRequest']['perticular'])) {
-                  echo '<td>Purchase</td>';
-               } else  if (!empty($UserArray['id']) && $value['WithdrawalRequest']['user_id'] ==$UserArray['id']){
-                  echo '<td>Withdraw</td>';
-                }?>
-              <td><?php echo $value['WithdrawalRequest']['amount'];?></td>
-              <td><?php echo $value['WithdrawalRequest']['binary'];?></td>
-              <td><?php echo $value['WithdrawalRequest']['referal'];?></td>
-              <td><?php echo $value['WithdrawalRequest']['single_lag'];?></td>
-           		<td><?php echo $value['WithdrawalRequest']['created'];?></td>
-              <?php if ($value['WithdrawalRequest']['status'] == 1 ) {
-                echo '<td class="text-success">Success</td>';
-              }else {
-                echo '<td class="text-danger">Panding</td>';
+           		<td><?php echo $value['Lead']['name'];?></td>
+           		<td><?php echo $value['Lead']['email'];?></td>
+              <td><?php echo $value['Lead']['mobile'];?></td>
+           		<td class="col-md-3"><?php echo $value['Lead']['comments'];?></td>
+              <td><?php echo $value['Lead']['created'];?></td>
+              <?php if (!empty($value['Lead']['attachment'])) {
+                  echo '<td><a href="'.$value['Lead']['attachment'].'" target="_BLANK">click here</a></td>';
+              } else {
+                echo '<td>Not Available</td>';
               } ?>
            </tr>
         <?php $nbr = $key+1;
@@ -128,7 +141,7 @@
           ?>
 </table>
 <ul class="pager">
-    <li><a href="<?php echo ABSOLUTE_URL;?>/users/transactions">View All</a></li>
+    <li><a href="<?php echo ABSOLUTE_URL;?>/admin/leads">View All</a></li>
   </ul>
 </div>
 <div id="myModal" class="modal">
@@ -136,8 +149,7 @@
   <img class="modal-content" id="img01">
   <div id="caption"></div>
 </div>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.25/moment.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.45/js/bootstrap-datetimepicker.min.js"></script>
+
 <script type="text/javascript">
 function getSearch(){
     var search_by = $("#search_by").val();

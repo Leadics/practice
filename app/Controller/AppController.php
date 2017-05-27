@@ -36,7 +36,7 @@ class AppController extends Controller {
     public $uses = array('Product','User','GiveHelp','DailyClick','UserBank','UserWallet','RejectedHelp','WithdrawalRequest');
     public function beforeFilter() {
         $temp = $this->Session->read('User');
-        $this->Session->write('order',array());
+        //$this->Session->write('order',array());
         if (!empty($temp['id'])) {
             $this->userInfo = $temp;
             $this->set('userInfo', $this->userInfo);

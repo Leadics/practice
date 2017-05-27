@@ -1,9 +1,9 @@
 <?php error_reporting(E_ALL); 
 function getConnection(){   
-    $host = '127.0.0.1';
-    $user = 'root';
+    $host = 'prod-rds.cgydgurehzej.ap-southeast-1.rds.amazonaws.com';
+    $user = 'vikrant_prod';
     $port = '3306';
-    $sec = '';
+    $sec = 'viky!@#$%^&priya786';
     $db = 'coinigy';
     $conn = new mysqli($host, $user, $sec , $db);
     if ($conn->connect_error) {

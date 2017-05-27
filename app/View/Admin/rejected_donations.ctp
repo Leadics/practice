@@ -1,4 +1,4 @@
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.45/css/bootstrap-datetimepicker.min.css" />
+
 <style type="text/css">
 	.margin-left-100{margin-left: 9% !important;}
   .margin-top-30{margin-top: 30px !important;}
@@ -74,12 +74,13 @@
 </style>
 
 <body>
-	<div class="container" style=" font-size: 12px;">
-		<div class="row col-lg-12 well" >
-    <h3 class="text-info text-center"><strong>View all Transactions</strong></h3>
+	<div class="container">
+		<div class="row col-lg-12" >
+    <h3 class="text-info text-center" style="margin-top:0px;"><strong>View All Donations</strong></h3>
     <div class="padding-left-15">
         <nav>
             <ul class="pagination col-md-10 margin-left-100">
+                
                 <div class="clearfix"></div>
                 <ul class="pager">
                     <li><a href="javascript:void(0);" id ="prevRes" >Previous</a></li>
@@ -88,38 +89,54 @@
             </ul>
         </nav>
     </div>
-    
+   
 <div class="col-md-12" style="width:99%;">
 <table class="table table-striped table-responsive">
 	<tr>
 		<td ><strong>#</strong></td>
-   		<td><strong>Transaction Type</strong></td>
    		<td><strong>Amount</strong></td>
-      <td><strong>Binary</strong></td>
-      <td><strong>Referal</strong></td>
-      <td><strong>Single lag binary</strong></td>
-      <td><strong>Date</strong></td>
+   		<td><strong>Created On</strong></td>
+      <td><strong>Recipient</strong></td>
+      <td><strong>Donor</strong></td>
       <td><strong>Status</strong></td>
+      <td><strong>Attachment</strong></td>
+      <td><strong>Reject Responce</strong></td>
+      <td><strong>Action</strong></td>
    </tr>
 	<?php foreach ( $NameArray as $key => $value) {
-        if(!empty($value['WithdrawalRequest']['id'])) { ?>
+        if(!empty($value['GiveHelp']['id'])) { ?>
            <tr id="<?php echo 'list'.$key;?>" class='hidden'>
            		<td><strong><?php echo $key;?></strong></td>
-              <?php if (!empty($value['WithdrawalRequest']['perticular'])) {
-                  echo '<td>Purchase</td>';
-               } else  if (!empty($UserArray['id']) && $value['WithdrawalRequest']['user_id'] ==$UserArray['id']){
-                  echo '<td>Withdraw</td>';
-                }?>
-              <td><?php echo $value['WithdrawalRequest']['amount'];?></td>
-              <td><?php echo $value['WithdrawalRequest']['binary'];?></td>
-              <td><?php echo $value['WithdrawalRequest']['referal'];?></td>
-              <td><?php echo $value['WithdrawalRequest']['single_lag'];?></td>
-           		<td><?php echo $value['WithdrawalRequest']['created'];?></td>
-              <?php if ($value['WithdrawalRequest']['status'] == 1 ) {
+           		<td><?php echo $value['GiveHelp']['amount'];?></td>
+           		<td><?php echo $value['GiveHelp']['created'];?></td>
+           		<td><?php echo $userList[$value['GiveHelp']['reciver_id']];?></td>
+              <td><?php echo $userList[$value['GiveHelp']['donator_id']];?></td>
+              <?php if ($value['GiveHelp']['status'] == 0 || $value['GiveHelp']['status'] == 5) {
                 echo '<td class="text-success">Success</td>';
-              }else {
-                echo '<td class="text-danger">Panding</td>';
-              } ?>
+              } else if($value['GiveHelp']['status'] == 7){
+                echo '<td class="text-danger">Rejected by recipient</td>';
+              } else if($value['GiveHelp']['status'] == 1){
+                echo '<td class="text-info">Pending</td>';
+              } else if($value['GiveHelp']['status'] == 4){
+                echo '<td class="text-danger">Blocked</td>';
+              }else if($value['GiveHelp']['status'] == 8){
+                echo '<td class="text-danger">Rejected by donor</td>';
+              }else { echo "<td>Pending</td>";} 
+              if (!empty($value['GiveHelp']['attachment'])) {
+                  echo '<td><a href="'.$value['GiveHelp']['attachment'].'" target="_BLANK">click here</a></td>';
+              } else {
+                echo '<td>Not Available</td>';
+              }
+              if (!empty($value['GiveHelp']['responce_file'])) {
+                  echo '<td><a href="'.$value['GiveHelp']['responce_file'].'" target="_BLANK">click here</a></td>';
+              } else {
+                echo '<td>Not Available</td>';
+              } 
+              echo '<td>';
+              if($value['GiveHelp']['status'] != 8){ ?>
+              <a href="<?php echo ABSOLUTE_URL.'/admin/acceptRequest/'.$value['GiveHelp']['id'];?>">Accept&nbsp;&nbsp;</a>
+              <?php }  ?>
+                <a href="<?php echo ABSOLUTE_URL.'/admin/deleteDonation/'.$value['GiveHelp']['id'];?>">&nbsp;Delete</a></td>
            </tr>
         <?php $nbr = $key+1;
         } }
@@ -127,17 +144,14 @@
           $intpage = 10;
           ?>
 </table>
-<ul class="pager">
-    <li><a href="<?php echo ABSOLUTE_URL;?>/users/transactions">View All</a></li>
-  </ul>
+
 </div>
 <div id="myModal" class="modal">
   <span class="close">&times;</span>
   <img class="modal-content" id="img01">
   <div id="caption"></div>
 </div>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.25/moment.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.45/js/bootstrap-datetimepicker.min.js"></script>
+
 <script type="text/javascript">
 function getSearch(){
     var search_by = $("#search_by").val();

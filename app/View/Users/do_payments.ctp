@@ -1,13 +1,13 @@
-<?php $order = $this->Session->read('order');?>
+
 <div class="feature">
 	<div class="container">
 		<div class="text-center">
-        <?php if ($data['registration'] == 1) {
+        <?php if ($keyword['item'] == 'Subscription' && $keyword['amount'] == 10) {
             echo '<h1>Registration fee $ 10 and will be eligible to coingy-dex.com and coinigydex.club </h1>';
             $cost = "10 USD";
         } else {
-            echo '<h1>Get the banifits of '.$order['item'].' plan in just '.$order['amount'].' and will earn from coingy-dex.com and coinigydex.club </h1>';
-            $cost = $order['amount']." USD";
+            echo '<h1>Get the banifits of '.$keyword['item'].' plan in just '.$keyword['amount'].' and will earn from coingy-dex.com and coinigydex.club </h1>';
+            $cost = $keyword['amount']." USD";
         } ?>
 			
 		</div>
@@ -45,10 +45,3 @@
         </div>
 	</div>
 </div>
-<?php/*
-<form action="https://bitpay.com/checkout" method="post" >
-  <input type="hidden" name="action" value="checkout" />
-  <input type="hidden" name="posData" value="" />
-  <input type="hidden" name="data" value="dV57WeUJxOnscDn5jDPDL2Q0fM2cHzBttJsxvqBZusn32UlvbzfGEEYBpUJhvD7g1cxItA9qJh0rYYSTwkI69RzytQhlmXoA6LMSvAC9pwM3492feNPZmSc4+XpW/fEc0TE/DQ+yX8mbWDTEYwzyFUEny7lY/Y/+1A4i9a00xJSJFFVsBVf3G0543oCNu37Htao5DQHBsKuAZq8XoIEGjJ7ELwA+YXbJOuMw6dJWdDnfk/eWsWHdYPaI7C/8KqQx3wgzdv6WVBrshZPis+HKmAxkSKNnU4ulwgBLXyTaWWABQVqtkBpTQ9QZXOrcJE17" />
-  <input type="image" src="https://bitpay.com/img/button-medium.png" border="0" name="submit" alt="BitPay, the easy way to pay with bitcoins." >
-</form> */?>

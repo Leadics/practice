@@ -6,41 +6,23 @@
             <div class="modal-content modal-dialog">
                 <div class="modal-header">
                     <button id="close" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                      <h4 class="modal-title" id="myModalLabel">Please select a plan</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="well">
-                        <form id="lactivationForm" method="POST" action="<?php echo ABSOLUTE_URL;?>/users/changeDonationRequest" data-toggle="validator" >
-                            <div class="form-group control-group">
-                                <label for="pin" class="control-label" >Select A Investment</label>
-                                <input type="text" name="id" hidden value="<?php echo $userData['id'];?>">
-                                <select type="integer" required="" class="form-control" id="donation" name="donation" title="Please enter your mobile number">
-                                    <option value="">Please select a plan</option>
-                                    <option value="learner">Learner : 100 - 299 $</option>
-                                    <option value="pre-trader">Pre-Trader : 300 - 599 %</option>
-                                    <option value="trader">Trader : 700 - 1499 $</option>
-                                    <option value="pro-trader">Pro-Trader : 1500 - 4999 $</option>
-                                    <option value="merchant">Merchant : 5000 - 9999 $</option>
-                                    <option value="exchanger">Exchanger : 10000 $ and Above</option>
-                                </select>
-                                  <span class="help-block"></span>
-                            </div>
-                            <button type="submit" class="btn btn-success btn-block">Submit</button>
-                        </form>
-                    </div>  
+                      <a href="<?php echo ABSOLUTE_URL;?>/users/buildOrder"><h4 class="modal-title" id="myModalLabel">Invest To Earn More !</h4></a>
                 </div>
             </div>
         </div>
         </form>
     </div>
-<?php } ?>
+<?php }
+            if($userInfo['is_admin'] == 1){
+                echo '<a href="'.ABSOLUTE_URL.'/admin/adminDashboard" class="btn btn-success pull-right btn-lg" style="margin-right:50px;">Admin Panel</a>';
+              } ?>
+<div class="clearfix"></div>
 <style type="text/css">
      .smallCard{min-height: 130px; max-height: 130px;background-color: #64e73b33; margin-right: 10px; width:22.8%;}
 </style>
     <div id="cards" class="row" style="padding-left: 60px;padding-top: 30px;">
        
     </div>
-    <a href="https://www.coinify.com/checkout/invoice/0zS/R2b?add=6Cb"><img src="https://cdn.coinify.com/assets/includes/buywithcoinify.png" alt="Buy with Bitcoin" title="Buy with Bitcoin" /></a>
 </div>
 <script type="text/javascript">
     $.ajax({
@@ -85,6 +67,19 @@
                 obj.singlelag.amount = 0;
             } 
             $("#cards").append('<div class="drop-shadow paddingAll col-md-3 smallCard"><div class="col-md-12"><h4 class="text-success">'+obj.singlelag.Membership+'</h4><h3 class="text-danger text-center">'+obj.singlelag.amount+'</h3></div></div>');
+        }
+    });
+    $.ajax({
+        url:'<?php echo ABSOLUTE_URL;?>/crons/getRoi/<?php echo $userData["id"];?>',
+        method:'GET',
+        success: function (data) {
+
+            var obj = JSON.parse(data); 
+            console.log(obj);
+            if (!obj.roi.amount) {
+                obj.roi.amount = 0;
+            } 
+            $("#cards").append('<div class="drop-shadow paddingAll col-md-3 smallCard"><div class="col-md-12"><h4 class="text-success">'+obj.roi.Membership+'</h4><h3 class="text-danger text-center">'+obj.roi.amount+'</h3></div></div>');
         }
     });
 </script>

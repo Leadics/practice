@@ -96,15 +96,24 @@ class ShopingCartController extends AppController {
 			}
 		} else {
 			$authentication = $this->Shoping->find('first',array('conditions' => array ('id'=>$data['m_orderid'])));
+			$this->User->updateAll(array("package_money"=>$data['m_amount'],'package' =>$data['keyword'],'payment'=>1),array("id"=>$data['user_id']));
 			if (!empty($data['auth']) && $data['auth'] == $authentication['Shoping']['auth_string']) {
 				$this->Shoping->updateAll(array("status"=>1),array("order_id"=>$data['m_orderid']));
+				$d['user_id'] = $data['user_id'];
+				$d['amount'] = $data['m_amount'];
+				$d['shoping_id'] = $data['m_orderid'];
+				$lData = $this->Shoping->find('first', array(
+		            'fields' => array("item"),
+		            'conditions' => array('id' => $data['m_orderid'])
+		        ));
+		        $d['shoping_id'] = $lData['Shoping']['item'];
+		        $this->Transaction->save($d);
 			}
 		}
 		$this->redirect( array( 'controller' => 'users', 'action' => 'dashboard' ));
 	}
 	function paymentCanceled(){
 		$this->autoRender = false;
-		$this->Session->write('order',array());
         $this->layout = "";
         $userInfo = $this->Session->read('User');
 		$this->redirect( array( 'controller' => 'users', 'action' => 'doPayments' ));

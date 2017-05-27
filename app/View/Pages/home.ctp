@@ -53,7 +53,7 @@
 <!--==========================
   Hero Section
 ============================-->
-  
+
     <div id="carouselHacked" class="carousel slide carousel-fade" data-ride="carousel">
 
         <!-- Wrapper for slides -->
@@ -108,7 +108,11 @@
         
       <nav id="nav-menu-container">
         <ul class="nav-menu">
+        <?php if (!empty($userInfo['id'])) {?>
+          <li class="menu-active"><a href="<?php echo ABSOLUTE_URL;?>/users/dashboard">Home</a></li>
+        <?php } else{ ?>
           <li class="menu-active"><a href="">Home</a></li>
+        <?php } ?>
           <li><a href="#about">About Us</a></li>
           <li><a href="#services">Services</a></li>
           <li><a href="#portfolio">Portfolio</a></li>
@@ -122,7 +126,7 @@
               <li><a href="<?php echo ABSOLUTE_URL;?>/users/packages">Business Plans</a></li>
             </ul>
           </li>
-          <li><a href="#contact">Contact Us</a></li>
+          <li><a href="<?php echo ABSOLUTE_URL;?>/users/contactUs">Contact Us</a></li>
         </ul>
       </nav><!-- #nav-menu-container -->
     </div>

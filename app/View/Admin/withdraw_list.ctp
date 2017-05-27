@@ -1,9 +1,9 @@
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.45/css/bootstrap-datetimepicker.min.css" />
+
 <style type="text/css">
-	.margin-left-100{margin-left: 9% !important;}
+  .margin-left-100{margin-left: 9% !important;}
   .margin-top-30{margin-top: 30px !important;}
-	.form-group{margin-bottom: 5px !important;}
-	.control-label{text-align: left !important;}
+  .form-group{margin-bottom: 5px !important;}
+  .control-label{text-align: left !important;}
   img{max-width: 36%!important;}
   .modal {
     display: none; /* Hidden by default */
@@ -74,12 +74,13 @@
 </style>
 
 <body>
-	<div class="container" style=" font-size: 12px;">
-		<div class="row col-lg-12 well" >
-    <h3 class="text-info text-center"><strong>View all Transactions</strong></h3>
+  <div class="container">
+    <div class="row col-lg-12" >
+    <h3 class="text-info text-center" style="margin-top:0px;"><strong>Withdrawal Requests</strong></h3>
     <div class="padding-left-15">
         <nav>
             <ul class="pagination col-md-10 margin-left-100">
+                
                 <div class="clearfix"></div>
                 <ul class="pager">
                     <li><a href="javascript:void(0);" id ="prevRes" >Previous</a></li>
@@ -88,38 +89,47 @@
             </ul>
         </nav>
     </div>
-    
+   
 <div class="col-md-12" style="width:99%;">
 <table class="table table-striped table-responsive">
-	<tr>
-		<td ><strong>#</strong></td>
-   		<td><strong>Transaction Type</strong></td>
-   		<td><strong>Amount</strong></td>
-      <td><strong>Binary</strong></td>
-      <td><strong>Referal</strong></td>
-      <td><strong>Single lag binary</strong></td>
-      <td><strong>Date</strong></td>
+  <tr>
+    <td ><strong>#</strong></td>
+      <td><strong>User</strong></td>
+      <td><strong>Amount</strong></td>
+      <td><strong>Created On</strong></td>
       <td><strong>Status</strong></td>
+      <td><strong>Action</strong></td>
+      <td><strong>Block/Reject</strong></td>
    </tr>
-	<?php foreach ( $NameArray as $key => $value) {
+  <?php foreach ( $NameArray as $key => $value) { 
         if(!empty($value['WithdrawalRequest']['id'])) { ?>
            <tr id="<?php echo 'list'.$key;?>" class='hidden'>
-           		<td><strong><?php echo $key;?></strong></td>
-              <?php if (!empty($value['WithdrawalRequest']['perticular'])) {
-                  echo '<td>Purchase</td>';
-               } else  if (!empty($UserArray['id']) && $value['WithdrawalRequest']['user_id'] ==$UserArray['id']){
-                  echo '<td>Withdraw</td>';
-                }?>
-              <td><?php echo $value['WithdrawalRequest']['amount'];?></td>
-              <td><?php echo $value['WithdrawalRequest']['binary'];?></td>
-              <td><?php echo $value['WithdrawalRequest']['referal'];?></td>
-              <td><?php echo $value['WithdrawalRequest']['single_lag'];?></td>
-           		<td><?php echo $value['WithdrawalRequest']['created'];?></td>
-              <?php if ($value['WithdrawalRequest']['status'] == 1 ) {
-                echo '<td class="text-success">Success</td>';
-              }else {
-                echo '<td class="text-danger">Panding</td>';
-              } ?>
+              <td><strong><?php echo $key;?></strong></td>
+              <td><?php echo $userList[$value['WithdrawalRequest']['user_id']];?></td>
+              <td><?php echo $value['WithdrawalRequest']['total'];?></td>
+              <td><?php echo $value['WithdrawalRequest']['created'];?></td>
+              <?php if ($value['WithdrawalRequest']['is_paid'] == 1 ) {
+                echo '<td class="text-success">Paid</td>';
+              } else if($value['WithdrawalRequest']['is_paid'] == 2){
+                echo '<td class="text-danger">Blocked/Rejected</td>';
+              } else if($value['WithdrawalRequest']['is_paid'] == 0){
+                echo '<td class="text-info">Pending</td>';
+              } else { echo "<td>Pending</td>";} 
+             
+              echo '<td>';
+              if($value['WithdrawalRequest']['is_paid'] != 1){ ?>
+              <a href="<?php echo ABSOLUTE_URL.'/admin/withdrawAction/paid/'.$value['WithdrawalRequest']['id'];?>">Mark Paid&nbsp;&nbsp;</a>
+              <?php } else{ echo 'Not Available'; }
+              echo '</td>';?>
+              
+              <?php if($value['WithdrawalRequest']['is_paid'] != 1 && $value['WithdrawalRequest']['is_paid'] != 2){ ?>
+                <td><a href="<?php echo ABSOLUTE_URL.'/admin/withdrawAction/Block/'.$value['WithdrawalRequest']['id'];?>">&nbsp;Block/Reject</a></td>
+              <?php } else if($value['WithdrawalRequest']['is_paid'] != 1 && $value['WithdrawalRequest']['is_paid'] == 2){ ?>
+                <td><a href="<?php echo ABSOLUTE_URL.'/admin/withdrawAction/unblock/'.$value['WithdrawalRequest']['id'];?>">&nbsp;UnBlock</a></td>
+              <?php } else{ echo '<td>Not Available</td>'; }?>
+              <td>
+                
+              </td>
            </tr>
         <?php $nbr = $key+1;
         } }
@@ -127,17 +137,14 @@
           $intpage = 10;
           ?>
 </table>
-<ul class="pager">
-    <li><a href="<?php echo ABSOLUTE_URL;?>/users/transactions">View All</a></li>
-  </ul>
+
 </div>
 <div id="myModal" class="modal">
   <span class="close">&times;</span>
   <img class="modal-content" id="img01">
   <div id="caption"></div>
 </div>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.25/moment.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.45/js/bootstrap-datetimepicker.min.js"></script>
+
 <script type="text/javascript">
 function getSearch(){
     var search_by = $("#search_by").val();
@@ -220,6 +227,6 @@ intpage = intpage -10;
 });
 
 </script>
-		</div>
+    </div>
 
 </body>

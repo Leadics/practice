@@ -35,7 +35,7 @@ class UsersController extends AppController {
  *
  * @var array
  */
-	public $uses = array('Country','State','City','User','Lead','Income','Shoping','Transaction');
+	public $uses = array('Country','State','City','User','Lead','Income','WithdrawalRequest','Shoping','Transaction');
 
 /**
  * Displays a view
@@ -51,6 +51,7 @@ class UsersController extends AppController {
         $this->set('country',$country);
 	}
     function login(){
+        $this->Session->write('order',array());
         $this->layout = "dash";
     }
     function logout(){
@@ -65,6 +66,7 @@ class UsersController extends AppController {
         $this->layout = "dash";
     }
     function logins() {
+        $this->Session->write('order',array());
         $this->autoRender = false;
         $this->layout = "";
         $login_detail = $this->User->find('first', array( 'conditions' => array('username' => $this->data['email'])));
@@ -275,33 +277,11 @@ class UsersController extends AppController {
     function dashboard(){
         $this->layout = "dashboard";
         $this->_checkLogin();
-        //$membership = $this->getMembership();
         $loginData = $this->User->find('all', array(
             'group' =>'package'
         ));
-
         $userData = $this->Session->read('User');
-        $incomes = $this->Income->find('all');
-        
-        //echo '<pre>';print_r($incomes);die;
-        $responce[0]['key'] = 'Total Active Users';
-        $responce[0]['val'] = $totalActiveUsers;
-        $responce[1]['key'] = 'Total Inactive Users';
-        $responce[1]['val'] = $blockedUsers;
-        $responce[2]['key'] = 'Total Unpaid Users';
-        $responce[2]['val'] = $inactiveUsers;
-        $responce[3]['key'] = 'Total Paid Users';
-        $responce[3]['val'] = $approvedUsers; 
-        $responce[4]['key'] = 'Total Topups';
-        $responce[4]['val'] = $totalHelps; 
-        $responce[6]['key'] = 'Total Used TopUps';
-        $responce[6]['val'] = $blockedHelp; 
-        $responce[7]['key'] = 'Total Available Top Ups';
-        $responce[7]['val'] = $availableHelp; 
-        $responce[8]['key'] = 'Total Revenew';
-        $responce[8]['val'] = $availableRevenew.'  Rs.';
         $this->set('summary',$responce);
-        $this->set('incomes',$incomes);
         $this->set('userData',$userData);
     }
     function getMembership(){
@@ -395,12 +375,20 @@ class UsersController extends AppController {
     function myTeamSide($side = null){
         $this->layout = 'dashboard';
         $userData = $this->Session->read('User');
-        $arr = json_decode(file_get_contents(ABSOLUTE_URL.'/team.php?username='.$userData['username']),true);
+        $data = $this->User->find('all',array('conditions' => array ('sponcer'=>$userData['username'])));
+        if ($side =='left') {
+            $arr = json_decode(file_get_contents(ABSOLUTE_URL.'/team.php?username='.$data[0]['User']['username']),true);
+            $arr = array_merge($data[0],$arr);
+        } else if($side == 'right') {
+            $arr = json_decode(file_get_contents(ABSOLUTE_URL.'/team.php?username='.$data[1]['User']['username']),true);
+            $arr = array_merge($data[1],$arr);
+        }
         $this->set('availablePin',$arr);
         $this->set('side',$side);
     }
     function buildOrder(){
         $this->layout = 'dashboard';
+        $this->Session->write('order',array());
         $id = $this->_checkLogin();
         if (!empty($this->data)) {
             if ($this->data['amount'] >=99 &&  $this->data['amount'] < 300) {
@@ -437,6 +425,10 @@ class UsersController extends AppController {
     function doPayments(){
         $this->layout = 'dashboard';
         $userData = $this->Session->read('User');
+        $keyword = explode(",", $keyword);
+        if (empty($userData['id'])) {
+            $this->redirect( array( 'controller' => 'pages', 'action' => 'home' ) );
+        }
         $keyword = $this->Session->read('order');
         $keyword['auth_string'] = md5(time('now').$userData['id']);
         if (empty($keyword['item'])) {
@@ -456,13 +448,14 @@ class UsersController extends AppController {
         $data['m_desc'] =  base64_encode($keyword['description']);
         $data['m_key'] = '8923317589';
         $data['arHash']  =  array($data['m_shop'],$data['m_orderid'],$data['m_amount'],$data['m_curr'],$data['m_desc']);
-        $data['arParams'] =   array('success_url'  =>   'https://www.coinigydex.com/success?auth='.$keyword['auth_string'].'&user_id='.$userData['id'].'&keyword='.$keyword['item'],'fail_url'  =>   'https://www.coinigydex.com/fail?auth='.$keyword['auth_string'].'&user_id='.$userData['id'].'&keyword='.$keyword['item'],'status_url'  =>   'https://www.coinigydex.com/status','reference' =>   array('user_id' =>   '1','auth' =>   '2','amount' =>   '3'));
+        $data['arParams'] =   array('success_url'  =>   ABSOLUTE_URL.'/success?auth='.$keyword['auth_string'].'&user_id='.$userData['id'].'&keyword='.$keyword['item'],'fail_url'  =>   ABSOLUTE_URL.'/fail?auth='.$keyword['auth_string'].'&user_id='.$userData['id'].'&keyword='.$keyword['item'],'status_url'  =>   ABSOLUTE_URL.'/status','reference' =>   array('user_id' =>   '1','auth' =>   '2','amount' =>'3'));
         $data['key']   =   md5('8923317589'.$data['m_orderid']);
         $data['m_params'] =   urlencode(base64_encode(openssl_encrypt(json_encode($data['arParams']),'AES-256-CBC', $data['key'],   OPENSSL_RAW_DATA)));
         $data['arHash'][] =   $data['m_params'];
         $data['arHash'][]  =   $data['m_key'];
         $data['sign']  =   strtoupper(hash('sha256', implode(':', $data['arHash'])));
         $this->set('data',$data);
+        $this->set('keyword',$keyword);
     }
     //////////////******  BITPAY*****////////////////////
     // function createKey(){
@@ -535,9 +528,113 @@ class UsersController extends AppController {
         $id = $this->_checkLogin();
         $this->layout = "dashboard";
         $userData = $this->Session->read('User');
-        $UserArray = $this->Transaction->find('all', array( 'conditions' => array('user_id' => $id)));
-        //echo '<pre>';print_r($UserArray);die;
+        $UserArray = $this->WithdrawalRequest->find('all', array( 'conditions' => array('user_id' => $id)));
         $this->set('UserArray',$userData);
         $this->set('NameArray', $UserArray);
+    }
+    function contactUs(){
+        $this->layout = "dash";
+        if ($this->data) {
+            $userId = $this->checkMemberShipEmail($this->data['email']);
+            if (!empty($userId)) {
+                $data['Lead']['is_registered'] = 1;
+                $data['Lead']['user_id'] = $userId;
+            }
+            $file = (isset($_FILES["File1"]) ? $_FILES["File1"] : 0);
+            $link = $this->moveFile($file);
+            $data['Lead'] = $this->data;
+            $data['Lead']['attachment'] = $link;
+            $this->Lead->save($data);
+            $message['name'] =  $this->data['name'];
+            $message['email'] =  $this->data['email'];
+            $m = $this->sendMail($message['email'], $message, "Thanks your for reaching us.", 'success','contact-us');
+            $this->Session->setFlash('<h2 class="well text-success">Thank you for your query we will get back to you shortly</h2>');
+            $this->redirect( array( 'controller' => 'pages', 'action' => 'dashboard' ) );
+        }
+    }
+    function setting(){
+        $this->layout = 'dashboard';
+        $country = $this->Country->find('all');
+        $this->set('country',$country);
+        $this->_checkLogin();
+    }
+    function editProfileSave(){
+        $this->autoRender = false;
+        $this->layout = null;
+        $id = $this->_checkLogin();
+        $data['User'] =  $this->Session->read('User');
+        $data['User']['name'] =  $this->data['name'];
+        $data['User']['id'] =  $id;
+        $data['User']['mobile'] =  $this->data['mobile'];
+        $data['UserBank']['bank_name'] =  $this->data['bank_name'];
+        $data['UserBank']['account_number'] =  $this->data['account_number'];
+        $data['UserBank']['act_name'] =  $this->data['act_name'];
+        $data['UserBank']['ifsc_code'] =  $this->data['ifsc_code'];
+        $data['UserBank']['branch'] =  $this->data['branch'];
+        $data['User']['state'] =  $this->data['state'];
+        $data['User']['city'] =  $this->data['city'];
+        $data['User']['country'] =  $this->data['country'];
+        $this->User->id=$id;
+        $this->User->save($data);
+        $data['UserBank']['user_id'] = $id;
+        $data['UserBank']['id'] = $this->data['bank_id'];
+        $this->UserBank->id = $this->data['bank_id'];
+        $this->UserBank->save($data);
+        $this->Session->write('User',$data['User']);
+        $this->Session->write('UserBank',$data['UserBank']);
+        $this->Session->setFlash('<h2 class="text-success">Profile Updated Successfully</h2>');
+        $this->redirect( array( 'controller' => 'users', 'action' => 'dashboard' ));
+    }
+    function wallet(){
+        $this->layout = 'dashboard';
+        $userData = $this->Session->read('User');
+        App::import('Controller', 'Crons');
+        $CronsController = new CronsController;
+        $binary = json_decode($CronsController->calculateBinary($userData['id']),true);
+        $referal = json_decode($CronsController->calculateReferals($userData['id']),true);
+        $singleLag = json_decode($CronsController->calculateSingleLag($userData['id']),true);
+        $roi = json_decode($CronsController->getRoi($userData['id']),true);
+        $data['binary'] = $binary['binary'];
+        $data['referal'] = $referal['referal'];
+        $data['singleLag'] = $singleLag['singlelag'];
+        $data['roi'] = $roi['roi'];
+        $this->set('data',$data);
+        $this->render('wallet');
+    }
+    function withdraw(){
+        $id = $this->_checkLogin();
+        if (!empty($this->data)) {
+            $data['user_id'] = $id;
+            $data['is_paid'] = 0;
+            $data['binary'] = $this->data['binary'];
+            $data['referal'] = $this->data['referal'];
+            $data['single_lag'] = $this->data['single_lag'];
+            $data['roi'] = $this->data['roi'];
+            $data['total'] = $this->data['total'];
+            $this->WithdrawalRequest->save($data);
+            $this->Session->setFlash('<h3 class="well text-success">Withdraw request submitted successfully</h3>');
+        }
+        $this->redirect( array( 'controller' => 'users', 'action' => 'dashboard'));
+    }
+    function passwordReset($id , $auth){
+        $this->layout = 'dashboard';
+        if (empty($auth) || empty($id)) {
+            $this->redirect( array( 'controller' => 'users', 'action' => 'logout' ) );
+        }
+        if ( $auth == 1) {
+           $id = $this->_checkLogin();
+        }else{
+            $this->redirect( array( 'controller' => 'users', 'action' => 'logout' ) );
+        }
+        $this->set('userId',$id);
+    }
+    function savePass(){
+        if (!empty($this->data)) {
+            $this->User->id = $this->data['user_id'];
+            $userData['User']['password'] =  md5($this->data['password']);
+            $this->User->save($userData);
+        }
+        $this->Session->setFlash('<h2 class="well text-success">Password reset successfully please login</h2>');
+        $this->redirect( array( 'controller' => 'users', 'action' => 'logout' ) );
     }
 }

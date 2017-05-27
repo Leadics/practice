@@ -47,7 +47,10 @@ class PagesController extends AppController {
  */
 	public function display() {
 		$path = func_get_args();
-
+		$userData = $this->Session->read('User');
+		if (!empty($userData['id'])) {
+			$this->redirect(ABSOLUTE_URL.'/users/dashboard');
+		}
 		$count = count($path);
 		if (!$count) {
 			return $this->redirect('/');
@@ -68,7 +71,7 @@ class PagesController extends AppController {
 		if (!empty($path[$count - 1])) {
 			$title_for_layout = Inflector::humanize($path[$count - 1]);
 		}
-		$this->set(compact('page', 'subpage', 'title_for_layout'));
+		$this->set(compact('page','userData', 'subpage', 'title_for_layout'));
 
 		try {
 			$this->render(implode('/', $path));
