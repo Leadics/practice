@@ -208,4 +208,15 @@ class CronsController extends AppController {
 		$rsp['roi']['amount'] = array_sum($incomes);
 		return json_encode($rsp);
 	}
+	function getMapData(){
+		$this->autoRender = false;
+        $this->layout = null;
+        $incomes = $this->City->find('list', array('fields' =>array('City.name'),'limit'=>120));
+        foreach ($incomes as $key => $value) {
+        	$rsp[$key]['states'] = $value;
+        	$rsp[$key]['registration'] = rand(1,109);
+        	$rsp[$key]['amount'] = rand(177,999);
+        }
+        return json_encode($rsp);
+	}
 }

@@ -1,346 +1,346 @@
-<?php
-/**
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @package       app.View.Layouts
- * @since         CakePHP(tm) v 0.10.0.1076
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
-
-$cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework');
-$cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
-?>
 <!DOCTYPE html>
-<html>
-
-<head>
+<html lang="en">
+  <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.js
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
+    <meta name="author" content="GeeksLabs">
+    <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
+    <link rel="shortcut icon" href="<?php echo ABSOLUTE_URL;?>/ang/img/favicon.png">
+
+    <title>Coin-dex</title>
+
+    <!-- Bootstrap CSS -->    
+    <link href="<?php echo ABSOLUTE_URL;?>/ang/css/bootstrap.min.css" rel="stylesheet">
+    <!-- bootstrap theme -->
+    <link href="<?php echo ABSOLUTE_URL;?>/ang/css/bootstrap-theme.css" rel="stylesheet">
+    <!--external css-->
+    <!-- font icon -->
+
+    <link href="<?php echo ABSOLUTE_URL;?>/ang/css/elegant-icons-style.css" rel="stylesheet" />
+    <link href="<?php echo ABSOLUTE_URL;?>/ang/css/font-awesome.min.css" rel="stylesheet" />    
+    <!-- full calendar css-->
+    <link href="<?php echo ABSOLUTE_URL;?>/ang/assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
+    <link href="<?php echo ABSOLUTE_URL;?>/ang/assets/fullcalendar/fullcalendar/fullcalendar.css" rel="stylesheet" />
+    <!-- easy pie chart-->
+    <link href="<?php echo ABSOLUTE_URL;?>/ang/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen"/>
+    <!-- owl carousel -->
+    <link rel="stylesheet" href="<?php echo ABSOLUTE_URL;?>/ang/css/owl.carousel.css" type="text/css">
+    <link href="<?php echo ABSOLUTE_URL;?>/ang/css/jquery-jvectormap-1.2.2.css" rel="stylesheet">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="<?php echo ABSOLUTE_URL;?>/ang/css/fullcalendar.css">
+    <link href="<?php echo ABSOLUTE_URL;?>/ang/css/widgets.css" rel="stylesheet">
+    <link href="<?php echo ABSOLUTE_URL;?>/ang/css/style.css" rel="stylesheet">
+    <link href="<?php echo ABSOLUTE_URL;?>/ang/css/style-responsive.css" rel="stylesheet" />
+    <link href="<?php echo ABSOLUTE_URL;?>/ang/css/xcharts.min.css" rel=" stylesheet"> 
+    <link href="<?php echo ABSOLUTE_URL;?>/ang/css/jquery-ui-1.10.4.min.css" rel="stylesheet">
+    <!-- =======================================================
+        Theme Name: NiceAdmin
+        Theme URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+        Author: BootstrapMade
+        Author URL: https://bootstrapmade.com
+    ======================================================= -->
+  </head>
+
+  <body>
+  <!-- container section start -->
+  <section id="container" class="">
+     
+      
+      <header class="header dark-bg">
+            <div class="toggle-nav">
+                <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i class="icon_menu"></i></div>
+            </div>
+
+            <!--logo start-->
+            <a href="<?php echo ABSOLUTE_URL;?>/ang/index.html" class="logo">Welcome <span class="lite">To Coin-dex</span></a>
+            <!--logo end-->
+
+            <div class="nav search-row" id="top_menu">
+                <!--  search form start -->
+                <ul class="nav top-menu">                    
+                    <li>
+                        <form class="navbar-form">
+                            <input class="form-control" placeholder="Search" type="text">
+                        </form>
+                    </li>                    
+                </ul>
+                <!--  search form end -->                
+            </div>
+
+            <div class="top-nav notification-row">                
+                <!-- notificatoin dropdown start-->
+                <ul class="nav pull-right top-menu">
+                    
+                    <!-- task notificatoin start -->
+                   
+                    <!-- task notificatoin end -->
+                    <!-- inbox notificatoin start-->
+                    <li id="mail_notificatoin_bar" class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="<?php echo ABSOLUTE_URL;?>/ang/#">
+                            <i class="icon-envelope-l"></i>
+                            <span class="badge bg-important">5</span>
+                        </a>
+                        <ul class="dropdown-menu extended inbox">
+                            <div class="notify-arrow notify-arrow-blue"></div>
+                            <li>
+                                <p class="blue">You have 5 new messages</p>
+                            </li>
+                            <li>
+                                <a href="<?php echo ABSOLUTE_URL;?>/ang/#">
+                                    <span class="photo"><img alt="avatar" src="<?php echo ABSOLUTE_URL;?>/ang/./img/avatar-mini.jpg"></span>
+                                    <span class="subject">
+                                    <span class="from">Greg  Martin</span>
+                                    <span class="time">1 min</span>
+                                    </span>
+                                    <span class="message">
+                                        I really like this admin panel.
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?php echo ABSOLUTE_URL;?>/ang/#">
+                                    <span class="photo"><img alt="avatar" src="<?php echo ABSOLUTE_URL;?>/ang/./img/avatar-mini2.jpg"></span>
+                                    <span class="subject">
+                                    <span class="from">Bob   Mckenzie</span>
+                                    <span class="time">5 mins</span>
+                                    </span>
+                                    <span class="message">
+                                     Hi, What is next project plan?
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?php echo ABSOLUTE_URL;?>/ang/#">
+                                    <span class="photo"><img alt="avatar" src="<?php echo ABSOLUTE_URL;?>/ang/./img/avatar-mini3.jpg"></span>
+                                    <span class="subject">
+                                    <span class="from">Phillip   Park</span>
+                                    <span class="time">2 hrs</span>
+                                    </span>
+                                    <span class="message">
+                                        I am like to buy this Admin Template.
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?php echo ABSOLUTE_URL;?>/ang/#">
+                                    <span class="photo"><img alt="avatar" src="<?php echo ABSOLUTE_URL;?>/ang/./img/avatar-mini4.jpg"></span>
+                                    <span class="subject">
+                                    <span class="from">Ray   Munoz</span>
+                                    <span class="time">1 day</span>
+                                    </span>
+                                    <span class="message">
+                                        Icon fonts are great.
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?php echo ABSOLUTE_URL;?>/ang/#">See all messages</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- inbox notificatoin end -->
+                    <!-- alert notification start-->
+                    <li id="alert_notificatoin_bar" class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="<?php echo ABSOLUTE_URL;?>/ang/#">
+
+                            <i class="icon-bell-l"></i>
+                            <span class="badge bg-important">7</span>
+                        </a>
+                        <ul class="dropdown-menu extended notification">
+                            <div class="notify-arrow notify-arrow-blue"></div>
+                            <li>
+                                <p class="blue">You have 4 new notifications</p>
+                            </li>
+                            <li>
+                                <a href="<?php echo ABSOLUTE_URL;?>/ang/#">
+                                    <span class="label label-primary"><i class="icon_profile"></i></span> 
+                                    Friend Request
+                                    <span class="small italic pull-right">5 mins</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?php echo ABSOLUTE_URL;?>/ang/#">
+                                    <span class="label label-warning"><i class="icon_pin"></i></span>  
+                                    John location.
+                                    <span class="small italic pull-right">50 mins</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?php echo ABSOLUTE_URL;?>/ang/#">
+                                    <span class="label label-danger"><i class="icon_book_alt"></i></span> 
+                                    Project 3 Completed.
+                                    <span class="small italic pull-right">1 hr</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?php echo ABSOLUTE_URL;?>/ang/#">
+                                    <span class="label label-success"><i class="icon_like"></i></span> 
+                                    Mick appreciated your work.
+                                    <span class="small italic pull-right"> Today</span>
+                                </a>
+                            </li>                            
+                            <li>
+                                <a href="<?php echo ABSOLUTE_URL;?>/ang/#">See all notifications</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- alert notification end-->
+                    <!-- user login dropdown start-->
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="<?php echo ABSOLUTE_URL;?>/ang/#">
+                            <span class="profile-ava">
+                                <img alt="" src="<?php echo ABSOLUTE_URL;?>/ang/img/avatar1_small.jpg">
+                            </span>
+                            <span class="username"><?php echo $userData['username'];?></span>
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu extended logout">
+                            <div class="log-arrow-up"></div>
+                            <li class="eborder-top">
+                                <a href="<?php echo ABSOLUTE_URL;?>/users/setting"><i class="icon_profile"></i> My Profile</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo ABSOLUTE_URL;?>/ang/#"><i class="icon_mail_alt"></i> My Inbox</a>
+                            </li>
+                            
+                            <li>
+                                <a href="<?php echo ABSOLUTE_URL;?>/ang/#"><i class="icon_chat_alt"></i> Chats</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo ABSOLUTE_URL;?>users/logout"><i class="icon_key_alt"></i> Log Out</a>
+                            </li>
+                            
+                        </ul>
+                    </li>
+                    <!-- user login dropdown end -->
+                </ul>
+                <!-- notificatoin dropdown end-->
+            </div>
+      </header>    
+           <aside>
+          <div id="sidebar"  class="nav-collapse ">
+              <!-- sidebar menu start-->
+              <ul class="sidebar-menu">                
+                  <li class="active">
+                      <a class="" href="<?php echo ABSOLUTE_URL;?>/ang/index.html">
+                          <i class="icon_house_alt"></i>
+                          <span>Dashboard</span>
+                      </a>
+                  </li>
+                  <li class="sub-menu">
+                      <a href="<?php echo ABSOLUTE_URL;?>/ang/javascript:;" class="">
+                          <i class="icon_document_alt"></i>
+                          <span>Forms</span>
+                          <span class="menu-arrow arrow_carrot-right"></span>
+                      </a>
+                      <ul class="sub">
+                          <li><a class="" href="<?php echo ABSOLUTE_URL;?>/ang/form_component.html">Form Elements</a></li>                          
+                          <li><a class="" href="<?php echo ABSOLUTE_URL;?>/ang/form_validation.html">Form Validation</a></li>
+                      </ul>
+                  </li>       
+                  <li class="sub-menu">
+                      <a href="<?php echo ABSOLUTE_URL;?>/ang/javascript:;" class="">
+                          <i class="icon_desktop"></i>
+                          <span>UI Fitures</span>
+                          <span class="menu-arrow arrow_carrot-right"></span>
+                      </a>
+                      <ul class="sub">
+                          <li><a class="" href="<?php echo ABSOLUTE_URL;?>/ang/general.html">Elements</a></li>
+                          <li><a class="" href="<?php echo ABSOLUTE_URL;?>/ang/buttons.html">Buttons</a></li>
+                          <li><a class="" href="<?php echo ABSOLUTE_URL;?>/ang/grids.html">Grids</a></li>
+                      </ul>
+                  </li>
+                  <li>
+                      <a class="" href="<?php echo ABSOLUTE_URL;?>/ang/widgets.html">
+                          <i class="icon_genius"></i>
+                          <span>Widgets</span>
+                      </a>
+                  </li>
+                  <li>                     
+                      <a class="" href="<?php echo ABSOLUTE_URL;?>/ang/chart-chartjs.html">
+                          <i class="icon_piechart"></i>
+                          <span>Charts</span>
+                          
+                      </a>
+                                         
+                  </li>
+                             
+                  <li class="sub-menu">
+                      <a href="<?php echo ABSOLUTE_URL;?>/ang/javascript:;" class="">
+                          <i class="icon_table"></i>
+                          <span>Tables</span>
+                          <span class="menu-arrow arrow_carrot-right"></span>
+                      </a>
+                      <ul class="sub">
+                          <li><a class="" href="<?php echo ABSOLUTE_URL;?>/ang/basic_table.html">Basic Table</a></li>
+                      </ul>
+                  </li>
+                  
+                  <li class="sub-menu">
+                      <a href="javascript:;" class="">
+                          <i class="icon_documents_alt"></i>
+                          <span>Pages</span>
+                          <span class="menu-arrow arrow_carrot-right"></span>
+                      </a>
+                      <ul class="sub">                          
+                          <li><a class="" href="<?php echo ABSOLUTE_URL;?>/users/profile">Profile</a></li>
+                          <li><a class="" href="<?php echo ABSOLUTE_URL;?>/ang/login.html"><span>Login Page</span></a></li>
+                          <li><a class="" href="<?php echo ABSOLUTE_URL;?>/ang/blank.html">Blank Page</a></li>
+                          <li><a class="" href="<?php echo ABSOLUTE_URL;?>/ang/404.html">404 Error</a></li>
+                      </ul>
+                  </li>
+                  
+              </ul>
+              <!-- sidebar menu end-->
+          </div>
+      </aside>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<!--<script src="<?php echo ABSOLUTE_URL;?>/ang/js/bootstrapValidator.js
+"></script>
+ <link  href="<?php echo ABSOLUTE_URL;?>/ang/css/bootstrapValidator.min.css"> -->
+<script src="<?php echo ABSOLUTE_URL;?>/ang/js/jquery-ui-1.10.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.js
 "></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
  <link  href="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css">
  <script src="<?php echo ABSOLUTE_URL;?>/js/bootstrap.min.js"  type="text/javascript"></script>
-    <link href="<?php echo ABSOLUTE_URL;?>/css/simple-sidebar.css" rel="stylesheet">
+<?php echo $this->fetch('content'); ?>
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-	<?php echo $this->Html->charset(); ?>
-	<title>
-	Coin-Desk
-	</title>
-	<?php
-		echo $this->Html->meta('icon');
-	?>
-</head>
-<style type="text/css">
-	<style type="text/css">
-                #container{
-        padding-left: 0px!important;
-		}
-        .container{
-                min-height:800px; margin-bottom:0px;
-                padding-left: 0px!important;
-               
-        }
-        .drop-shadow {
-        -webkit-box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5);
-        box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5);
-    }
-    .link{
-    	color:white!important;
-    	margin-left: 10%!important;
-    }
-    .nag-margin-42{margin-left: -42px!important;}
-</style>
-</style>
-<body>
-	<div id="container">
-
-		<div id="content">
-		<div id="wrapper">
-		<?php $userData =$this->Session->read('User'); ?>
-		    <!-- Sidebar -->
-		    <div id="sidebar-wrapper" class="hidden-xs">
-		        <ul class="sidebar-nav">
-		        	<img align="center" height="150" width="115" style="margin-left: 40px;margin-top: 10px;" src="<?php echo ABSOLUTE_URL;?>/img/user.png">
-		        	<li style="margin-left:5px; color:white;"><h4>Welcome&nbsp;<?php echo $userData['name'];?></h4></li> 
-		            <li class="sidebar-brand"></li>
-		            <li>
-		            	<h4 style="margin-top: 20px;"><a class="link" href="<?php echo ABSOLUTE_URL;?>/users/dashboard">Home</a></h4>
-		            </li>
-		           
-                  <li>
-                      <h4 style="margin-top: 20px;"><a class="link" href="<?php echo ABSOLUTE_URL;?>/users/transactions">History</a></h4>
-                  </li>
-                  <li>
-                      <h4 style="margin-top: 20px;"><a class="link" href="<?php echo ABSOLUTE_URL;?>/users/contactUs">Contact Us</a></h4>
-                  </li>
-                  <li>
-                      <h4 style="margin-top: 20px;"><a class="link" href="<?php echo ABSOLUTE_URL;?>/users/setting">Edit Profile</a></h4>
-                  </li>
-                  <li>
-                      <h4 style="margin-top: 20px;"><a class="link" href="<?php echo ABSOLUTE_URL;?>/users/buildOrder">Buy a package</a></h4>
-                  </li>
-                   <li class="dropdown ">
-                       <a href="#" class="dropdown-toggle font-14 link" style="font-size:19px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Team<span class="caret"></span></a>
-                       <ul class="dropdown-menu">
-                      <li><a  href="<?php echo ABSOLUTE_URL;?>/users/myTeamSide/left">Left Side</a>
-                    <li><a href="<?php echo ABSOLUTE_URL;?>/users/myTeamSide/right">Right Side</a></li> 
-                     <li><a href="<?php echo ABSOLUTE_URL;?>/users/myTeam">Genealogy</a></li> 
-                      </ul>
-                      </li> 
-			            <li>
-                      <h4 ><a class="link" href="<?php echo ABSOLUTE_URL;?>/users/wallet">My Wallet</a></h4>
-                  </li>
-                  <li>
-                  <li>
-                      <h4 style="margin-top: 20px;"><a class="link" href="<?php echo ABSOLUTE_URL;?>/users/passwordReset/<?php echo $userData['id'];?>/1">Change Password</a></h4>
-                  </li>
-                  <li>
-                      <h4 style="margin-top: 20px;"><a class="link" href="<?php echo ABSOLUTE_URL;?>/users/logout">Logout</a></h4>
-                  </li>
-		        </ul>
-		    </div>
-            <nav class="navbar col-xs-12 col-md-3 navbar-default navbar-custom visible-xs " style="background-color: #000000; ">
-                <div class="container-fluid">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header page-scroll">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                            <span class="sr-only">Toggle navigation</span>
-                            Menu <i class="fa fa-bars"></i>
-                        </button>
-                        <a class="navbar-brand" href="<?php echo ABSOLUTE_URL;?>"><?php echo strtoupper(COMPANY_NAME);?></a>
-                    </div>
-
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav navbar-right">
-                      <?php if (empty($userInfo['id'])) { ?>
-                         <li>
-                            <a href="<?php echo ABSOLUTE_URL;?>/users/registration">Register</a>
-                        </li>
-                        <li>
-                          <a data-toggle="modal" href="#login">Login</a>
-                      </li>
-                      <li>
-                          <a href="<?php echo ABSOLUTE_URL;?>">Home</a>
-                      </li>
-                      <?php } else { ?>
-                         <li>
-                              <h4 style="margin-top: 40px;"><a class="link" href="<?php echo ABSOLUTE_URL;?>/pages/dashboard">Home</a></h4>
-                            </li>
-                           
-                              <li>
-                                  <h4 style="margin-top: 20px;"><a class="link" href="<?php echo ABSOLUTE_URL;?>/users/transactions">History</a></h4>
-                              </li>
-                              <li>
-                                  <h4 style="margin-top: 20px;"><a class="link" href="<?php echo ABSOLUTE_URL;?>/users/contactUs">Contact Us</a></h4>
-                              </li>
-                              <li>
-                                  <h4 style="margin-top: 20px;"><a class="link" href="<?php echo ABSOLUTE_URL;?>/users/setting">Edit Profile</a></h4>
-                              </li>
-                              <li>
-                                <h4 style="margin-top: 20px;"><a class="link" href="<?php echo ABSOLUTE_URL;?>/users/buildOrder">Buy a package</a></h4>
-                              </li>
-                               <li class="dropdown ">
-                                   <a href="#" class="dropdown-toggle font-14 link" style="font-size:19px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Team<span class="caret"></span></a>
-                                   <ul class="dropdown-menu">
-                                  <li><a  href="<?php echo ABSOLUTE_URL;?>/users/myTeamSide/left">Left Side</a>
-                                <li><a href="<?php echo ABSOLUTE_URL;?>/users/myTeamSide/right">Right Side</a></li> 
-                                 <li><a href="<?php echo ABSOLUTE_URL;?>/users/myTeam">Genealogy</a></li> 
-                                  </ul>
-                                  </li> 
-                              <li>
-                                  <h4 style="margin-top: 20px;"><a class="link" href="<?php echo ABSOLUTE_URL;?>/users/testimony">Add a Testimonial</a></h4>
-                              </li>
-                              <li>
-                                <h4 style="margin-top: 20px;"><a  href="<?php echo ABSOLUTE_URL;?>/users/wallet">My Wallet</a></h4>
-                            </li>
-                              <li>
-                              <li>
-                                  <h4 style="margin-top: 20px;"><a class="link" href="<?php echo ABSOLUTE_URL;?>/users/passwordReset/<?php echo $userData['id'];?>/1">Change Password</a></h4>
-                              </li>
-                              <li>
-                                  <h4 style="margin-top: 20px;"><a class="link" href="<?php echo ABSOLUTE_URL;?>/users/logout">Logout</a></h4>
-                              </li>
-                        <?php } ?>
-                        </ul>
-                    </div>
-                    <!-- /.navbar-collapse -->
-                </div>
-                <!-- /.container -->
-            </nav>
     
-		    <div class="pull-left"><a href="#menu-toggle" style="position: absolute;z-index: 999999;"  class="btn btn-default hidden-xs nag-margin-42" id="menu-toggle"><span class="glyphicon glyphicon-menu-hamburger"></span></a></div>
-		    <div class="clearfix"></div>
-        <div id="flash">
-          <?php echo $this->Session->flash(); ?>
-        </div>
-        
-			<?php echo $this->fetch('content'); ?>
-        <?php echo $this->element('bankForm'); ?>
-			</div>
-		</div>
-
-		<div id="footer">
-		
-		</div>
-	</div>
-
-	<?php echo $this->element('sql_dump'); ?>
-</body>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.js
-"></script>
- <link  href="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css">
-<script type="text/javascript">
-  	$("#menu-toggle").click(function(e) {
-  	    e.preventDefault();
-  	    $("#wrapper").toggleClass("toggled");
-        if ($("#wrapper").hasClass('toggled')) {
-            $("#menu-toggle").removeClass('nag-margin-42');
-        } else{
-            $("#menu-toggle").addClass('nag-margin-42');
-        }
-  	});
-    $("#mobile-menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#mobile-wrapper").toggleClass("toggled");
-    });
-	$(document).ready(function(){
-		$("#flash").removeClass('hidden').show();
-		setTimeout(function() {
-	        $("#flash").addClass('hidden').hide();
-	    }, 5000);
-	});
-	function deleteFunction(id , model){
-		var confirmed = confirm('Do you really want to do this?');
-		if(confirmed) {
-		    $.ajax({
-		        dataType: "JSON",
-		        url: "<?php echo ABSOLUTE_URL ;?>/pages/delete/"+id+"/"+model,
-		        type: "POST",
-		        success: function(res) {
-		            alert("success");
-		            location.reload();
-		        }
-		    });
-		}
-	}
-	function getConfirmed(){
-		var confirmed = confirm('Do you really want to do this?');
-		if (confirmed) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-</script>
-  <script type="text/javascript">
-  $(document).ready(function () {
-        ABSOLUTE_URL = "<?php echo ABSOLUTE_URL;?>";     
-        $("#bkForm").bootstrapValidator({
-            live: false,
-            trigger: 'blur',
-            fields: {
-                "bankName": {
-                    validators: {
-                        notEmpty: {
-                            enabled: true,
-                            message: "Please enter your Bank name"
-                        },
-                        stringLength: {
-                            enabled: true,
-                            min: 1,
-                            max: 40,
-                            message: 'Please enter your Bank name'
-                        }
-                    }
-                },
-                "accountNumber": {
-                    message: "Please enter your bank account number",
-                    validators: {
-                        notEmpty: {
-                            enabled: true,
-                            message: 'Please enter your bank account number',
-                        },
-                        callback: {
-                            message: 'Please enter valid bank account number',
-                            callback: function (value, validator, $field) {
-                                
-                                if (value === '') {
-                                    return(true);
-                                }
-                                if(isNaN(value)){
-                                    return(false);
-                                 }else{
-                                    return(true);
-                                 }
-                                return {
-                                    valid: false,
-                                    message: 'Please enter valid bank account number'
-                                };
-                            }
-                        }
-                    }
-                },
-                "actName": {
-                    validators: {
-                        notEmpty: {
-                            enabled: true,
-                            message: "Please enter your Bank account name"
-                        },
-                        stringLength: {
-                            enabled: true,
-                            min: 1,
-                            max: 40,
-                            message: 'Please enter your Bank account name'
-                        }
-                    }
-                }
-              }
-            }).on('success.form.bv', function(e) {
-                    
-                    // Prevent form submission
-                    e.preventDefault();
-                    bankDetailSubmit();
-                });
-          });
-      function bankDetailSubmit() {
-        $.ajax({
-            url:'<?php echo ABSOLUTE_URL;?>/users/saveBankDetails/',
-            method:'post',
-            data:  $('#bkForm').serialize(),
-            success: function (data) {
-                alert("Your request submitted successfully");
-            },
-            error: function (){
-                alert('Something went wrong..');
-            }
-        });
-        window.location.href = "<?php echo ABSOLUTE_URL;?>/pages/dashboard";
-    }
-    $(document).ready(function(){
-    $("#flash").removeClass('hidden').show();
-    setTimeout(function() {
-          $("#flash").addClass('hidden').hide();
-      }, 3000);
-  });
-  </script>
-</html>
-
+    <script type="text/javascript" src="<?php echo ABSOLUTE_URL;?>/ang/js/jquery-ui-1.9.2.custom.min.js"></script>
+    <!-- bootstrap -->
+    <script src="<?php echo ABSOLUTE_URL;?>/ang/js/bootstrap.min.js"></script>
+    <!-- nice scroll -->
+    <script src="<?php echo ABSOLUTE_URL;?>/ang/js/jquery.scrollTo.min.js"></script>
+    <script src="<?php echo ABSOLUTE_URL;?>/ang/js/jquery.nicescroll.js" type="text/javascript"></script>
+    <!-- charts scripts -->
+    <script src="<?php echo ABSOLUTE_URL;?>/ang/assets/jquery-knob/js/jquery.knob.js"></script>
+    <script src="<?php echo ABSOLUTE_URL;?>/ang/js/jquery.sparkline.js" type="text/javascript"></script>
+    <script src="<?php echo ABSOLUTE_URL;?>/ang/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js"></script>
+    <script src="<?php echo ABSOLUTE_URL;?>/ang/js/owl.carousel.js" ></script>
+    <!-- jQuery full calendar -->
+    <<script src="<?php echo ABSOLUTE_URL;?>/ang/js/fullcalendar.min.js"></script> <!-- Full Google Calendar - Calendar -->
+    <script src="<?php echo ABSOLUTE_URL;?>/ang/assets/fullcalendar/fullcalendar/fullcalendar.js"></script>
+    <!--script for this page only-->
+    <script src="<?php echo ABSOLUTE_URL;?>/ang/js/calendar-custom.js"></script>
+    <script src="<?php echo ABSOLUTE_URL;?>/ang/js/jquery.rateit.min.js"></script>
+    <!-- custom select -->
+    <script src="<?php echo ABSOLUTE_URL;?>/ang/js/jquery.customSelect.min.js" ></script>
+    <script src="<?php echo ABSOLUTE_URL;?>/ang/assets/chart-master/Chart.js"></script>
+   
+    <!--custome script for all page-->
+    <script src="<?php echo ABSOLUTE_URL;?>/ang/js/scripts.js"></script>
+    <!-- custom script for this page-->
+    <script src="<?php echo ABSOLUTE_URL;?>/ang/js/sparkline-chart.js"></script>
+    <script src="<?php echo ABSOLUTE_URL;?>/ang/js/easy-pie-chart.js"></script>
+    <script src="<?php echo ABSOLUTE_URL;?>/ang/js/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="<?php echo ABSOLUTE_URL;?>/ang/js/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="<?php echo ABSOLUTE_URL;?>/ang/js/xcharts.min.js"></script>
+    <script src="<?php echo ABSOLUTE_URL;?>/ang/js/jquery.autosize.min.js"></script>
+    <script src="<?php echo ABSOLUTE_URL;?>/ang/js/jquery.placeholder.min.js"></script>
+    <script src="<?php echo ABSOLUTE_URL;?>/ang/js/gdp-data.js"></script>  
+    <script src="<?php echo ABSOLUTE_URL;?>/ang/js/morris.min.js"></script>
+    <script src="<?php echo ABSOLUTE_URL;?>/ang/js/sparklines.js"></script>    
+    <script src="<?php echo ABSOLUTE_URL;?>/ang/js/charts.js"></script>
+    <script src="<?php echo ABSOLUTE_URL;?>/ang/js/jquery.slimscroll.min.js"></script>

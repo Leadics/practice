@@ -93,12 +93,19 @@ class ShopingCartController extends AppController {
 		        ));
 		        $d['shoping_id'] = $lData['Shoping']['item'];
 		        $this->Transaction->save($d);
+		        $userData = $this->Session->read('User');
+		        $userData['payment'] = 1;
+		        $userData['status'] = 1;
+		        $this->Session->write('User',$userData);
 			}
 		} else {
 			$authentication = $this->Shoping->find('first',array('conditions' => array ('id'=>$data['m_orderid'])));
-			$this->User->updateAll(array("package_money"=>$data['m_amount'],'package' =>$data['keyword'],'payment'=>1),array("id"=>$data['user_id']));
+			$this->User->id = $data['user_id'];
+			$l['package_money'] = $data['m_amount'];
+			$l['package'] = $data['keyword'];
+			$this->User->save($l);
 			if (!empty($data['auth']) && $data['auth'] == $authentication['Shoping']['auth_string']) {
-				$this->Shoping->updateAll(array("status"=>1),array("order_id"=>$data['m_orderid']));
+				$this->Shoping->updateAll(array("status"=>1),array("id"=>$data['m_orderid']));
 				$d['user_id'] = $data['user_id'];
 				$d['amount'] = $data['m_amount'];
 				$d['shoping_id'] = $data['m_orderid'];
@@ -108,15 +115,19 @@ class ShopingCartController extends AppController {
 		        ));
 		        $d['shoping_id'] = $lData['Shoping']['item'];
 		        $this->Transaction->save($d);
+		        $userData = $this->Session->read('User');
+		        $userData['package_money'] = $data['m_amount'];
+		        $this->Session->write('User',$userData);
 			}
 		}
+		$this->Session->setFlash('<h2 class="well text-success">Thank you ! transaction successfull</h2>');
 		$this->redirect( array( 'controller' => 'users', 'action' => 'dashboard' ));
 	}
 	function paymentCanceled(){
 		$this->autoRender = false;
         $this->layout = "";
         $userInfo = $this->Session->read('User');
-		$this->redirect( array( 'controller' => 'users', 'action' => 'doPayments' ));
+		$this->redirect( array( 'controller' => 'users', 'action' => 'logout' ));
 	}
 	function status(){
 		$this->redirect( array( 'controller' => 'users', 'action' => 'dashboard' ));

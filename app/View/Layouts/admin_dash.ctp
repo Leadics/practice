@@ -111,7 +111,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                       <h4 style="margin-top: 20px;"><a class="link" href="<?php echo ABSOLUTE_URL;?>/admin/approveUserEmails">Approve User Email</a></h4>
                   </li>                  
                   <li>
-                      <h4 style="margin-top: 20px;"><a class="link" href="<?php echo ABSOLUTE_URL;?>/pages/logout">Logout</a></h4>
+                      <h4 style="margin-top: 20px;"><a class="link" href="<?php echo ABSOLUTE_URL;?>/users/logout">Logout</a></h4>
                   </li>
             </ul>
         </div>
@@ -161,7 +161,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                                 <h4><a class="link" href="<?php echo ABSOLUTE_URL;?>/admin/approveUserEmails">Approve User Email</a></h4>
                             </li>                  
                             <li>
-                                <h4><a class="link" href="<?php echo ABSOLUTE_URL;?>/pages/logout">Logout</a></h4>
+                                <h4><a class="link" href="<?php echo ABSOLUTE_URL;?>/users/logout">Logout</a></h4>
                             </li>
                         </ul>
                     </div>

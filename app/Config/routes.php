@@ -33,7 +33,7 @@
 	Router::connect('/success', array('controller' => 'ShopingCart', 'action' => 'paymentRecienved'));
 	Router::connect('/fail', array('controller' => 'ShopingCart', 'action' => 'paymentCanceled'));
 	Router::connect('/status', array('controller' => 'ShopingCart', 'action' => 'status'));
-
+	Router::connect('/logout', array('controller' => 'users', 'action' => 'logout'));
 
 /**
  * Load all plugin routes. See the CakePlugin documentation on

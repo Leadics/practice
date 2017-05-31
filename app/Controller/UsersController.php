@@ -56,6 +56,7 @@ class UsersController extends AppController {
     }
     function logout(){
         $this->Session->delete('User');
+        $this->Session->delete('order');
         $this->Session->destroy();
         $this->redirect( '/' );
     }
@@ -64,6 +65,9 @@ class UsersController extends AppController {
     }
     function packages(){
         $this->layout = "dash";
+    }
+    function profile(){
+        $this->layout = "dashboard";
     }
     function logins() {
         $this->Session->write('order',array());
@@ -283,6 +287,29 @@ class UsersController extends AppController {
         $userData = $this->Session->read('User');
         $this->set('summary',$responce);
         $this->set('userData',$userData);
+        $CountryData = $this->Session->read('CountryData');
+        if (!$CountryData[0]) {
+            for ($i=0; $i < 9; $i++) { 
+                $CountryData[$i]['users']= rand(99,500);
+                $CountryData[$i]['amount']= rand(10000,100000);
+                $CountryData[$i]['avg']= ($CountryData[$i]['amount']%$CountryData[$i]['users']);
+                if ($CountryData[$i]['avg']> 100) {
+                    $CountryData[$i]['avg'] = $CountryData[$i]['avg']/5;
+                }
+            }
+        } else {
+            for ($i=0; $i < 9; $i++) { 
+                $CountryData[$i]['users']= $CountryData[$i]['users'] + rand(1,9);
+                $CountryData[$i]['amount']= $CountryData[$i]['amount'] + rand(400,9000);
+                $CountryData[$i]['avg']= ($CountryData[$i]['amount']%$CountryData[$i]['users']);
+                if ($CountryData[$i]['avg']> 100) {
+                    $CountryData[$i]['avg'] = $CountryData[$i]['avg']/5;
+                }
+            }
+        }
+        //echo '<pre>';print_r($CountryData);die;
+        $this->Session->write('CountryData',$CountryData);
+        $this->set('CountryData',$CountryData);
     }
     function getMembership(){
         $userData = $this->Session->read('User');
@@ -410,6 +437,7 @@ class UsersController extends AppController {
             $keyword['price'] = $this->data['amount'];
             $keyword['status'] = 0;
             $keyword['description'] = "Buying ".$item." plan";
+            $keyword['auth_string'] = md5(time('now').$id);
             $this->Shoping->save($keyword);
             $keyword['order_id'] = $this->Shoping->getLastInsertID();
             if (!empty($keyword['order_id'])) {
@@ -448,7 +476,7 @@ class UsersController extends AppController {
         $data['m_desc'] =  base64_encode($keyword['description']);
         $data['m_key'] = '8923317589';
         $data['arHash']  =  array($data['m_shop'],$data['m_orderid'],$data['m_amount'],$data['m_curr'],$data['m_desc']);
-        $data['arParams'] =   array('success_url'  =>   ABSOLUTE_URL.'/success?auth='.$keyword['auth_string'].'&user_id='.$userData['id'].'&keyword='.$keyword['item'],'fail_url'  =>   ABSOLUTE_URL.'/fail?auth='.$keyword['auth_string'].'&user_id='.$userData['id'].'&keyword='.$keyword['item'],'status_url'  =>   ABSOLUTE_URL.'/status','reference' =>   array('user_id' =>   '1','auth' =>   '2','amount' =>'3'));
+        $data['arParams'] =   array('success_url'  =>   ABSOLUTE_URL.'/success?auth='.$keyword['auth_string'].'&user_id='.$userData['id'].'&keyword='.$keyword['item'],'fail_url'  =>   ABSOLUTE_URL.'/fail?user_id='.$userData['id'].'&keyword='.$keyword['item'],'status_url'  =>   ABSOLUTE_URL.'/status','reference' =>   array('user_id' =>   '1','auth' =>   '2','amount' =>'3'));
         $data['key']   =   md5('8923317589'.$data['m_orderid']);
         $data['m_params'] =   urlencode(base64_encode(openssl_encrypt(json_encode($data['arParams']),'AES-256-CBC', $data['key'],   OPENSSL_RAW_DATA)));
         $data['arHash'][] =   $data['m_params'];

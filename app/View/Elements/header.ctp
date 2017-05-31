@@ -10,14 +10,22 @@
         
      <nav id="nav-menu-container">
         <ul class="nav-menu">
-          <li class="menu-active"><a href="<?php echo ABSOLUTE_URL;?>/pages/home">Home</a></li>
+          <?php if (!empty($userInfo['id'])) {?>
+              <li class="menu-active"><a href="<?php echo ABSOLUTE_URL;?>/users/dashboard">Home</a></li>
+          <?php } else{ ?>
+              <li class="menu-active"><a href="<?php echo ABSOLUTE_URL;?>/pages/home">Home</a></li>
+          <?php } ?>
           <li><a href="<?php echo ABSOLUTE_URL;?>/pages/home#about">About Us</a></li>
           <li><a href="<?php echo ABSOLUTE_URL;?>/pages/home#services">Services</a></li>
           <li><a href="<?php echo ABSOLUTE_URL;?>/pages/home#portfolio">Portfolio</a></li>
           <li><a href="<?php echo ABSOLUTE_URL;?>/pages/home#testimonials">Testimonials</a></li>
           <li><a href="<?php echo ABSOLUTE_URL;?>/pages/home#team">Team</a></li>
           <li><a href="<?php echo ABSOLUTE_URL;?>/users/register">Register</a></li>
-          <li><a href="<?php echo ABSOLUTE_URL;?>/users/login">Log In</a></li>
+          <?php if (!empty($userInfo['id'])) {?>
+              <li class="menu-active"><a href="<?php echo ABSOLUTE_URL;?>/users/logout">Logout</a></li>
+          <?php }else{ ?>
+              <li><a href="<?php echo ABSOLUTE_URL;?>/users/login">Log In</a></li>
+          <?php } ?>
           <li class="menu-has-children"><a href="javascript:void(0);">Trading</a>
             <ul>
               <li><a href="<?php echo ABSOLUTE_URL;?>/users/whatIsBitcoin">What is BitCoin</a></li>

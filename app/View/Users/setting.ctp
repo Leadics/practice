@@ -1,92 +1,114 @@
-<style type="text/css">
-  .text-bold{color:#000000 ;}
-</style>
-
-
-<div class="intro-header ">
-    <div class="container ">
-    <div class="row " >
-        <div class=" col-md-8 col-md-offset-2 drop-shadow"  style="margin-top: 15px;margin-bottom: 15px;">
-            <div>
-                <h3 >Update Your Profile</h3>
-            </div>
-            <div class="">
-                <form id="editProfileForm" method="POST" action="<?php echo ABSOLUTE_URL;?>/users/editProfileSave" data-toggle="validator" >
-                    <div class="form-group control-group controls col-xs-12">
-                        <label for="Name" class="control-label">Full Name</label>
-                        <input type="text" value="<?php echo $userInfo['name'];?>" class="form-control" id="name" name="name" title="Please enter your password">
-                        <span class="help-block"></span>
-                    </div>
-                    <div class="form-group control-group controls col-xs-12">
-                        <label for="mobile" class="control-label">mobile</label>
-                        <input type="text" maxlength="10"  minlength="10" value="<?php echo $userInfo['mobile'];?>" class="form-control" id="mobile" name="mobile" title="Please enter your mobile number">
-                        <span class="help-block"></span>
-                    </div>
-                    <div class="form-group control-group controls col-xs-12">
-                        <label for="bankName" class="control-label">Bank Name</label>
-                        <input type="text" value="<?php echo $UserBank['bank_name'];?>" class="form-control" id="bank_name" name="bank_name" title="Please enter your bank name">
-                        <span class="help-block"></span>
-                    </div>
-                    <div class="form-group control-group controls col-xs-12">
-                        <label for="accountNumber" class="control-label" >Account Number</label>
-                        <input type="text" maxlength="20" value="<?php echo $UserBank['account_number'];?>" class="form-control" id="account_number" name="account_number" title="Please enter you account number" required="">
-                        <span class="help-block"></span>
-                    </div>
-                    <div class="form-group control-group controls col-xs-12">
-                        <label for="age" class="control-label">IFSC Code</label>
-                        <input type="text" value="<?php echo $UserBank['ifsc'];?>" class="form-control" id="ifsc_code" name="ifsc_code" required="" title="Please enter your location">
-                        <span class="help-block"></span>
-                    </div>
-                    <div class="form-group control-group controls col-xs-12">
-                        <label for="age" class="control-label">Branch</label>
-                        <input type="text" value="<?php echo $UserBank['branch'];?>" class="form-control" id="branch" name="branch" required="" title="Please enter your location">
-                        <span class="help-block"></span>
-                    </div>
-                    <div class="form-group control-group controls col-xs-12">
-                        <label for="ifsc" class="control-label">Account Name</label>
-                        <input  class="form-control" value="<?php echo $UserBank['act_name'];?>" id="act_name" name="act_name" title="Please enter your account name">
-                         <input  class="form-control hidden" hidden value="<?php echo $UserBank['id'];?>" id="bank_id" name="bank_id" title="Please enter your account name">
-                        <span class="help-block"></span>
-                    </div>
-                    <div class="form-group control-group controls col-xs-12">
-                        <label for="type_of_employment" class="control-label">Country</label>
-                        
-                        <select value="<?php echo $userInfo['country'];?>" onchange="getAjax(this.id,'state');" class="form-control" id="country" name="country"  title="Please enter your country">
-                            <option value="">Please select your country</option>
-                            <?php foreach ($country as $key => $value) {?>
-                                <option value="<?php echo $value['Country']['id'];?>"><?php echo $value['Country']['name'];?></option>
-                            <?php } ?>
-                        </select>
-                        <span class="help-block"></span>
-                    </div>
-                    <div class="form-group control-group controls col-xs-12">
-                        <label for="type_of_employment" class="control-label">State</label>
-                        <select value="<?php echo $userInfo['state'];?>" onchange="getAjax(this.id,'city');" class="form-control" id="state" name="state"  title="Please enter your state">
-                            <option value="">Please select your state</option>
-                        </select>
-                        <span class="help-block"></span>
-                    </div>
-                    <div class="form-group control-group controls col-xs-12">
-                        <label for="type_of_employment" class="control-label">City</label>
-                        <select  value="<?php echo $userInfo['city'];?>" class="form-control" id="city" name="city"  title="Please enter your city">
-                            <option value="">Please select your city</option>
-                        </select>
-                        <span class="help-block"></span>
-                    </div>
-                   <div class="form-group control-group controls col-xs-12">
-                        <label for="type_of_employment" class="control-label">&nbsp;</label>
-                        <button type="submit" style="padding-top: 10px;padding-bottom: 10px; width:100%;" class="btn btn-primary btn-block">Update</button>
-                   </div>
-                </form>
-                <div class="form-group hidden control-group" id="feedback">
-                        <p id=feedbackblok class="control-label" ></p>
+<section id="main-content">
+    <section class="wrapper">
+        <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header"><i class="fa fa-files-o"></i> My Profile</h3>
+                    <ol class="breadcrumb">
+                        <li><i class="fa fa-home"></i><a href="<?php echo ABSOLUTE_URL;?>">Home</a></li>
+                        <li><i class="fa fa-files-o"></i>My Profile</li>
+                    </ol>
                 </div>
-            </div>
         </div>
-    </div>
-    </div>
-</div>
-<div class="clearfix"></div>
+        <div class="row">
+          <div class="col-lg-12">
+              <section class="panel">
+                  <header class="panel-heading">
+                     Update Your Profile
+                  </header>
+                  <div class="panel-body">
+                      <div class="form">
+                          <form class="form-validate form-horizontal " id="register_form" method="POST" action="<?php echo ABSOLUTE_URL;?>/users/editProfileSave" data-toggle="validator" >
+                              <div class="form-group ">
+                                  <label for="fullname" class="control-label col-lg-2">Name <span class="required">*</span></label>
+                                  <div class="col-lg-10">
+                                      <input class=" form-control" value="<?php echo $userInfo['name'];?>"  id="name" name="name" type="text" />
+                                  </div>
+                              </div>
+                              <div class="form-group ">
+                                  <label for="address" class="control-label col-lg-2">Mobile  <span class="required">*</span></label>
+                                  <div class="col-lg-10">
+                                      <input class=" form-control" value="<?php echo $userInfo['mobile'];?>" id="mobile" name="mobile" type="text" />
+                                  </div>
+                              </div>
+                              <div class="form-group ">
+                                  <label for="username" class="control-label col-lg-2">Bank <span class="required">*</span></label>
+                                  <div class="col-lg-10">
+                                      <input class="form-control " value="<?php echo $UserBank['bank_name'];?>"  id="bank_name" name="bank_name"  type="text" />
+                                  </div>
+                              </div>
+                              <div class="form-group ">
+                                    <label for="accountNumber"  class="control-label col-lg-2" >Account Number</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" maxlength="20" value="<?php echo $UserBank['account_number'];?>" class="form-control" id="account_number" name="account_number" title="Please enter you account number" required="">
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label for="age"  class="control-label col-lg-2">IFSC Code</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" value="<?php echo $UserBank['ifsc'];?>" class="form-control" id="ifsc_code" name="ifsc_code" required="" title="Please enter your location">
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label for="age"  class="control-label col-lg-2">Branch</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" value="<?php echo $UserBank['branch'];?>" class="form-control" id="branch" name="branch" required="" title="Please enter your location">
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label for="ifsc"  class="control-label col-lg-2">Account Name</label>
+                                    <div class="col-lg-10">
+                                        <input  class="form-control" value="<?php echo $UserBank['act_name'];?>" id="act_name" name="act_name" title="Please enter your account name">
+                                         <input  class="form-control hidden" hidden value="<?php echo $UserBank['id'];?>" id="bank_id" name="bank_id" title="Please enter your account name">
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label for="type_of_employment"  class="control-label col-lg-2">Country</label>
+                                    <div class="col-lg-10">
+                                        <select value="<?php echo $userInfo['country'];?>" onchange="getAjax(this.id,'state');" class="form-control" id="country" name="country"  title="Please enter your country">
+                                            <option value="">Please select your country</option>
+                                            <?php foreach ($country as $key => $value) {?>
+                                                <option value="<?php echo $value['Country']['id'];?>"><?php echo $value['Country']['name'];?></option>
+                                            <?php } ?>
+                                        </select>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label for="type_of_employment"  class="control-label col-lg-2">State</label>
+                                    <div class="col-lg-10">
+                                        <select value="<?php echo $userInfo['state'];?>" onchange="getAjax(this.id,'city');" class="form-control" id="state" name="state"  title="Please enter your state">
+                                            <option value="">Please select your state</option>
+                                        </select>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label for="type_of_employment"  class="control-label col-lg-2">City</label>
+                                    <div class="col-lg-10">
+                                        <select  value="<?php echo $userInfo['city'];?>" class="form-control" id="city" name="city"  title="Please enter your city">
+                                            <option value="">Please select your city</option>
+                                        </select>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                              <div class="form-group">
+                                  <div class="col-lg-offset-2 col-lg-10">
+                                      <button class="btn btn-primary" type="submit">Update</button>
+                                      <button class="btn btn-default" type="button">Cancel</button>
+                                  </div>
+                              </div>
+                          </form>
+                      </div>
+                  </div>
+              </section>
+          </div>
+        </div>
+    </section>
+</section>
 <script>
 function getAjax(id,attr){
     var val = $("#"+id).val();
