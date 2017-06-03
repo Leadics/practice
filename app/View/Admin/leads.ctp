@@ -72,9 +72,8 @@
   margin:0px;
 }
 </style>
-
-<body>
-	<div class="container">
+<section id="main-content">
+  <section class="wrapper"> 
 		<div class="row col-lg-12" >
     <h3 class="text-info text-center" style="margin-top:0px;"><strong>View Requests</strong></h3>
     <div class="padding-left-15">

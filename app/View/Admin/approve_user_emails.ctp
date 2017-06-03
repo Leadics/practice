@@ -1,7 +1,8 @@
 <style type="text/css">
   .text-bold{color:#000000 ;}
 </style>
-
+<section id="main-content">
+  <section class="wrapper"> 
         <div class=" col-md-12"  style="margin-top: 20px;">
             <div>
                 <h3 class="text-center" >Approve User Email</h3>

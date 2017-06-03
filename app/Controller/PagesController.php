@@ -49,7 +49,11 @@ class PagesController extends AppController {
 		$path = func_get_args();
 		$userData = $this->Session->read('User');
 		if (!empty($userData['id'])) {
-			$this->redirect(ABSOLUTE_URL.'/users/dashboard');
+			if ($userData['is_admin'] ==1) {
+				$this->redirect(ABSOLUTE_URL.'/admin/adminDashboard');
+			} else{
+				$this->redirect(ABSOLUTE_URL.'/users/dashboard');
+			}
 		}
 		$count = count($path);
 		if (!$count) {

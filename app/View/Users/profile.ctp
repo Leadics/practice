@@ -4,7 +4,7 @@
         <div class="col-lg-12">
           <h3 class="page-header"><i class="fa fa-user-md"></i> Profile</h3>
           <ol class="breadcrumb">
-            <li><i class="fa fa-home"></i><a href="index.html">Home</a></li>
+            <li><i class="fa fa-home"></i><a href="<?php echo ABSOLUTE_URL;?>">Home</a></li>
             <li><i class="icon_documents_alt"></i>Pages</li>
             <li><i class="fa fa-user-md"></i>Profile</li>
           </ol>
@@ -16,23 +16,25 @@
                     <div class="profile-widget profile-widget-info">
                           <div class="panel-body">
                             <div class="col-lg-2 col-sm-2">
-                              <h4>Jenifer Smith</h4>               
+                              <h4><?php echo $userInfo['name'];?></h4>               
                               <div class="follow-ava">
-                                  <img src="<?php echo ABSOLUTE_URL;?>/ang/img/profile-widget-avatar.jpg" alt="">
+                              <?php if (empty($userInfo['profile_pic'])) { ?>
+                                <img src="<?php echo ABSOLUTE_URL;?>/img/user-other.png" alt="">
+                              <?php } else {?>
+                                  <img src="<?php echo $userInfo['profile_pic'];?>" alt="">
+                              <?php } ?>
                               </div>
-                              <h6>Administrator</h6>
                             </div>
                             <div class="col-lg-4 col-sm-4 follow-info">
-                                <p>Hello I’m Jenifer Smith, a leading expert in interactive and creative design.</p>
-                                <p>@jenifersmith</p>
-                <p><i class="fa fa-twitter">jenifertweet</i></p>
+                                <p>@<?php echo $userInfo['username'];?></p>
+                <p><i class="fa fa-twitter"><?php echo $userInfo['username'];?></i></p>
                                 <h6>
-                                    <span><i class="icon_clock_alt"></i>11:05 AM</span>
-                                    <span><i class="icon_calendar"></i>25.10.13</span>
-                                    <span><i class="icon_pin_alt"></i>NY</span>
+                                    <span><i class="icon_clock_alt"></i><?php echo date('g:i A',strtotime($userInfo['created']));?> </span>
+                                    <span><i class="icon_calendar"></i><?php echo date('D M j G',strtotime($userInfo['created']));?></span>
+                                    <span><i class="icon_pin_alt"></i><?php echo $userInfo['country'];?></span>
                                 </h6>
                             </div>
-                            <div class="col-lg-2 col-sm-6 follow-info weather-category">
+          <!--                   <div class="col-lg-2 col-sm-6 follow-info weather-category">
                                       <ul>
                                           <li class="active">
                                               
@@ -64,7 +66,7 @@
                                           </li>
                        
                                       </ul>
-                            </div>
+                            </div> -->
                           </div>
                     </div>
                 </div>
@@ -96,101 +98,92 @@
                                   <div id="profile" class="tab-pane active">
                                     <section class="panel">
                                       <div class="bio-graph-heading">
-                                                Hello I’m Jenifer Smith, a leading expert in interactive and creative design specializing in the mobile medium. My graduation from Massey University with a Bachelor of Design majoring in visual communication.
+                                                <?php echo $userInfo['about_me'];?>
                                       </div>
                                       <div class="panel-body bio-graph-info">
                                           <h1>Bio Graph</h1>
                                           <div class="row">
                                               <div class="bio-row">
-                                                  <p><span>First Name </span>: Jenifer </p>
+                                                  <p><span> Name </span>: <?php echo $userInfo['name'];?> </p>
+                                              </div>                                             
+                                              <div class="bio-row">
+                                                  <p><span>Birthday</span>: <?php echo date('F j, Y',strtotime($userInfo['birthday']));?></p>
                                               </div>
                                               <div class="bio-row">
-                                                  <p><span>Last Name </span>: Smith</p>
-                                              </div>                                              
-                                              <div class="bio-row">
-                                                  <p><span>Birthday</span>: 27 August 1987</p>
+                                                  <p><span>Occupation </span>: <?php echo $userInfo['occupation'];?></p>
                                               </div>
                                               <div class="bio-row">
-                                                  <p><span>Country </span>: United</p>
+                                                  <p><span>Country </span>: <?php echo $userInfo['country'];?></p>
                                               </div>
                                               <div class="bio-row">
-                                                  <p><span>Occupation </span>: UI Designer</p>
+                                                  <p><span>Email </span>:<?php echo $userInfo['emailid'];?></p>
                                               </div>
                                               <div class="bio-row">
-                                                  <p><span>Email </span>:jenifer@mailname.com</p>
-                                              </div>
-                                              <div class="bio-row">
-                                                  <p><span>Mobile </span>: (+6283) 456 789</p>
-                                              </div>
-                                              <div class="bio-row">
-                                                  <p><span>Phone </span>:  (+021) 956 789123</p>
+                                                  <p><span>Mobile </span>: <?php echo $userInfo['mobile'];?></p>
                                               </div>
                                           </div>
                                       </div>
                                     </section>
-                                      <section>
-                                          <div class="row">                                              
-                                          </div>
-                                      </section>
                                   </div>
                                   <!-- edit-profile -->
                                   <div id="edit-profile" class="tab-pane">
                                     <section class="panel">                                          
                                           <div class="panel-body bio-graph-info">
                                               <h1> Profile Info</h1>
-                                              <form class="form-horizontal" role="form">                                                  
+                                              <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo ABSOLUTE_URL;?>/users/editProfileSave" method="post" role="form">                                                  
                                                   <div class="form-group">
-                                                      <label class="col-lg-2 control-label">First Name</label>
+                                                      <label class="col-lg-2 control-label">Name</label>
                                                       <div class="col-lg-6">
-                                                          <input type="text" class="form-control" id="f-name" placeholder=" ">
-                                                      </div>
-                                                  </div>
-                                                  <div class="form-group">
-                                                      <label class="col-lg-2 control-label">Last Name</label>
-                                                      <div class="col-lg-6">
-                                                          <input type="text" class="form-control" id="l-name" placeholder=" ">
+                                                          <input type="text" value="<?php echo $userInfo['name']; ?>" class="form-control" id="name" name="name" placeholder=" ">
                                                       </div>
                                                   </div>
                                                   <div class="form-group">
                                                       <label class="col-lg-2 control-label">About Me</label>
                                                       <div class="col-lg-10">
-                                                          <textarea name="" id="" class="form-control" cols="30" rows="5"></textarea>
+                                                          <textarea name="about_me" placeholder="<?php echo $userInfo['about_me']; ?>" id="about_me" class="form-control" cols="30" rows="5"></textarea>
                                                       </div>
                                                   </div>
                                                   <div class="form-group">
                                                       <label class="col-lg-2 control-label">Country</label>
                                                       <div class="col-lg-6">
-                                                          <input type="text" class="form-control" id="c-name" placeholder=" ">
+                                                          <input type="text" value="<?php echo $userInfo['country']; ?>" class="form-control" id="country" name="country" placeholder=" ">
                                                       </div>
                                                   </div>
                                                   <div class="form-group">
                                                       <label class="col-lg-2 control-label">Birthday</label>
                                                       <div class="col-lg-6">
-                                                          <input type="text" class="form-control" id="b-day" placeholder=" ">
+                                                          <input type="text" value="<?php echo $userInfo['birthday']; ?>" class="form-control" id="birthday" name="birthday" placeholder=" ">
                                                       </div>
                                                   </div>
                                                   <div class="form-group">
                                                       <label class="col-lg-2 control-label">Occupation</label>
                                                       <div class="col-lg-6">
-                                                          <input type="text" class="form-control" id="occupation" placeholder=" ">
+                                                          <input type="text" value="<?php echo $userInfo['occupation']; ?>" class="form-control" id="occupation" name="occupation" placeholder=" ">
                                                       </div>
                                                   </div>
                                                   <div class="form-group">
                                                       <label class="col-lg-2 control-label">Email</label>
                                                       <div class="col-lg-6">
-                                                          <input type="text" class="form-control" id="email" placeholder=" ">
+                                                          <input type="text" readonly="true" value="<?php echo $userInfo['emailid']; ?>" class="form-control" id="email" name="emailid" placeholder=" ">
                                                       </div>
                                                   </div>
                                                   <div class="form-group">
                                                       <label class="col-lg-2 control-label">Mobile</label>
                                                       <div class="col-lg-6">
-                                                          <input type="text" class="form-control" id="mobile" placeholder=" ">
+                                                          <input type="text" value="<?php echo $userInfo['mobile']; ?>"  class="form-control" id="mobile" name="mobile" placeholder=" ">
                                                       </div>
                                                   </div>
                                                   <div class="form-group">
+                                                      <label class="col-lg-2 control-label">Profile Pic</label>
+                                                      <div class="col-lg-6">
+                                                          <input type="file" value="<?php echo $userInfo['profile_pic']; ?>" class="form-control" id="profile_pic" name="profile_pic" >
+                                                      </div>
+                                                  </div>
+                                                  
+                                                  <div class="form-group">
                                                       <label class="col-lg-2 control-label">Website URL</label>
                                                       <div class="col-lg-6">
-                                                          <input type="text" class="form-control" id="url" placeholder="http://www.demowebsite.com ">
+                                                          <input type="text" value="<?php echo $userInfo['website']; ?>" class="form-control" id="website" name="website" placeholder="http://www.demowebsite.com ">
                                                       </div>
                                                   </div>
 

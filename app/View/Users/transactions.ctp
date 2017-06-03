@@ -1,132 +1,77 @@
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.45/css/bootstrap-datetimepicker.min.css" />
-<style type="text/css">
-	.margin-left-100{margin-left: 9% !important;}
-  .margin-top-30{margin-top: 30px !important;}
-	.form-group{margin-bottom: 5px !important;}
-	.control-label{text-align: left !important;}
-  img{max-width: 36%!important;}
-  .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
-}
-
-/* Modal Content (image) */
-.modal-content {
-    margin: auto;
-    display: block;
-    width: 80%;
-    max-width: 700px;
-}
-/* Add Animation */
-.modal-content, #caption {    
-    -webkit-animation-name: zoom;
-    -webkit-animation-duration: 0.6s;
-    animation-name: zoom;
-    animation-duration: 0.6s;
-}
-
-@-webkit-keyframes zoom {
-    from {-webkit-transform:scale(0)} 
-    to {-webkit-transform:scale(1)}
-}
-
-@keyframes zoom {
-    from {transform:scale(0)} 
-    to {transform:scale(1)}
-}
-
-/* The Close Button */
-.close {
-    position: absolute;
-    top: 15px;
-    right: 35px;
-    color: #f1f1f1;
-    font-size: 40px;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-.close:hover,
-.close:focus {
-    color: #bbb;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/* 100% Image Width on Smaller Screens */
-@media only screen and (max-width: 700px){
-    .modal-content {
-        width: 100%;
-    }
-}
-.pagination{
-  margin:0px;
-}
-</style>
-
-<body>
-	<div class="container" style=" font-size: 12px;">
-		<div class="row col-lg-12 well" >
-    <h3 class="text-info text-center"><strong>View all Transactions</strong></h3>
-    <div class="padding-left-15">
-        <nav>
-            <ul class="pagination col-md-10 margin-left-100">
-                <div class="clearfix"></div>
-                <ul class="pager">
-                    <li><a href="javascript:void(0);" id ="prevRes" >Previous</a></li>
-                    <li><a href="javascript:void(0);" id="nextRes">Next</a></li>
+    <section id="main-content">
+          <section class="wrapper">
+      <div class="row">
+        <div class="col-lg-12">
+          <h3 class="page-header"><i class="fa fa-table"></i> History</h3>
+          <ol class="breadcrumb">
+            <li><i class="fa fa-home"></i><a href="<?php echo ABSOLUTE_URL;?>">Home</a></li>
+            <li><i class="fa fa-table"></i>History</li>
+          </ol>
+        </div>
+      </div>
+    	<div class="container" style=" font-size: 12px;">
+    		<div class="row col-lg-12 well" >
+        <h3 class="text-info text-center"><strong>View all Transactions</strong></h3>
+        <div class="padding-left-15">
+            <nav>
+                <ul class="pagination col-md-10" style="margin-left:70px;">
+                    <div class="clearfix"></div>
+                    <ul class="pager">
+                        <li><a href="javascript:void(0);" id ="prevRes" >Previous</a></li>
+                        <li><a href="javascript:void(0);" id="nextRes">Next</a></li>
+                    </ul>
                 </ul>
-            </ul>
-        </nav>
-    </div>
-    
-<div class="col-md-12" style="width:99%;">
-<table class="table table-striped table-responsive">
-	<tr>
-		<td ><strong>#</strong></td>
-   		<td><strong>Transaction Type</strong></td>
-   		<td><strong>Amount</strong></td>
-      <td><strong>Binary</strong></td>
-      <td><strong>Referal</strong></td>
-      <td><strong>Single lag binary</strong></td>
-      <td><strong>Date</strong></td>
-      <td><strong>Status</strong></td>
-   </tr>
-	<?php foreach ( $NameArray as $key => $value) {
-        if(!empty($value['WithdrawalRequest']['id'])) { ?>
-           <tr id="<?php echo 'list'.$key;?>" class='hidden'>
-           		<td><strong><?php echo $key;?></strong></td>
-              <?php if (!empty($value['WithdrawalRequest']['perticular'])) {
-                  echo '<td>Purchase</td>';
-               } else  if (!empty($UserArray['id']) && $value['WithdrawalRequest']['user_id'] ==$UserArray['id']){
-                  echo '<td>Withdraw</td>';
-                }?>
-              <td><?php echo $value['WithdrawalRequest']['amount'];?></td>
-              <td><?php echo $value['WithdrawalRequest']['binary'];?></td>
-              <td><?php echo $value['WithdrawalRequest']['referal'];?></td>
-              <td><?php echo $value['WithdrawalRequest']['single_lag'];?></td>
-           		<td><?php echo $value['WithdrawalRequest']['created'];?></td>
-              <?php if ($value['WithdrawalRequest']['status'] == 1 ) {
-                echo '<td class="text-success">Success</td>';
-              }else {
-                echo '<td class="text-danger">Panding</td>';
-              } ?>
-           </tr>
-        <?php $nbr = $key+1;
-        } }
-          $cnt = count($NameArray);
-          $intpage = 10;
-          ?>
-</table>
+            </nav>
+        </div>
+      <div class="col-sm-12">
+          <section class="panel">
+              <header class="panel-heading">
+                  Transaction History
+              </header>
+              <table class="table table-striped">
+                  <thead>
+                  <tr>
+                      <td ><strong>#</strong></td>
+                      <td><strong>Transaction Type</strong></td>
+                      <td><strong>Amount</strong></td>
+                      <td><strong>Binary</strong></td>
+                      <td><strong>Referal</strong></td>
+                      <td><strong>Single lag binary</strong></td>
+                      <td><strong>Date</strong></td>
+                      <td><strong>Status</strong></td>
+                   </tr>
+                  </thead>
+                  <tbody>
+                  <?php foreach ( $NameArray as $key => $value) {
+                    if(!empty($value['WithdrawalRequest']['id'])) { ?>
+                       <tr id="<?php echo 'list'.$key;?>" class='hidden'>
+                          <td><strong><?php echo $key;?></strong></td>
+                          <?php if (!empty($value['WithdrawalRequest']['perticular'])) {
+                              echo '<td>Purchase</td>';
+                           } else  if (!empty($UserArray['id']) && $value['WithdrawalRequest']['user_id'] ==$UserArray['id']){
+                              echo '<td>Withdraw</td>';
+                            }?>
+                          <td><?php echo $value['WithdrawalRequest']['amount'];?></td>
+                          <td><?php echo $value['WithdrawalRequest']['binary'];?></td>
+                          <td><?php echo $value['WithdrawalRequest']['referal'];?></td>
+                          <td><?php echo $value['WithdrawalRequest']['single_lag'];?></td>
+                          <td><?php echo $value['WithdrawalRequest']['created'];?></td>
+                          <?php if ($value['WithdrawalRequest']['status'] == 1 ) {
+                            echo '<td class="text-success">Success</td>';
+                          }else {
+                            echo '<td class="text-danger">Panding</td>';
+                          } ?>
+                       </tr>
+                    <?php $nbr = $key+1;
+                    } }
+                      $cnt = count($NameArray);
+                      $intpage = 10;
+                      ?>
+                  </tbody>
+              </table>
+          </section>
+      </div>
+      <div class="clearfix"></div>
 <ul class="pager">
     <li><a href="<?php echo ABSOLUTE_URL;?>/users/transactions">View All</a></li>
   </ul>

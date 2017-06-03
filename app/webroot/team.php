@@ -1,9 +1,9 @@
 <?php error_reporting(E_ALL); 
 function getConnection(){   
-    $host = 'prod-rds.cgydgurehzej.ap-southeast-1.rds.amazonaws.com';
-    $user = 'vikrant_prod';
+    $host = 'localhost';
+    $user = 'root';
     $port = '3306';
-    $sec = 'viky!@#$%^&priya786';
+    $sec = '';
     $db = 'coinigy';
     $conn = new mysqli($host, $user, $sec , $db);
     if ($conn->connect_error) {
@@ -28,5 +28,6 @@ function printChildQuestions($parentid,$conn) {
 }
 $GLOBALS['users'] = array();
 $conn =  getConnection();
+
 printChildQuestions($_GET['username'],$conn);
 echo json_encode($GLOBALS['users']);

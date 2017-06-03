@@ -53,7 +53,7 @@
             </div>
 
             <!--logo start-->
-            <a href="<?php echo ABSOLUTE_URL;?>/ang/index.html" class="logo">Welcome <span class="lite">To Coin-dex</span></a>
+            <a href="<?php echo ABSOLUTE_URL;?>" class="logo">Welcome <span class="lite">To Coin-dex</span></a>
             <!--logo end-->
 
             <div class="nav search-row" id="top_menu">
@@ -76,7 +76,7 @@
                    
                     <!-- task notificatoin end -->
                     <!-- inbox notificatoin start-->
-                    <li id="mail_notificatoin_bar" class="dropdown">
+                    <!-- <li id="mail_notificatoin_bar" class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="<?php echo ABSOLUTE_URL;?>/ang/#">
                             <i class="icon-envelope-l"></i>
                             <span class="badge bg-important">5</span>
@@ -138,28 +138,28 @@
                                 <a href="<?php echo ABSOLUTE_URL;?>/ang/#">See all messages</a>
                             </li>
                         </ul>
-                    </li>
+                    </li> -->
                     <!-- inbox notificatoin end -->
                     <!-- alert notification start-->
                     <li id="alert_notificatoin_bar" class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="<?php echo ABSOLUTE_URL;?>/ang/#">
 
                             <i class="icon-bell-l"></i>
-                            <span class="badge bg-important">7</span>
+                            <span class="badge bg-important"><?php echo count($notification['notification']);?></span>
                         </a>
                         <ul class="dropdown-menu extended notification">
                             <div class="notify-arrow notify-arrow-blue"></div>
                             <li>
-                                <p class="blue">You have 4 new notifications</p>
+                                <p class="blue">You have <?php echo count($notification['notification']);?> new notifications</p>
                             </li>
                             <li>
-                                <a href="<?php echo ABSOLUTE_URL;?>/ang/#">
+                                <a href="javascript:void(0);">
                                     <span class="label label-primary"><i class="icon_profile"></i></span> 
-                                    Friend Request
-                                    <span class="small italic pull-right">5 mins</span>
-                                </a>
+                                    <?php echo count($notification['lable']);?>
+                                    <!-- <span class="small italic pull-right"><?php echo count($notification['lable']);?></span>
+ -->                                </a>
                             </li>
-                            <li>
+                           <!--  <li>
                                 <a href="<?php echo ABSOLUTE_URL;?>/ang/#">
                                     <span class="label label-warning"><i class="icon_pin"></i></span>  
                                     John location.
@@ -179,10 +179,10 @@
                                     Mick appreciated your work.
                                     <span class="small italic pull-right"> Today</span>
                                 </a>
-                            </li>                            
-                            <li>
+                            </li>    -->                         
+                           <!--  <li>
                                 <a href="<?php echo ABSOLUTE_URL;?>/ang/#">See all notifications</a>
-                            </li>
+                            </li> -->
                         </ul>
                     </li>
                     <!-- alert notification end-->
@@ -190,7 +190,11 @@
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="<?php echo ABSOLUTE_URL;?>/ang/#">
                             <span class="profile-ava">
-                                <img alt="" src="<?php echo ABSOLUTE_URL;?>/ang/img/avatar1_small.jpg">
+                                <?php if (empty($userInfo['profile_pic'])) { ?>
+                                <img src="<?php echo ABSOLUTE_URL;?>/img/user-other.png" height="40" width="40" alt="">
+                              <?php } else {?>
+                                  <img height="40" width="40" src="<?php echo $userInfo['profile_pic'];?>" alt="">
+                              <?php } ?>
                             </span>
                             <span class="username"><?php echo $userData['username'];?></span>
                             <b class="caret"></b>
@@ -198,17 +202,17 @@
                         <ul class="dropdown-menu extended logout">
                             <div class="log-arrow-up"></div>
                             <li class="eborder-top">
-                                <a href="<?php echo ABSOLUTE_URL;?>/users/setting"><i class="icon_profile"></i> My Profile</a>
+                                <a href="<?php echo ABSOLUTE_URL;?>/users/profile"><i class="icon_profile"></i> My Profile</a>
                             </li>
                             <li>
-                                <a href="<?php echo ABSOLUTE_URL;?>/ang/#"><i class="icon_mail_alt"></i> My Inbox</a>
+                                <a href="<?php echo ABSOLUTE_URL;?>/users/passwordReset/<?php echo $userInfo['username'];?>/1"><i class="icon_piechart"></i></i> Change Password</a>
                             </li>
                             
                             <li>
-                                <a href="<?php echo ABSOLUTE_URL;?>/ang/#"><i class="icon_chat_alt"></i> Chats</a>
+                                <a href="<?php echo ABSOLUTE_URL;?>/users/profile"><i class="icon_genius"></i></i> Settings</a>
                             </li>
                             <li>
-                                <a href="<?php echo ABSOLUTE_URL;?>users/logout"><i class="icon_key_alt"></i> Log Out</a>
+                                <a href="<?php echo ABSOLUTE_URL;?>/users/logout"><i class="icon_key_alt"></i> Log Out</a>
                             </li>
                             
                         </ul>
@@ -223,51 +227,52 @@
               <!-- sidebar menu start-->
               <ul class="sidebar-menu">                
                   <li class="active">
-                      <a class="" href="<?php echo ABSOLUTE_URL;?>/ang/index.html">
+                      <a class="" href="<?php echo ABSOLUTE_URL;?>">
                           <i class="icon_house_alt"></i>
                           <span>Dashboard</span>
                       </a>
                   </li>
                   <li class="sub-menu">
-                      <a href="<?php echo ABSOLUTE_URL;?>/ang/javascript:;" class="">
+                      <a href="<?php echo ABSOLUTE_URL;?>/users/transactions" class="">
                           <i class="icon_document_alt"></i>
-                          <span>Forms</span>
-                          <span class="menu-arrow arrow_carrot-right"></span>
+                          <span>History</span>
                       </a>
-                      <ul class="sub">
-                          <li><a class="" href="<?php echo ABSOLUTE_URL;?>/ang/form_component.html">Form Elements</a></li>                          
-                          <li><a class="" href="<?php echo ABSOLUTE_URL;?>/ang/form_validation.html">Form Validation</a></li>
-                      </ul>
-                  </li>       
+                  </li>
                   <li class="sub-menu">
-                      <a href="<?php echo ABSOLUTE_URL;?>/ang/javascript:;" class="">
+                      <a href="<?php echo ABSOLUTE_URL;?>/users/transactions" class="">
+                          <i class="icon_genius"></i>
+                          <span>Buy a package</span>
+                          <span class="menu-arrow arrow_carrot-right"></span>
+                      </a>
+                  </li>     
+                  <li class="sub-menu">
+                      <a href="javascript:;" class="">
                           <i class="icon_desktop"></i>
-                          <span>UI Fitures</span>
+                          <span>My Team</span>
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
                       <ul class="sub">
-                          <li><a class="" href="<?php echo ABSOLUTE_URL;?>/ang/general.html">Elements</a></li>
-                          <li><a class="" href="<?php echo ABSOLUTE_URL;?>/ang/buttons.html">Buttons</a></li>
-                          <li><a class="" href="<?php echo ABSOLUTE_URL;?>/ang/grids.html">Grids</a></li>
+                          <li><a class="" href="<?php echo ABSOLUTE_URL;?>/users/myTeamSide/left">Left Team</a></li>
+                          <li><a class="" href="<?php echo ABSOLUTE_URL;?>/users/myTeamSide/right">Right Team</a></li>
+                          <li><a class="" href="<?php echo ABSOLUTE_URL;?>/users/myTeam">Genealogy</a></li>
                       </ul>
                   </li>
                   <li>
-                      <a class="" href="<?php echo ABSOLUTE_URL;?>/ang/widgets.html">
-                          <i class="icon_genius"></i>
-                          <span>Widgets</span>
+                      <a class="" href="<?php echo ABSOLUTE_URL;?>/users/wallet">
+                          <i class="icon_documents_alt"></i>
+                          <span>My Wallet</span>
                       </a>
                   </li>
                   <li>                     
-                      <a class="" href="<?php echo ABSOLUTE_URL;?>/ang/chart-chartjs.html">
+                      <a class="" href="<?php echo ABSOLUTE_URL;?>/users/passwordReset/<?php echo $userInfo['id'];?>/1">
                           <i class="icon_piechart"></i>
-                          <span>Charts</span>
-                          
+                          <span>Change Password</span>
                       </a>
                                          
                   </li>
                              
-                  <li class="sub-menu">
-                      <a href="<?php echo ABSOLUTE_URL;?>/ang/javascript:;" class="">
+                  <!-- <li class="sub-menu">
+                      <a href="javascript:;" class="">
                           <i class="icon_table"></i>
                           <span>Tables</span>
                           <span class="menu-arrow arrow_carrot-right"></span>
@@ -289,7 +294,7 @@
                           <li><a class="" href="<?php echo ABSOLUTE_URL;?>/ang/blank.html">Blank Page</a></li>
                           <li><a class="" href="<?php echo ABSOLUTE_URL;?>/ang/404.html">404 Error</a></li>
                       </ul>
-                  </li>
+                  </li> -->
                   
               </ul>
               <!-- sidebar menu end-->
@@ -320,7 +325,7 @@
     <script src="<?php echo ABSOLUTE_URL;?>/ang/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js"></script>
     <script src="<?php echo ABSOLUTE_URL;?>/ang/js/owl.carousel.js" ></script>
     <!-- jQuery full calendar -->
-    <<script src="<?php echo ABSOLUTE_URL;?>/ang/js/fullcalendar.min.js"></script> <!-- Full Google Calendar - Calendar -->
+    <script src="<?php echo ABSOLUTE_URL;?>/ang/js/fullcalendar.min.js"></script> <!-- Full Google Calendar - Calendar -->
     <script src="<?php echo ABSOLUTE_URL;?>/ang/assets/fullcalendar/fullcalendar/fullcalendar.js"></script>
     <!--script for this page only-->
     <script src="<?php echo ABSOLUTE_URL;?>/ang/js/calendar-custom.js"></script>
@@ -344,3 +349,11 @@
     <script src="<?php echo ABSOLUTE_URL;?>/ang/js/sparklines.js"></script>    
     <script src="<?php echo ABSOLUTE_URL;?>/ang/js/charts.js"></script>
     <script src="<?php echo ABSOLUTE_URL;?>/ang/js/jquery.slimscroll.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $("#flash").removeClass('hidden').show();
+        setTimeout(function() {
+              $("#flash").addClass('hidden').hide();
+          }, 5000);
+      });
+    </script>

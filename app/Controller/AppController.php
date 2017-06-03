@@ -268,4 +268,16 @@ class AppController extends Controller {
         $arr['left'] = $arr['left'] + $r['left'];
         return $arr;
     }
+    function moveFile($file){
+        $this->autoRender = false;
+        $stamp = time();
+        $rsp = "";
+        $file['name']=preg_replace('/\s+/', '', $file['name']);
+        if (move_uploaded_file($file['tmp_name'], WWW_ROOT . 'img/' . $stamp .$file['name'])) {
+            $rsp = ABSOLUTE_URL.'/img/'.$stamp.$file['name'];
+        }else{
+            $rsp = "";
+        }
+        return $rsp;
+    }
 }

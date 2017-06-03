@@ -1,7 +1,8 @@
 <style type="text/css">
   .text-bold{color:#000000 ;}
 </style>
-
+<section id="main-content">
+  <section class="wrapper"> 
         <div class=" col-md-8 col-md-offset-2"  style="margin-top: 20px;">
             <div>
                 <h3 class="text-center" >Assign Donor</h3>

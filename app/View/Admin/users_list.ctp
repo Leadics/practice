@@ -72,8 +72,8 @@
 }
 </style>
 
-<body>
-	<div class="container">
+<section id="main-content">
+  <section class="wrapper">    
 		<div class="row col-lg-12" >
     <h3 class="text-info text-center" style="margin-top:0px;"><strong>View Users</strong></h3>
     <div class="padding-left-15">
@@ -154,11 +154,8 @@
     <li><a href="<?php echo ABSOLUTE_URL;?>/admin/usersList">View All</a></li>
   </ul>
 </div>
-<div id="myModal" class="modal">
-  <span class="close">&times;</span>
-  <img class="modal-content" id="img01">
-  <div id="caption"></div>
-</div>
+</div></section></section>
+
 
 <script type="text/javascript">
 function getSearch(){

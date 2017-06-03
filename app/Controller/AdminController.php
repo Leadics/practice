@@ -81,26 +81,25 @@ class AdminController extends AppController {
         $usersList =  $this->User->find('list',array('conditions' =>array('is_admin !=' =>1),'fields'=>'username'));
 		$responce[0]['key'] = 'Total Active Users';
 		$responce[0]['val'] = $totalActiveUsers;
+        $responce[0]['col'] = 'blue-bg';
 		$responce[1]['key'] = 'Total Inactive Users';
 		$responce[1]['val'] = $blockedUsers;
+        $responce[1]['col'] = 'brown-bg';
 		$responce[2]['key'] = 'Users Bought package';
 		$responce[2]['val'] = $totalHelps; 
-		// $responce[3]['key'] = 'Total Rejected Donations';
-		// $responce[3]['val'] = $rejectedHelp; 
-		// $responce[4]['key'] = 'Total Approved Donations';
-		// $responce[4]['val'] = $approvedHelp; 
-		// $responce[5]['key'] = 'Total Blocked Donations';
-		// $responce[5]['val'] = $blockedHelp; 
-		// $responce[7]['key'] = 'Available Donation Amount';
-		// $responce[7]['val'] = $availableRevenew.'  N';
-        $responce[4]['key'] = 'Total Unpaid Users';
-        $responce[4]['val'] = $inactiveUsers;
+        $responce[2]['col'] = 'dark-bg';
         $responce[3]['key'] = 'Total Paid Users';
         $responce[3]['val'] = $approvedUsers; 
-        $responce[8]['key'] = 'Total Revenew';
-        $responce[8]['val'] = $availableRevenue.'  Rs.';
-        $responce[8]['key'] = 'Total Registration Amount';
-        $responce[8]['val'] = $totalRegAmount.'  USD';
+        $responce[3]['col'] = 'yellow-bg';
+        $responce[4]['key'] = 'Total Unpaid Users';
+        $responce[4]['val'] = $inactiveUsers;
+        $responce[4]['col'] = 'green-bg';
+        $responce[5]['key'] = 'Total Revenew';
+        $responce[5]['val'] = $availableRevenue.' $';
+        $responce[5]['col'] = 'orange-bg';
+        $responce[6]['key'] = 'Total Reg. Amount';
+        $responce[6]['val'] = $totalRegAmount.' $';
+        $responce[6]['col'] = 'magenta-bg';
 		$req = $this->Shoping->find('all',array('conditions'=>array('status'=>0)));
         $this->set('usersList',$usersList);
 		$this->set('Requests',$req);
@@ -120,7 +119,10 @@ class AdminController extends AppController {
             if ($lData['Shoping']['item'] == 'Subscription') {
                 $this->User->updateAll(array("status"=>1,'payment'=>1),array("id"=>$lData['Shoping']['user_id']));
             } else {
-                $this->User->updateAll(array("package_money"=>$lData['Shoping']['price'],'package' =>$lData['Shoping']['item'],'payment'=>1),array("id"=>$lData['Shoping']['user_id']));
+                $this->User->id=$lData['Shoping']['user_id'];
+                $l['package'] = $lData['Shoping']['item'];
+                $l['package_money'] = $lData['Shoping']['price'];
+                $this->User->save($l);
             }
 	       $this->Session->setFlash('<h2 class="text-success">Transaction Accepted</h2>');
         } else {
@@ -667,6 +669,18 @@ class AdminController extends AppController {
             $this->Session->setFlash('<h2 class="text-success">Request '.$rsp.' Succesfully</h2>');
         }
         $this->redirect( array( 'controller' => 'admin', 'action' => 'adminDashboard' ) );
+    }
+    function passwordReset($id , $auth){
+        $this->layout = 'dashboard';
+        if (empty($auth) || empty($id)) {
+            $this->redirect( array( 'controller' => 'users', 'action' => 'logout' ) );
+        }
+        if ( $auth == 1) {
+           $id = $this->_checkLogin();
+        }else{
+            $this->redirect( array( 'controller' => 'users', 'action' => 'logout' ) );
+        }
+        $this->set('userId',$id);
     }
 }
 

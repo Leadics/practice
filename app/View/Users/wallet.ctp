@@ -19,70 +19,73 @@
         } 
       }
 </style>
-
-<div class="col-xs-12 col-md-12  margin-top-30 " >
-  <div class=" text-center text-white ">
-    <div class="text-center">
-        <h4>
-          <b>Here is your total income</b>
-        </h4>
-        <br>
+<section id="main-content">
+      <section class="wrapper">
+  <div class="row">
+    <div class="col-lg-12">
+      <h3 class="page-header"><i class="fa fa-table"></i> Wallet</h3>
+      <ol class="breadcrumb">
+        <li><i class="fa fa-home"></i><a href="<?php echo ABSOLUTE_URL;?>">Home</a></li>
+        <li><i class="fa fa-table"></i>Wallet</li>
+      </ol>
     </div>
-    <div>
-        <table class="table table-striped table-responsive ">
-            <tr>
-                <td><strong>Binary Income </strong></td>
-                <td><strong><?php if ($data['binary']['amount'] > 0) {
-                    echo $data['binary']['amount'];
-                } else {
-                    echo 0;
-                    }?>
-                </strong></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><strong>Direct Referals</strong></td>
-                <td><strong><?php if ($data['referal']['amount'] > 0) {
-                    echo $data['referal']['amount'];
-                } else {
-                    echo 0;
-                    }?></strong></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><strong>Single Lag Binary</strong></td>
-                <td><strong>
-                <?php if ($data['singleLag']['amount'] > 0) {
-                    echo $data['singleLag']['amount'];
-                } else {
-                    echo 0;
-                    }?></strong></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><strong>ROI</strong></td>
-                <td><strong>
-                <?php if ($data['roi']['amount'] > 0) {
-                    echo $data['roi']['amount'];
-                } else {
-                    echo 0;
-                    }?></strong></td>
-                <td></td>
-                <td></td>
-            </tr>
-        </table>
-    </div>
-
-    <div class="clearfix"></div>
-    <div id="respoce" class="hidden col-md-6 col-md-offset-3 col-md-offset-3 modal-body  margin-bottom-0">
-        <div id="responceDiv" class="card">
-        <h3><?php echo $message['message'];?></h3>
+  </div>
+<div class="col-sm-12">
+  <section class="panel">
+        <div>
+            <table class="table table-striped table-responsive ">
+                <tr>
+                    <td><strong>Binary Income </strong></td>
+                    <td><strong><?php if ($data['binary']['amount'] > 0) {
+                        echo $data['binary']['amount'];
+                    } else {
+                        echo 0;
+                        }?>
+                    </strong></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><strong>Direct Referals</strong></td>
+                    <td><strong><?php if ($data['referal']['amount'] > 0) {
+                        echo $data['referal']['amount'];
+                    } else {
+                        echo 0;
+                        }?></strong></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><strong>Single Lag Binary</strong></td>
+                    <td><strong>
+                    <?php if ($data['singleLag']['amount'] > 0) {
+                        echo $data['singleLag']['amount'];
+                    } else {
+                        echo 0;
+                        }?></strong></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><strong>ROI</strong></td>
+                    <td><strong>
+                    <?php if ($data['roi']['amount'] > 0) {
+                        echo $data['roi']['amount'];
+                    } else {
+                        echo 0;
+                        }?></strong></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
         </div>
-   </div>
-      <div id="contacts-us" class="row  text-white  widthmin">
+        <div class="clearfix"></div>
+        <div id="respoce" class="hidden col-md-6 col-md-offset-3 col-md-offset-3 modal-body  margin-bottom-0">
+            <div id="responceDiv" class="card">
+            <h3><?php echo $message['message'];?></h3>
+            </div>
+       </div>
+       <div id="contacts-us" class="row  text-white  widthmin">
             <div class="col-md-10  col-md-offset-1 margin-bottom-30 mobile drop-shadow">
             <div class="margin-top-30 margin-bottom-30">
             <h3 class="text-danger">Withdraw Money</h3>
@@ -121,12 +124,9 @@
                     </form>
                 </div>
             </div>
-      </div>
-      
-
-  </div>
+       </div>
+   </section>
 </div>
-</section>
 <div class="clearfix"></div>
 <script type="text/javascript">
     $(document).ready(function () {

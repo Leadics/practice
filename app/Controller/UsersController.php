@@ -66,9 +66,9 @@ class UsersController extends AppController {
     function packages(){
         $this->layout = "dash";
     }
-    function profile(){
-        $this->layout = "dashboard";
-    }
+    // function profile(){
+    //     $this->layout = "dashboard";
+    // }
     function logins() {
         $this->Session->write('order',array());
         $this->autoRender = false;
@@ -95,6 +95,9 @@ class UsersController extends AppController {
                     $bank_detail = $this->UserBank->find('first', array( 'conditions' => array('user_id' => $login_detail['User']['id'],'is_active' =>1)));
                     $data= $login_detail['User'];
                     $this->Session->write('User',$data);
+                    if ($data['is_admin'] ==1) {
+                        $this->redirect( array( 'controller' => 'admin', 'action' => 'adminDashboard' ) );
+                    }
                     $this->redirect( array( 'controller' => 'users', 'action' => 'dashboard' ) );
                 } else {
                 $this->Session->setFlash('<h3 class="well text-danger">Please enter correct login or password</h3>');
@@ -580,7 +583,7 @@ class UsersController extends AppController {
             $this->redirect( array( 'controller' => 'pages', 'action' => 'dashboard' ) );
         }
     }
-    function setting(){
+    function profile(){
         $this->layout = 'dashboard';
         $country = $this->Country->find('all');
         $this->set('country',$country);
@@ -590,9 +593,20 @@ class UsersController extends AppController {
         $this->autoRender = false;
         $this->layout = null;
         $id = $this->_checkLogin();
+        // echo '<pre>';print_r($this->data);
+        // print_r($_FILES);die;
+        $file = (isset($_FILES["profile_pic"]) ? $_FILES["profile_pic"] : 0);
+        $link = $this->moveFile($file);
         $data['User'] =  $this->Session->read('User');
         $data['User']['name'] =  $this->data['name'];
+        $data['User']['profile_pic'] =  $link;
         $data['User']['id'] =  $id;
+        if (!empty($this->data['about_me'])) {
+            $data['User']['about_me'] =  $this->data['about_me'];
+        }
+        $data['User']['birthday'] =  $this->data['birthday'];
+        $data['User']['occupation'] =  $this->data['occupation'];
+        $data['User']['website'] =  $this->data['website'];
         $data['User']['mobile'] =  $this->data['mobile'];
         $data['UserBank']['bank_name'] =  $this->data['bank_name'];
         $data['UserBank']['account_number'] =  $this->data['account_number'];

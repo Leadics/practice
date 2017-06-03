@@ -34,7 +34,7 @@
           {
             autoScale: go.Diagram.UniformToFill,
             contentAlignment: go.Spot.Center,
-            minScale:1.0,
+            minScale:0.50,
             isReadOnly: true,
             layout: $(go.TreeLayout,
                       { angle: 90, sorting: go.TreeLayout.SortingAscending }),
@@ -186,10 +186,13 @@
       myFullDiagram.model = new go.TreeModel(nodeDataArray);
     }
   </script>
-</head>
 <body onload="init()">
-<div id="work" style="margin-bottom:-15px;">
-  <div id="fullDiagram" style="height:250px;width:100%;border:1px solid black;margin:2px; background-color: #DAE4E4;"></div>
-  <div id="localDiagram" style="height:400px;width:100%;border:0px solid black;margin:2px; background-color: #DAE4E4;"></div>  
-</div>
+<section id="main-content">
+    <section class="wrapper">
+        <div id="work" class="row" > 
+              <div id="fullDiagram" style="height:250px;width:100%;border:1px solid black;margin:2px; background-color: #DAE4E4;"></div>
+              <div id="localDiagram" style="height:330px;width:100%;border:0px solid black;margin:2px; background-color: #DAE4E4;"></div>  
+        </div>
+    </section>
+</section>
 </body>

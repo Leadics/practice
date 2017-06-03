@@ -3,7 +3,8 @@
 </style>
 
 
-
+<section id="main-content">
+  <section class="wrapper"> 
     <div class="row" >
         <div class="col-md-12" style="margin-top:5px;" >
             <div>

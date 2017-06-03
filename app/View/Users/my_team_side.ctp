@@ -1,49 +1,34 @@
-<style type="text/css">
-  .drop-shadow {
-        -webkit-box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5);
-        box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5);
-    }
-    .modal-content{
-        background-color: rgba(47, 200, 173, 0.4) !important;
-    }
-   .margin-top-30{margin-top:30px !important;} 
-   .margin-top-60{margin-top:60px !important;} 
-   .margin-bottom-30{margin-bottom:30px !important;}
-   .widthmin{max-width: 99.8%; margin-left: -1px !important;}
-   .mobile{padding-top: 1px !important;
-        padding-bottom: 1px !important;}
-   #templatemo-nav-bar{ margin-top: -42px !important; }
-     @media(max-width:500px) {
-        .margin-top-minus-60 {
-            margin-top: 0px!important;
-        }
-      }
-</style>
+    <section id="main-content">
+          <section class="wrapper">
+      <div class="row">
+        <div class="col-lg-12">
+          <h3 class="page-header"><i class="fa fa-table"></i> My Team</h3>
+          <ol class="breadcrumb">
+            <li><i class="fa fa-home"></i><a href="<?php echo ABSOLUTE_URL;?>">Home</a></li>
+            <li><i class="fa fa-table"></i><?php echo ucwords($side);?> Side Team</li>
+          </ol>
+        </div>
+      </div>
 
-<div class="col-xs-12 col-md-12  margin-top-30 " >
-  <div class=" text-center text-white ">
-    <div class="text-center">
-        <h4>
-          <b>Here is your Team</b>
-        </h4>
-        <br>
-    </div>
- 
-    <div class="cleafix"></div>
-    <div>
-        <h4>
-          <b><?php echo ucwords($side);?> Side Team</b>
-        </h4>
-        <table class="table table-striped table-responsive text-left">
-            <tr>
-                <td><strong>User</strong></td>
-                <td><strong>Placment</strong></td>
-                <td><strong>Created on</strong></td>
-                <td><strong>Paid on</strong></td>
-                <td><strong>Amount</strong></td>
-                <td><strong>Paid/Unpaid</strong></td>
-                <td><strong>Status</strong></td>
-            </tr>
+
+<div class="col-sm-12">
+    <section class="panel">
+        <header class="panel-heading">
+            <?php echo ucwords($side);?> Side Team
+        </header>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <td><strong>User</strong></td>
+                    <td><strong>Placment</strong></td>
+                    <td><strong>Created on</strong></td>
+                    <td><strong>Paid on</strong></td>
+                    <td><strong>Amount</strong></td>
+                    <td><strong>Paid/Unpaid</strong></td>
+                    <td><strong>Status</strong></td>
+                </tr>
+            </thead>
+          <tbody>
         <?php foreach ($availablePin as $key => $value) { ?>
             <tr>
                 <td><?php echo $value['username'];?></td>
@@ -70,9 +55,7 @@
                 }?>
             </tr>
         <?php  }?>
+        </tbody>
         </table>
-    </div>
-   
-  </div>
+    </section>
 </div>
-</section>
