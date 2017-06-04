@@ -239,7 +239,7 @@
                       </a>
                   </li>
                   <li class="sub-menu">
-                      <a href="<?php echo ABSOLUTE_URL;?>/users/transactions" class="">
+                      <a href="<?php echo ABSOLUTE_URL;?>/users/buildOrder" class="">
                           <i class="icon_genius"></i>
                           <span>Buy a package</span>
                           <span class="menu-arrow arrow_carrot-right"></span>

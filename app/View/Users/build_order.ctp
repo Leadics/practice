@@ -1,9 +1,8 @@
-<div id="login"  style="margin-top: 100px;"  role="dialog">
-      <div class="modal-content modal-dialog">
-          <div class="modal-header">
-              <button id="close" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">X</span><span class="sr-only">Close</span></button>
-              <h4 class="modal-title" id="myModalLabel">Invest now and get earn</h4>
-          </div>
+<section id="main-content">
+  <section class="wrapper"> 
+<div id="login col-md-6"  style="margin-top: 100px;"  role="dialog">
+      <div class=" ">
+          
           <div class="modal-body">
               <div class="row">
                   <div class="col-xs-12 " id="classdiv">

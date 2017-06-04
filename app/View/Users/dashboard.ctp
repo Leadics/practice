@@ -236,7 +236,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><img src="<?php echo ABSOLUTE_URL;?>/ang/img/India.png" style="height:18px; margin-top:-2px;"></td>
+                                <td><img src="<?php echo ABSOLUTE_URL;?>/ang/img/Russia.png" style="height:18px; margin-top:-2px;"></td>
                                 <td>Russia</td>
                                 <td><?php echo $CountryData[3]['users'];?></td>
                                 <td><?php echo $CountryData[3]['amount'];?></td>
@@ -251,7 +251,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><img src="<?php echo ABSOLUTE_URL;?>/ang/img/Spain.png" style="height:18px; margin-top:-2px;"></td>
+                                <td><img src="<?php echo ABSOLUTE_URL;?>/ang/img/usa.png" style="height:18px; margin-top:-2px;"></td>
                                 <td>USA</td>
                                 <td><?php echo $CountryData[4]['users'];?></td>
                                 <td><?php echo $CountryData[4]['amount'];?></td>
@@ -266,7 +266,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><img src="<?php echo ABSOLUTE_URL;?>/ang/img/Germany.png" style="height:18px; margin-top:-2px;"></td>
+                                <td><img src="<?php echo ABSOLUTE_URL;?>/ang/img/Brazil.png" style="height:18px; margin-top:-2px;"></td>
                                 <td>Brazil</td>
                                 <td><?php echo $CountryData[5]['users'];?></td>
                                 <td><?php echo $CountryData[5]['amount'];?></td>
@@ -281,7 +281,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><img src="<?php echo ABSOLUTE_URL;?>/ang/img/Germany.png" style="height:18px; margin-top:-2px;"></td>
+                                <td><img src="<?php echo ABSOLUTE_URL;?>/ang/img/Coloumbia.png" style="height:18px; margin-top:-2px;"></td>
                                 <td>Coloumbia</td>
                                 <td><?php echo $CountryData[6]['users'];?></td>
                                 <td><?php echo $CountryData[6]['amount'];?></td>
@@ -296,7 +296,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><img src="<?php echo ABSOLUTE_URL;?>/ang/img/Germany.png" style="height:18px; margin-top:-2px;"></td>
+                                <td><img src="<?php echo ABSOLUTE_URL;?>/ang/img/France.png" style="height:18px; margin-top:-2px;"></td>
                                 <td>France</td>
                                 <td><?php echo $CountryData[7]['users'];?></td>
                                 <td><?php echo $CountryData[7]['amount'];?></td>

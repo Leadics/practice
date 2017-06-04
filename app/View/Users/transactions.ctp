@@ -36,7 +36,7 @@
                       <td><strong>Amount</strong></td>
                       <td><strong>Binary</strong></td>
                       <td><strong>Referal</strong></td>
-                      <td><strong>Single lag binary</strong></td>
+                      <td><strong>Single leg binary</strong></td>
                       <td><strong>Date</strong></td>
                       <td><strong>Status</strong></td>
                    </tr>

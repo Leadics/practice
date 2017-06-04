@@ -159,7 +159,7 @@ class CronsController extends AppController {
 		}
 		$inc['left'] = array_sum(Set::classicExtract($newArr['left'], "{n}.amount"));
 		$inc['right'] = array_sum(Set::classicExtract($newArr['right'], "{n}.amount"));
-		$rsp['singlelag']['Membership'] = 'Single Lag Binary Income';
+		$rsp['singlelag']['Membership'] = 'Single Leg Binary Income';
 		$rsp['singlelag']['amount'] = min($inc['left'],$inc['right']);
 		$incomes = $this->Income->find('list', array('fields' =>'single_lag', 'conditions' => array('user_id' => $id)));
 		$rsp['singlelag']['amount'] = $rsp['singlelag']['amount']+array_sum($incomes);

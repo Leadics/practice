@@ -56,7 +56,7 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td><strong>Single Lag Binary</strong></td>
+                    <td><strong>Single Leg Binary</strong></td>
                     <td><strong>
                     <?php if ($data['singleLag']['amount'] > 0) {
                         echo $data['singleLag']['amount'];
@@ -103,7 +103,7 @@
                             <span class="help-block"></span>
                         </div>
                         <div class="form-group control-group controls col-md-3">
-                            <label for="mobile" class="control-label">Single lag Binary</label>
+                            <label for="mobile" class="control-label">Single leg Binary</label>
                             <input type="text" onchange="return checkVal(this.id);" value="0"   class="form-control" id="singleLag" name="singleLag" >
                              <input type="text" value="<?php if ($data['singleLag']['amount'] > 0)  { echo $data['singleLag']['amount']; } else { echo 0; }?>"  class="form-control hidden" id="singleLagWithdraw" >
                             <span class="help-block"></span>

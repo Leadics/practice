@@ -32,7 +32,7 @@
                       </div>
                       <div class="form-group control-group controls col-md-6 col-xs-12">
                         <label for="email" class="control-label" >Single Lag Binary</label>
-                        <input type="text"  class="form-control" id="single_lag" name="single_lag" title="Please enter single lag binary amount" >
+                        <input type="text"  class="form-control" id="single_lag" name="single_lag" title="Please enter single leg binary amount" >
                         <span class="help-block"></span>
                       </div>
                       <div class="form-group control-group controls col-md-6 col-xs-12">

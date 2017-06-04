@@ -1,6 +1,6 @@
 
-<div class="feature">
-	<div class="container">
+<section id="main-content">
+  <section class="wrapper"> 
 		<div class="text-center">
         <?php if ($keyword['item'] == 'Subscription' && $keyword['amount'] == 10) {
             echo '<h1>Registration fee $ 10 and will be eligible to coingy-dex.com and coinigydex.club </h1>';
@@ -12,10 +12,10 @@
 			
 		</div>
         <div class="row">
-            <div id="changePlan"  >
-                <div class="modal-content modal-dialog">
+            <div id="changePlan col-md-6 col-md-2 col-lg-6 col-lg-2"  >
+                <div class="modal-content ">
                     <div class="modal-header">
-                        <div class="col-md-12">
+                        <div class="">
                             <h4 class="modal-title" id="myModalLabel">Please procced to pay <?php echo $cost; ?></h4>
                         </div>
 

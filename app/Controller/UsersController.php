@@ -129,6 +129,7 @@ class UsersController extends AppController {
     function signUp(){
         $this->autoRender = false;
         set_time_limit(0);
+
         $data['User']['name'] =  $this->data['name'];
         $data['User']['username'] =  $this->data['username'];
         $data['User']['emailid'] =  $this->data['email'];
@@ -142,6 +143,7 @@ class UsersController extends AppController {
         $data['User']['country'] =  $this->data['country'];
         $data['User']['side']  = $side = $this->data['side'];
         $data['User']['sponcer'] =$this->getSponcer($this->data['sponcer'],$side);
+        //echo '<pre>';print_r($data['User']);die;
         $data['User']['direct'] = $this->data['sponcer'];
         $data['User']['state'] =  $this->data['state'];
         $data['User']['city'] =  $this->data['city'];

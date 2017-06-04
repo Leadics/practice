@@ -99,6 +99,7 @@ class AppController extends Controller {
             'fields' => array("User.username"),
             'conditions' => array('User.sponcer' => $email,'side' =>$side)
         ));
+
         if (empty($loginData['User']['username'])) {
             return $email;
         } else{
@@ -106,6 +107,7 @@ class AppController extends Controller {
             $cnt = count($data);
             if (!empty($cnt)) {
                 $emailSponcer = $this->validateSponcer($data,0,$side);
+
                 return $emailSponcer;
             } else {
                 return $loginData['User']['username'];
@@ -128,7 +130,7 @@ class AppController extends Controller {
             'conditions' => array('User.sponcer' => $data[$lim]['username'],'side' =>$side)
         ));
         if (empty($loginData)) {
-            return $data[$cnt-$lim]['username'];
+            return $data[$lim]['username'];
         } else {
             $lim++;
             $emailSponcer = $this->validateSponcer($data,$lim,$side);
